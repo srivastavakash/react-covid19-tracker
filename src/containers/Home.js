@@ -145,7 +145,7 @@ export default class Home extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="container home-component">
+        <div className="container-fluid home-component">
           <h3 className="text-danger loading-label">
             {this.state.confirmed === "" ? (
               <div className="progress">
