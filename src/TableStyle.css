@@ -1,0 +1,58 @@
+td {
+  font-weight: bold;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-fixed tbody {
+  height: 700px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-fixed tbody,
+.table-fixed tr {
+  display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed thead > tr > th {
+  float: left;
+}
+
+.table-fixed tbody th::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.table-fixed tbody tr::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.country-name {
+  text-align: left;
+  color: #000;
+  background-color: rgb(168, 183, 187);
+}
+.country-name:hover {
+  background-color: rgb(74, 138, 158);
+  color: #fff;
+}
+
+.state-table {
+  margin-left: 5%;
+  margin-right: 0%;
+  width: 100%;
+}
+
+#districtTable {
+  width: 200px;
+  height: auto;
+}
+.country-table thead tr th:nth-child(1) {
+  width: ;
+}
