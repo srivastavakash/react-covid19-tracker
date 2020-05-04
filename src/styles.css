@@ -117,6 +117,11 @@ body {
     margin-left: 4%;
   }
 
+  .map {
+    width: 450px;
+    margin: 10%;
+  }
+
   .footer-row {
     height: 200px;
     padding: 30px;
@@ -209,6 +214,9 @@ body {
   }
   .country-name {
     font-size: 90%;
+  }
+  .map {
+    margin: 5%;
   }
 }
 @media screen and (max-width: 360px) {
@@ -470,7 +478,7 @@ ul li {
   margin-top: 0px;
 }
 .pat-head {
-  margin-top: 15%;
+  margin-top: 100px;
 }
 
 .pat-data {
@@ -479,6 +487,7 @@ ul li {
 
 .pat-data-holder {
   border: 0;
+  text-align: left;
 }
 
 .hr {
@@ -561,9 +570,6 @@ ul li {
   margin-left: 10%;
 }
 
-.district-table {
-  margin-left: 5%;
-}
 .btn-outline-dark {
   border: 1px solid #000;
   float: left;
@@ -593,4 +599,17 @@ ul li {
 }
 iframe {
   display: none;
+}
+.confirmed-map {
+  background-color: #e6f3fe;
+}
+.active-map {
+  background-color: #fff0b3;
+}
+
+.recovered-map {
+  background-color: #cae8ca;
+}
+.death-map {
+  background-color: rgba(255, 7, 58, 0.12549);
 }
