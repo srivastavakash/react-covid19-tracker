@@ -512,7 +512,7 @@ class India extends React.Component {
                     </table>
                   </div>
                 </div>
-                <div className="confirmed-map map">
+                <div className="confirmed-map map hdt">
                   <Line
                     data={this.state.confirmedChartData}
                     options={{
