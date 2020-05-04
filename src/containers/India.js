@@ -2,11 +2,13 @@ import React from "react";
 import axios from "axios";
 import { Route, NavLink } from "react-router-dom";
 import { formatDistance } from "date-fns";
+import { Line, Bar } from "react-chartjs-2";
 import Flag from "react-world-flags";
 import NewsAlert from "../containers/NewsAlert";
 import StateRow from "../components/StateRow";
 import StateWiseCapacity from "../containers/StateWiseCapacity";
 import Links from "../data/Links.json";
+import ScrollToTop from "../ScrollToTop";
 
 class India extends React.Component {
   state = {
@@ -16,6 +18,8 @@ class India extends React.Component {
 
   componentDidMount() {
     this.getData();
+    this.confirmedCaseschart();
+    //this.activeCaseschart();
   }
 
   async getData() {
@@ -36,7 +40,7 @@ class India extends React.Component {
         });
       });
 
-    console.log("India.js -> Updated", this.state.updated);
+    //console.log("India.js -> Updated", this.state.updated);
     await axios
       .get("https://api.covid19india.org/v2/state_district_wise.json")
       .then(response => {
@@ -56,7 +60,11 @@ class India extends React.Component {
 
     this.lastupdate = IND.data.lastUpdate;
     const INDStatesData = this.state.indStateWiseData;
-
+    /*
+    await axios.get("https://api.covid19india.org/data.json").then(response => {
+      this.setState({ timeSeries: response.data });
+    });
+*/
     this.setState({
       indData: IND.data,
       staterow: INDStatesData.map((state, index) => {
@@ -75,6 +83,115 @@ class India extends React.Component {
     });
   }
 
+  formatNumber = n => {
+    if (n < 1e3) return n;
+    if (n >= 1e3) return +(n / 1e3).toFixed(1) + "K";
+  };
+  confirmedCaseschart = () => {
+    let dates = [];
+    let confirmedCases = [];
+    let activeCases = [];
+    let recoveredCases = [];
+    let deathCases = [];
+    axios
+      .get("https://api.covid19india.org/data.json")
+      .then(res => {
+        console.log(res.data.cases_time_series);
+        const results = res.data.cases_time_series;
+
+        for (const dataObj of results) {
+          dates.push(dataObj.date.slice(0, 6));
+          confirmedCases.push(dataObj.totalconfirmed);
+          recoveredCases.push(dataObj.totalrecovered);
+          deathCases.push(dataObj.totaldeceased);
+          activeCases.push(
+            dataObj.totalconfirmed -
+              dataObj.totalrecovered -
+              dataObj.totaldeceased
+          );
+          //console.log("data Obj", dataObj);
+        }
+
+        this.setState({
+          confirmedChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Total Confirmed",
+                data: confirmedCases,
+                fontSize: 10,
+                fontColor: "#0275d8",
+                backgroundColor: "#b4dbfd",
+                pointBackgroundColor: "#0275d8",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#0275d8",
+                borderWidth: 1
+              }
+            ]
+          },
+          activeChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Total Active",
+                data: activeCases,
+                fontSize: 10,
+                fontColor: "#d9534f",
+                backgroundColor: "#ffe680",
+                pointBackgroundColor: "#e6b800",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#e6b800",
+                borderWidth: 1
+              }
+            ]
+          },
+          recoveredChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Total Recovered",
+                data: recoveredCases,
+                fontSize: 10,
+                fontColor: "#d9534f",
+                backgroundColor: "#a6d8a6",
+                pointBackgroundColor: "#5cb85c",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#5cb85c",
+                borderWidth: 1
+              }
+            ]
+          },
+          deathChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Total Deaths",
+                data: deathCases,
+                fontSize: 10,
+                fontColor: "#d9534f",
+                backgroundColor: "#ffb3b3",
+                pointBackgroundColor: "#d9534f",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#d9534f",
+                borderWidth: 1
+              }
+            ]
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // console.log("Dates", dates);
+    // console.log("Confirmed", confirmedCases);
+    // console.log("Active", activeCases);
+    // console.log("Recovered", recoveredCases);
+    // console.log("Deaths", deathCases);
+  };
   findStateAndDistricts = stateName => {
     var stateData = this.state.districtWise.filter(
       state => state.state === stateName
@@ -86,12 +203,13 @@ class India extends React.Component {
     return x === x && typeof x === "number";
   }
   render() {
+    //console.log(this.state);
     var lastupdated = new Date(this.lastupdate);
     var time = new Date().getHours() - lastupdated.getHours();
     //console.log("NaN ", lastupdated);
     var currTime = new Date();
     var upTime = this.state.updated;
-    console.log("cur ", currTime, "updated ", lastupdated, "uptime ", upTime);
+    //console.log("cur ", currTime, "updated ", lastupdated, "uptime ", upTime);
     // var timeStamp = formatDistance(currTime, lastupdated);
     // console.log("updated ", timeStamp);
 
@@ -111,6 +229,7 @@ class India extends React.Component {
     ));
     return (
       <React.Fragment>
+        <ScrollToTop />
         <div className="container-fluid">
           <div className="row text-center india animated animatedFadeInUp fadeInUp">
             <div className="col-md-6">
@@ -337,14 +456,14 @@ class India extends React.Component {
                         <tr>
                           <th
                             scope="col"
-                            className="col-4 "
+                            className="col-md-3 col-xs-3 "
                             style={{ fontSize: "90%" }}
                           >
                             State / UT
                           </th>
                           <th
                             scope="col"
-                            className="col-2 "
+                            className="col-md-2 col-xs-2 "
                             style={{ fontSize: "90%" }}
                           >
                             Confirmed
@@ -392,6 +511,206 @@ class India extends React.Component {
                       </tbody>
                     </table>
                   </div>
+                </div>
+                <div className="confirmed-map map">
+                  <Line
+                    data={this.state.confirmedChartData}
+                    options={{
+                      responsive: true,
+                      title: {
+                        text: "Confirmed Cases",
+                        display: true,
+                        fontColor: "#0275d8",
+                        fontSize: 15
+                      },
+                      legend: {
+                        position: "right",
+                        display: false,
+                        labels: { fontColor: "#000" }
+                      },
+                      scales: {
+                        yAxes: [
+                          {
+                            position: "right",
+                            ticks: {
+                              fontColor: "#0275d8",
+                              beginAtZero: true,
+                              callback: function(label) {
+                                if (label < 1e3) return label;
+                                if (label >= 1e3)
+                                  return +(label / 1e3).toFixed(1) + "k";
+                              }
+                            },
+                            gridLines: { display: true, color: "#b4dbfd" }
+                          }
+                        ],
+                        xAxes: [
+                          {
+                            barPercentage: 0.2,
+                            categoryPercentage: 1.5,
+                            ticks: {
+                              autoSkip: true,
+                              maxRotation: 0,
+                              minRotation: 0,
+                              fontSize: 10,
+                              maxTicksLimit: 10
+                            },
+                            gridLines: { display: false }
+                          }
+                        ]
+                      }
+                    }}
+                  />
+                </div>
+                <div className="active-map map">
+                  <Line
+                    data={this.state.activeChartData}
+                    options={{
+                      responsive: true,
+                      title: {
+                        text: "Active Cases",
+                        display: true,
+                        fontColor: "#e6b800",
+                        fontSize: 15
+                      },
+                      legend: {
+                        position: "right",
+                        display: false,
+                        labels: { fontColor: "#000" }
+                      },
+                      scales: {
+                        yAxes: [
+                          {
+                            position: "right",
+                            ticks: {
+                              fontColor: "#e6b800",
+                              beginAtZero: true,
+                              callback: function(label) {
+                                if (label < 1e3) return label;
+                                if (label >= 1e3)
+                                  return +(label / 1e3).toFixed(1) + "k";
+                              }
+                            },
+                            gridLines: { display: true, color: "#ffe680" }
+                          }
+                        ],
+                        xAxes: [
+                          {
+                            barPercentage: 0.2,
+                            categoryPercentage: 1.5,
+                            ticks: {
+                              autoSkip: true,
+                              maxRotation: 0,
+                              minRotation: 0,
+                              fontSize: 10,
+                              maxTicksLimit: 10
+                            },
+                            gridLines: { display: false }
+                          }
+                        ]
+                      }
+                    }}
+                  />
+                </div>
+                <div className="recovered-map map">
+                  <Line
+                    data={this.state.recoveredChartData}
+                    options={{
+                      responsive: true,
+                      title: {
+                        text: "Recovered",
+                        display: true,
+                        fontColor: "#008000",
+                        fontSize: 15
+                      },
+                      legend: {
+                        position: "right",
+                        display: false,
+                        labels: { fontColor: "#000" }
+                      },
+                      scales: {
+                        yAxes: [
+                          {
+                            position: "right",
+                            ticks: {
+                              fontColor: "#008000",
+                              beginAtZero: true,
+                              callback: function(label) {
+                                if (label < 1e3) return label;
+                                if (label >= 1e3)
+                                  return +(label / 1e3).toFixed(1) + "k";
+                              }
+                            },
+                            gridLines: { display: true, color: "#a6d8a6" }
+                          }
+                        ],
+                        xAxes: [
+                          {
+                            barPercentage: 0.2,
+                            categoryPercentage: 1.5,
+                            ticks: {
+                              autoSkip: true,
+                              maxRotation: 0,
+                              minRotation: 0,
+                              fontSize: 10,
+                              maxTicksLimit: 10
+                            },
+                            gridLines: { display: false }
+                          }
+                        ]
+                      }
+                    }}
+                  />
+                </div>
+                <div className="death-map map">
+                  <Line
+                    data={this.state.deathChartData}
+                    options={{
+                      responsive: true,
+                      title: {
+                        text: "Deaths",
+                        display: true,
+                        fontColor: "#d9534f",
+                        fontSize: 15
+                      },
+                      legend: {
+                        position: "right",
+                        display: false,
+                        labels: { fontColor: "#000" }
+                      },
+                      scales: {
+                        yAxes: [
+                          {
+                            position: "right",
+                            ticks: {
+                              fontColor: "#d9534f",
+                              beginAtZero: true,
+                              callback: function(label) {
+                                if (label < 1e3) return label;
+                                if (label >= 1e3)
+                                  return +(label / 1e3).toFixed(1) + "k";
+                              }
+                            },
+                            gridLines: { display: true, color: "#ffcccc" }
+                          }
+                        ],
+                        xAxes: [
+                          {
+                            barPercentage: 0.2,
+                            categoryPercentage: 1.5,
+                            ticks: {
+                              autoSkip: true,
+                              maxRotation: 0,
+                              minRotation: 0,
+                              fontSize: 10,
+                              maxTicksLimit: 10
+                            },
+                            gridLines: { display: false }
+                          }
+                        ]
+                      }
+                    }}
+                  />
                 </div>
               </div>
               <div className="col-md-6">
