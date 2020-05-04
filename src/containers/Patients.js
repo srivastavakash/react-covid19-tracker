@@ -1,7 +1,13 @@
 import React from "react";
 //simport PatientDB from "../data/PatientDB";
 import axios from "axios";
+
 export default class Patients extends React.Component {
+  constructor() {
+    super();
+    this.inputRef = React.createRef();
+  }
+
   state = {
     patientsData: "",
     searchId: "",
@@ -24,23 +30,25 @@ export default class Patients extends React.Component {
     console.log("State Patients", this.patients);
   }
 
-  setSearchQuery = event => {
-    const pId = event.target.value;
-    console.log("Pid : ", pId);
+  setSearchQuery = () => {
+    const pId = parseInt(this.inputRef.current.value);
     var target = this.searchPatient(pId);
-    this.setState({ patient: this.searchPatient(pId) });
-    console.log("target : ", target);
+    this.patient = target;
+    this.setState({ patient: this.patient });
+    console.log(" this : ", this.patient);
+    console.log(" found", this.state.patient);
   };
 
   searchPatient = pId => {
-    console.log("searching id : ", pId);
-    return this.patients.filter(
-      patient => patient.patientId === parseInt(10, pId)
-    );
+    //console.log("searching id : ", pId);
+    const patient = this.patients.filter(patient => patient.patientId === pId);
+    //console.log("patient ", patient);
+    return patient;
   };
 
   render() {
-    console.log("state sId :", this.state.searchId);
+    console.log(" rendering ", this.state.patient);
+
     return (
       <React.Fragment>
         <h3 className="pat-head">
@@ -57,20 +65,20 @@ export default class Patients extends React.Component {
                 <div className="row">
                   <div className="col-md-9 form-group">
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
-                      placeholder="Type Patient Number to Search ex- P1,P2"
-                      onChange={
-                        /*event => {
-                    this.setState({ searchId: event.target.value });
-                  }*/
-                        this.setSearchQuery
-                      }
+                      placeholder="Type Patient Number to Search ex- 1,2,3 "
+                      min="1"
+                      max={this.state.patientsData.length}
+                      ref={this.inputRef}
                       style={{ fontWeight: "bold", border: "none" }}
                     />
                   </div>
                   <div className="col-md-3">
-                    <button className="btn btn-warning btn-search form-control font-weight-bold">
+                    <button
+                      className="btn btn-warning btn-search form-control font-weight-bold"
+                      onClick={this.setSearchQuery}
+                    >
                       Search
                     </button>
                   </div>
@@ -84,50 +92,100 @@ export default class Patients extends React.Component {
                 <div className="row pat-data ">
                   <div className="col-md-6">
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      Patient ID : P{this.state.searchId + "-"}
-                      {this.state.patient.patientId}
+                      Patient ID :{"P"}
+                      {this.state.patient[0]
+                        ? this.state.patient[0].patientId
+                        : ""}
                     </p>
                   </div>
                   <div className="col-md-6">
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      Status : Recovered
-                    </p>
-                  </div>
-                </div>
-                <div className="row pat-data ">
-                  <div className="col-md-6">
-                    <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      Gender : Female
-                    </p>
-                  </div>
-                  <div className="col-md-6">
-                    <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      Age : 20
+                      Status :
+                      {this.state.patient[0]
+                        ? this.state.patient[0].status
+                        : ""}
                     </p>
                   </div>
                 </div>
                 <div className="row pat-data ">
                   <div className="col-md-6">
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      State : Kerala
+                      Gender :{" "}
+                      {this.state.patient[0]
+                        ? this.state.patient[0].gender === ""
+                          ? "Not Available"
+                          : this.state.patient[0].gender
+                        : ""}
                     </p>
                   </div>
                   <div className="col-md-6">
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      District : Thrissur
+                      Age :{" "}
+                      {this.state.patient[0]
+                        ? this.state.patient[0].ageEstimate === ""
+                          ? "Not Available"
+                          : this.state.patient[0].ageEstimate
+                        : ""}
                     </p>
                   </div>
                 </div>
                 <div className="row pat-data ">
                   <div className="col-md-6">
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      Reported On : 25/03/2020
+                      State :{" "}
+                      {this.state.patient[0]
+                        ? this.state.patient[0].state === ""
+                          ? "Not Available"
+                          : this.state.patient[0].state
+                        : ""}
                     </p>
                   </div>
                   <div className="col-md-6">
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
-                      Student from Wuhan
+                      District :{" "}
+                      {this.state.patient[0]
+                        ? this.state.patient[0].district === ""
+                          ? "Not Available"
+                          : this.state.patient[0].district
+                        : ""}
                     </p>
+                  </div>
+                </div>
+                <div className="row pat-data ">
+                  <div className="col-md-6">
+                    <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
+                      Reported On :{" "}
+                      {this.state.patient[0]
+                        ? this.state.patient[0].reportedOn === ""
+                          ? "Not Available"
+                          : this.state.patient[0].reportedOn
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="col-md-6">
+                    <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
+                      Nationality :{" "}
+                      {this.state.patient[0]
+                        ? this.state.patient[0].place_attributes &&
+                          this.state.patient[0].place_attributes.length > 0
+                          ? this.state.patient[0].place_attributes[0].place
+                          : "Not Available"
+                        : ""}
+                    </p>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <textarea
+                      className="pat-data-holder form-control bg-light text-dark font-weight-bold"
+                      value={
+                        this.state.patient[0]
+                          ? this.state.patient[0].notes === ""
+                            ? "Not Available"
+                            : this.state.patient[0].notes
+                          : ""
+                      }
+                    />
                   </div>
                 </div>
               </div>
