@@ -119,7 +119,7 @@ body {
 
   .map {
     width: 450px;
-    margin: 10%;
+    margin: 10% 10% 10% 16%;  
   }
 
   .footer-row {
@@ -602,14 +602,22 @@ iframe {
 }
 .confirmed-map {
   background-color: #e6f3fe;
+  border: 3px solid #0275d8;
+  border-radius: 5%;
 }
 .active-map {
   background-color: #fff0b3;
+  border: 3px solid #e6b800;
+  border-radius: 5%;
 }
 
 .recovered-map {
   background-color: #cae8ca;
+  border: 3px solid #008000;
+  border-radius: 5%;
 }
 .death-map {
   background-color: rgba(255, 7, 58, 0.12549);
+  border: 3px solid #d9534f;
+  border-radius: 5%;
 }
