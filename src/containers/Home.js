@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Route, NavLink } from "react-router-dom";
+import ScrollToTop from "../ScrollToTop";
 import Flag from "react-world-flags";
 import GlobalData from "../data/GlobalData";
 import IndiaData from "../data/IndiaData";
@@ -145,6 +146,7 @@ export default class Home extends React.Component {
 
     return (
       <React.Fragment>
+        <ScrollToTop />
         <div className="container-fluid home-component">
           <h3 className="text-danger loading-label">
             {this.state.confirmed === "" ? (
