@@ -63,10 +63,9 @@ body {
   nav {
     height: 50px;
   }
-
   .navbar-brand {
     margin-right: 30px;
-    margin-top: 0px;
+    margin-top: -12px;
     width: 200px;
   }
   .fa-shield-virus {
