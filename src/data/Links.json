@@ -44,5 +44,45 @@
       "Title": "State Wise Health Capacity",
       "Link": "/StateWiseCapacity"
     }
+  ],
+  "Source": [
+    {
+      "Title": "Time series, State-wise stats and Test counts",
+      "Source_Link": "https://api.covid19india.org/data.json"
+    },
+    {
+      "Title": "Statewise and Districtwise Data",
+      "Source_Link": "https://api.covid19india.org/v2/state_district_wise.json"
+    },
+    {
+      "Title": "District zones",
+      "Source_Link": "https://api.covid19india.org/zones.json"
+    },
+    {
+      "Title": "Patient Level : Raw Data Partition 1 (Till Apr 19)",
+      "Source_Link": "https://api.covid19india.org/raw_data1.json"
+    },
+    {
+      "Title": "Patient Level : Raw Data Partition 2 (Till Apr 26)",
+      "Source_Link": "https://api.covid19india.org/raw_data2.json"
+    },
+    {
+      "Title": "Patient Level : Raw Data Partition 3 (Live)",
+      "Source_Link": "https://api.covid19india.org/raw_data3.json"
+    },
+    {
+      "Title": "Update logs",
+      "Source_Link": "https://api.covid19india.org/updatelog/log.json"
+    }
+  ],
+  "World": [
+    {
+      "Title": "Global stats based on worldometer data",
+      "Source_Link": "http://api.coronatracker.com/v3/stats/worldometer/global"
+    },
+    {
+      "Title": "Stats - Worldometer - all country or country-specific stats",
+      "Source_Link": "http://api.coronatracker.com/v3/stats/worldometer/country"
+    }
   ]
 }
