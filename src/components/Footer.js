@@ -9,7 +9,10 @@ export default function Footer() {
           <br />
           <ul className="footer-list">
             <li>Helpful links</li>
-            <li>Data Source</li>
+             <li>
+              <NavLink to="/data-sources-api">
+                <p className="text-light capitalize">Data Source</p>
+              </NavLink>
             <li>API</li>
             <li>
               Fork me on Github
