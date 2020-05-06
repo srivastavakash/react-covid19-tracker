@@ -9,6 +9,7 @@ export default class Patients extends React.Component {
   }
 
   state = {
+    patients: [],
     patientsData: "",
     searchId: "",
     patient: {}
@@ -20,39 +21,67 @@ export default class Patients extends React.Component {
 
   async getPatientData() {
     await axios
-      .get("https://api.rootnet.in/covid19-in/unofficial/covid19india.org")
+      .get("https://api.covid19india.org/raw_data1.json")
       .then(response => {
         this.setState({
-          patientsData: response.data.data
+          patients: response.data.raw_data
         });
+        //console.log("res 1 ", response.data);
       });
-    this.patients = this.state.patientsData.rawPatientData;
-    console.log("State Patients", this.patients);
+    await axios
+      .get("https://api.covid19india.org/raw_data2.json")
+      .then(response => {
+        let pats = this.state.patients;
+        this.setState({
+          patients: pats.concat(response.data.raw_data)
+        });
+
+        //console.log("res 2 ", response.data);
+      });
+
+    await axios
+      .get("https://api.covid19india.org/raw_data3.json")
+      .then(response => {
+        let pats = this.state.patients;
+        this.setState({
+          patients: pats.concat(response.data.raw_data)
+        });
+
+        //console.log("res 3 ", response.data);
+      });
+    this.patients = this.state.patients;
+    //console.log("Patients", this.patients);
   }
 
   setSearchQuery = () => {
-    const pId = parseInt(this.inputRef.current.value);
+    const pId = this.inputRef.current.value;
     var target = this.searchPatient(pId);
     this.patient = target;
     this.setState({ patient: this.patient });
-    console.log(" this : ", this.patient);
+    //console.log(" this : ", this.patient);
     console.log(" found", this.state.patient);
   };
 
   searchPatient = pId => {
     //console.log("searching id : ", pId);
-    const patient = this.patients.filter(patient => patient.patientId === pId);
-    //console.log("patient ", patient);
+    const patient = this.patients.filter(
+      patient => patient.patientnumber === pId
+    );
+    console.log("patient ", patient);
     return patient;
   };
 
   render() {
-    console.log(" rendering ", this.state.patient);
+    console.log(" rendering ", this.state.patient, this.state);
 
     return (
       <React.Fragment>
         <h3 className="pat-head">
-          Patient DataBase <br /> (Being Implemented. May not work properly now)
+          <i style={{ fontSize: "24px" }} className="fas">
+            &#xf962; &nbsp; &nbsp;
+          </i>
+          Search Patients <br />
+          <br />
         </h3>
         <div className="row">
           <div className="col-md-3"> </div>
@@ -69,7 +98,7 @@ export default class Patients extends React.Component {
                       className="form-control"
                       placeholder="Type Patient Number to Search ex- 1,2,3 "
                       min="1"
-                      max={this.state.patientsData.length}
+                      max={this.state.patients.length}
                       ref={this.inputRef}
                       style={{ fontWeight: "bold", border: "none" }}
                     />
@@ -94,7 +123,7 @@ export default class Patients extends React.Component {
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
                       Patient ID :{"P"}
                       {this.state.patient[0]
-                        ? this.state.patient[0].patientId
+                        ? this.state.patient[0].patientnumber
                         : ""}
                     </p>
                   </div>
@@ -102,7 +131,9 @@ export default class Patients extends React.Component {
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
                       Status :
                       {this.state.patient[0]
-                        ? this.state.patient[0].status
+                        ? this.state.patient[0].currentstatus
+                          ? this.state.patient[0].currentstatus
+                          : "Not Available"
                         : ""}
                     </p>
                   </div>
@@ -114,7 +145,9 @@ export default class Patients extends React.Component {
                       {this.state.patient[0]
                         ? this.state.patient[0].gender === ""
                           ? "Not Available"
-                          : this.state.patient[0].gender
+                          : this.state.patient[0].gender === "M"
+                          ? "Male"
+                          : "Female"
                         : ""}
                     </p>
                   </div>
@@ -122,9 +155,9 @@ export default class Patients extends React.Component {
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
                       Age :{" "}
                       {this.state.patient[0]
-                        ? this.state.patient[0].ageEstimate === ""
+                        ? this.state.patient[0].agebracket === ""
                           ? "Not Available"
-                          : this.state.patient[0].ageEstimate
+                          : this.state.patient[0].agebracket
                         : ""}
                     </p>
                   </div>
@@ -134,9 +167,9 @@ export default class Patients extends React.Component {
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
                       State :{" "}
                       {this.state.patient[0]
-                        ? this.state.patient[0].state === ""
+                        ? this.state.patient[0].detectedstate === ""
                           ? "Not Available"
-                          : this.state.patient[0].state
+                          : this.state.patient[0].detectedstate
                         : ""}
                     </p>
                   </div>
@@ -144,9 +177,9 @@ export default class Patients extends React.Component {
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
                       District :{" "}
                       {this.state.patient[0]
-                        ? this.state.patient[0].district === ""
+                        ? this.state.patient[0].detecteddistrict === ""
                           ? "Not Available"
-                          : this.state.patient[0].district
+                          : this.state.patient[0].detecteddistrict
                         : ""}
                     </p>
                   </div>
@@ -156,9 +189,9 @@ export default class Patients extends React.Component {
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
                       Reported On :{" "}
                       {this.state.patient[0]
-                        ? this.state.patient[0].reportedOn === ""
+                        ? this.state.patient[0].dateannounced === ""
                           ? "Not Available"
-                          : this.state.patient[0].reportedOn
+                          : this.state.patient[0].dateannounced
                         : ""}
                     </p>
                   </div>
@@ -166,10 +199,9 @@ export default class Patients extends React.Component {
                     <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
                       Nationality :{" "}
                       {this.state.patient[0]
-                        ? this.state.patient[0].place_attributes &&
-                          this.state.patient[0].place_attributes.length > 0
-                          ? this.state.patient[0].place_attributes[0].place
-                          : "Not Available"
+                        ? this.state.patient[0].nationality === ""
+                          ? "Not Available"
+                          : this.state.patient[0].nationality
                         : ""}
                     </p>
                   </div>
@@ -186,6 +218,15 @@ export default class Patients extends React.Component {
                           : ""
                       }
                     />
+                    <br />
+
+                    <p className="pat-data-holder form-control bg-light text-dark font-weight-bold">
+                      {this.state.patient[0]
+                        ? this.state.patient[0].backupnotes === ""
+                          ? "Not Available"
+                          : this.state.patient[0].backupnotes
+                        : ""}
+                    </p>
                   </div>
                 </div>
               </div>
