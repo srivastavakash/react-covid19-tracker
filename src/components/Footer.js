@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -9,13 +10,21 @@ export default function Footer() {
           <br />
           <ul className="footer-list">
             <li>Helpful links</li>
-             <li>
+            <li>
               <NavLink to="/data-sources-api">
                 <p className="text-light capitalize">Data Source</p>
               </NavLink>
+            </li>
             <li>API</li>
             <li>
-              Fork me on Github
+              <a
+                href="https://github.com/srivastavakash/react-covid19-tracker"
+                className="f-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Fork me on Github
+              </a>
               <br />
               <br />
             </li>
