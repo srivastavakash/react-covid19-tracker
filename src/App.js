@@ -16,6 +16,7 @@ export default function App() {
         render={props => <StatePage {...props} isAuthed={true} />}
       />
     <Route path="/data-sources-api" component={Sources} />
+    <Route path="/about" component={Sources} />
       <Footer />
     </div>
   ); //1800120820050
