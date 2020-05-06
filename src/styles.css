@@ -59,7 +59,9 @@ body {
     columns: 1;
     margin-left: 0;
   }
-
+  nav {
+    height: 50px;
+  }
   .navbar-brand {
     margin-right: 30px;
     width: 200px;
