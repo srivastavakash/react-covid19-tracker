@@ -342,7 +342,8 @@ class India extends React.Component {
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              (this.state.confirmed / 1000000).toFixed(2)
+                             (this.state.confirmed / 1369.56).toFixed(0)
+
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
