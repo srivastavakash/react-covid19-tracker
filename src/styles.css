@@ -59,12 +59,19 @@ body {
     columns: 1;
     margin-left: 0;
   }
+
   nav {
     height: 50px;
   }
+
   .navbar-brand {
     margin-right: 30px;
+    margin-top: 0px;
     width: 200px;
+  }
+  .fa-shield-virus {
+    margin-top: 0px;
+    font-size: 15px;
   }
   .navbar-brand:hover {
     font-size: 20px;
@@ -73,7 +80,7 @@ body {
   .nav-link,
   .navbar-brand {
     color: #fff;
-    height: 50%;
+    height: 30%;
   }
   .modal-link {
     margin-top: 20px;
@@ -88,10 +95,10 @@ body {
     margin-right: 10px;
   }
   .source-para {
-    margin-left: 6.5%;
+    margin-left: 1%;
     text-align: justify;
     padding: 10px;
-    width: 89%;
+    width: 91.5%;
   }
   .news-item {
     height: 170px;
@@ -121,7 +128,7 @@ body {
 
   .map {
     width: 450px;
-    margin: 10% 10% 10% 16%;  
+    margin: 10% 10% 10% 16%;
   }
 
   .footer-row {
@@ -145,6 +152,10 @@ body {
     width: 150px;
     margin-left: 0px;
     margin-right: 0px;
+  }
+  .fa-shield-virus {
+    margin-top: 10px;
+    font-size: 15px;
   }
   .nav-link {
     color: #fff;
@@ -230,7 +241,7 @@ a:visited {
   color: #fff;
 }
 .App {
-  font-family: sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
 }
 .world {
@@ -239,6 +250,9 @@ a:visited {
 
 nav {
   background-color: rgb(201, 13, 13);
+}
+.navbar-brand {
+  padding: 0px;
 }
 .footer-row {
   background-color: rgb(161, 24, 24);
@@ -622,4 +636,83 @@ iframe {
   background-color: rgba(255, 7, 58, 0.12549);
   border: 3px solid #d9534f;
   border-radius: 5%;
+}
+
+/*Sources Page*/
+
+.jumbotron {
+  background-color: rgb(250, 244, 244);
+  box-shadow: 0 0 6px rgba(138, 135, 135, 0.6);
+  -moz-box-shadow: 0 0 6px rgba(112, 107, 107, 0.6);
+  -webkit-box-shadow: 0 0 6px rgba(109, 102, 102, 0.6);
+  -o-box-shadow: 0 0 6px rgba(75, 70, 70, 0.6);
+}
+
+.sources-container {
+  margin-top: 80px;
+  color: #606c71;
+}
+
+.sources-container h4 {
+  color: #159957;
+  text-align: left;
+  margin-left: 5%;
+}
+
+.objective-list {
+  margin-left: 5%;
+  margin-bottom: 30px;
+}
+
+.objective-list li {
+  color: #338491;
+  font-size: 16px;
+  font: "Open Sans";
+  list-style-type: square;
+}
+.objective-list li a {
+  font-size: 14px;
+  color: #0275d8;
+  text-decoration: underline;
+}
+.dt-head {
+  border-bottom: 1px solid rgb(175, 171, 171);
+  padding: 0px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.ind-src {
+  background-color: #e1e1e6;
+  text-align: left;
+  margin-left: 5%;
+}
+.w-src {
+  background-color: rgb(216, 212, 212);
+  text-align: left;
+  margin-left: 5%;
+}
+.src-tab {
+  margin-left: 5%;
+}
+
+.link-thead tr th {
+  text-align: center;
+  font-size: 18px;
+}
+
+.src-title {
+  text-align: left;
+  font-size: 14px;
+  color: #6f7070;
+  font-weight: 400;
+}
+.src-link {
+  color: #1e6bb8;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+}
+.src-link:hover {
+  text-decoration: underline;
 }
