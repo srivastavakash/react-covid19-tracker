@@ -6,7 +6,7 @@ class CountryData extends React.Component {
     console.log(this.props);
     return (
       <React.Fragment>
-        <p>Country Data</p>
+        <p>Country Data For</p>
       </React.Fragment>
     );
   }
