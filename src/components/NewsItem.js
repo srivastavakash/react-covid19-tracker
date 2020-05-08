@@ -10,7 +10,7 @@ export default function NewsItem(props) {
 
   var timeStamp = formatDistance(currDate, updateTime);
   //console.log("minutes ", timeStamp);
-  console.log("News ITEM ", props);
+  // console.log("News ITEM ", props);
 
   return (
     <li className="news-item card" style={props.style}>
