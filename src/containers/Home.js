@@ -112,9 +112,18 @@ export default class Home extends React.Component {
               }
               {country.country}
             </td>
-            <td className="col-xs-3 col-md-3"> {country.totalConfirmed}</td>
-            <td className="col-xs-3 col-md-3"> {country.totalRecovered}</td>
-            <td className="col-xs-2 col-md-2"> {country.totalDeaths}</td>
+            <td className="col-xs-3 col-md-3">
+              {" "}
+              {this.formatNumberCommas(country.totalConfirmed)}
+            </td>
+            <td className="col-xs-3 col-md-3">
+              {" "}
+              {this.formatNumberCommas(country.totalRecovered)}
+            </td>
+            <td className="col-xs-2 col-md-2">
+              {" "}
+              {this.formatNumberCommas(country.totalDeaths)}
+            </td>
           </tr>
         ))
       });
@@ -132,6 +141,28 @@ export default class Home extends React.Component {
         indiaData: data
       })
     );
+  }
+
+  formatNumber(num) {
+    num += "";
+    var x = num.split(".");
+    var x1 = x[0];
+    var x2 = x.length > 1 ? "." + x[1] : "";
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, "$1" + "," + "$2");
+    }
+    return x1 + x2;
+  }
+  formatNumberCommas(number) {
+    var num = parseInt(number);
+    num = num.toString();
+    var lastThree = num.substring(num.length - 3);
+    var otherNumbers = num.substring(0, num.length - 3);
+    if (otherNumbers !== "") lastThree = "," + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    //document.write(res);
+    return res;
   }
   render() {
     var lastUpdateTime = new Date(this.lastupdate);
@@ -187,11 +218,13 @@ export default class Home extends React.Component {
                       Confirmed
                       <br />
                       <kbd className="bg-info" style={{ fontWeight: "bold" }}>
-                        + {this.state.globalnewCases} New
+                        + {this.formatNumber(this.state.globalnewCases)} New
                       </kbd>
                     </div>
                     <div className="panel-body text-info">
-                      <p className="data">{this.state.confirmed}</p>
+                      <p className="data">
+                        {this.formatNumberCommas(this.state.confirmed)}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -208,7 +241,9 @@ export default class Home extends React.Component {
                       </kbd>
                     </div>
                     <div className="panel-body text-success">
-                      <p className="data">{this.state.recovered}</p>
+                      <p className="data">
+                        {this.formatNumberCommas(this.state.recovered)}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -220,11 +255,14 @@ export default class Home extends React.Component {
                         className="bg-danger"
                         style={{ fontWeight: "bolder" }}
                       >
-                        + {this.state.globalnewDeaths} New
+                        + {this.formatNumber(this.state.globalnewDeaths)} New
                       </kbd>
                     </div>
                     <div className="panel-body text-danger">
-                      <p className="data"> {this.state.deaths}</p>
+                      <p className="data">
+                        {" "}
+                        {this.formatNumberCommas(this.state.deaths)}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -272,7 +310,11 @@ export default class Home extends React.Component {
                           <li className="text-primary">
                             <i className="far fa-check-circle icon" /> <br />{" "}
                             Confirmed
-                            <p>{this.state.indiaData.confirmed}</p>
+                            <p>
+                              {this.formatNumberCommas(
+                                this.state.indiaData.confirmed
+                              )}
+                            </p>
                           </li>
                           <li className="text-success">
                             <i
@@ -280,7 +322,12 @@ export default class Home extends React.Component {
                               style={{ color: "#5cb85c" }}
                             />{" "}
                             <br /> Recovered{" "}
-                            <p> {this.state.indiaData.recovered} </p>
+                            <p>
+                              {" "}
+                              {this.formatNumberCommas(
+                                this.state.indiaData.recovered
+                              )}{" "}
+                            </p>
                           </li>
                           <li className="text-danger">
                             <i
@@ -288,7 +335,12 @@ export default class Home extends React.Component {
                               style={{ color: "red" }}
                             />{" "}
                             <br /> Deaths
-                            <p> {this.state.indiaData.deaths} </p>
+                            <p>
+                              {" "}
+                              {this.formatNumberCommas(
+                                this.state.indiaData.deaths
+                              )}{" "}
+                            </p>
                           </li>
                         </ul>
                         <NavLink
