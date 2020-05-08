@@ -87,6 +87,16 @@ class India extends React.Component {
     if (n < 1e3) return n;
     if (n >= 1e3) return +(n / 1e3).toFixed(1) + "K";
   };
+
+  formatNumberCommas(num) {
+    num = num.toString();
+    var lastThree = num.substring(num.length - 3);
+    var otherNumbers = num.substring(0, num.length - 3);
+    if (otherNumbers !== "") lastThree = "," + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    //document.write(res);
+    return res;
+  }
   confirmedCaseschart = () => {
     let dates = [];
     let confirmedCases = [];
@@ -96,7 +106,7 @@ class India extends React.Component {
     axios
       .get("https://api.covid19india.org/data.json")
       .then(res => {
-        console.log(res.data.cases_time_series);
+        //console.log(res.data.cases_time_series);
         const results = res.data.cases_time_series;
 
         for (const dataObj of results) {
@@ -203,7 +213,7 @@ class India extends React.Component {
     return x === x && typeof x === "number";
   }
   render() {
-    //console.log(this.state);
+    console.log(this.state.indStateWiseData);
     var lastupdated = new Date(this.lastupdate);
     var time = new Date().getHours() - lastupdated.getHours();
     //console.log("NaN ", lastupdated);
@@ -270,7 +280,7 @@ class India extends React.Component {
                           <i className="far fa-check-circle icon" /> <br />{" "}
                           <p>
                             {this.state.isLoaded ? (
-                              this.state.confirmed
+                              this.formatNumberCommas(this.state.confirmed)
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -284,7 +294,7 @@ class India extends React.Component {
                           <i className="far fa fa-bed icon" /> <br />{" "}
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              String(
+                              this.formatNumberCommas(
                                 this.state.confirmed -
                                   this.state.recovered -
                                   this.state.deaths
@@ -306,7 +316,7 @@ class India extends React.Component {
                           <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              this.state.recovered
+                              this.formatNumberCommas(this.state.recovered)
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -323,7 +333,7 @@ class India extends React.Component {
                           />{" "}
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              this.state.deaths
+                              this.formatNumberCommas(this.state.deaths)
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -342,8 +352,7 @@ class India extends React.Component {
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                             (this.state.confirmed / 1369.56).toFixed(0)
-
+                              (this.state.confirmed / 1369.56).toFixed(0)
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -513,7 +522,7 @@ class India extends React.Component {
                     </table>
                   </div>
                 </div>
-                <div className="confirmed-map map hdt">
+                <div className="confirmed-map map">
                   <Line
                     data={this.state.confirmedChartData}
                     options={{
