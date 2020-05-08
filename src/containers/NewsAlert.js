@@ -22,7 +22,7 @@ export default class NewsAlert extends React.Component {
           IndNews: response.data
         });
       });
-    /*
+
     await axios
       .get("https://api.coronatracker.com/news/trending")
       .then(response => {
@@ -35,12 +35,12 @@ export default class NewsAlert extends React.Component {
     //console.log("NewsAlert : ", this.state.news);
 
     console.log("Global NewsAlertData : ", this.state.news);
-*/
+
     const newsAlert = this.state.news;
     const IndNewsAlert = this.state.IndNews;
-    console.log("India Newsss ", IndNewsAlert);
+    //console.log("India Newsss ", IndNewsAlert);
     this.setState({
-      /* newsRow: newsAlert.items.map((news, index) => (
+      newsRow: newsAlert.items.map((news, index) => (
         <NewsItem
           key={index}
           img={news.urlToImage}
@@ -51,7 +51,7 @@ export default class NewsAlert extends React.Component {
           timeStamp={news.publishedAt}
           style={{ marginLeft: "0%" }}
         />
-      )),*/
+      )),
       indNewsRow: IndNewsAlert.articles.map((news, index) => (
         <NewsItem
           key={index}
@@ -67,15 +67,15 @@ export default class NewsAlert extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     return (
       <React.Fragment>
         <p className="trending-lbl"> Latest Trending Updates </p>
         <ul>
-          {/*this.props.country === "IN"
+          {this.props.country === "IN"
             ? this.state.indNewsRow
-    : this.state.newsRow*/}
-          {this.state.indNewsRow}
+            : this.state.newsRow}
+          {/*this.state.indNewsRow*/}
         </ul>
       </React.Fragment>
     );
