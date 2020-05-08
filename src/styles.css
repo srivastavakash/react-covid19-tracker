@@ -63,6 +63,7 @@ body {
   nav {
     height: 50px;
   }
+
   .navbar-brand {
     margin-right: 30px;
     margin-top: -12px;
@@ -108,6 +109,12 @@ body {
   }
   .news-title {
     font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 20px;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
   }
   .news-container {
     margin-top: 2%;
@@ -199,6 +206,12 @@ body {
     font-size: 14px;
     margin-bottom: 10%;
     margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 20px;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
   }
 
   .news-item {
@@ -299,7 +312,9 @@ nav {
   color: #67857e;
   font-weight: bold;
   border: 1px solid #67857e;
-  border-radius: 3%;
+  border-radius: 5px;
+  margin-left: 6.5%;
+  width: 91.5%;
 }
 
 .fa-globe {
@@ -433,7 +448,6 @@ ul li {
 .news-desc {
   text-align: justify;
   color: rgb(102, 98, 98);
-  font-family: arial;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.5;
@@ -445,6 +459,10 @@ ul li {
   font-weight: bold;
   color: rgb(247, 10, 2);
   text-transform: uppercase;
+}
+
+.news-container {
+  margin-left: -5%;
 }
 
 .news-title {
