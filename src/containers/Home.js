@@ -223,7 +223,14 @@ export default class Home extends React.Component {
                     </div>
                     <div className="panel-body text-info">
                       <p className="data">
-                        {this.formatNumberCommas(this.state.confirmed)}
+                        {this.state.confirmed > 0 ? (
+                          this.formatNumberCommas(this.state.confirmed)
+                        ) : (
+                          <i
+                            className="fa fa-spinner fa-spin"
+                            style={{ fontSize: "25px", fontWeight: "bold" }}
+                          />
+                        )}
                       </p>
                     </div>
                   </div>
@@ -242,7 +249,14 @@ export default class Home extends React.Component {
                     </div>
                     <div className="panel-body text-success">
                       <p className="data">
-                        {this.formatNumberCommas(this.state.recovered)}
+                        {this.state.recovered > 0 ? (
+                          this.formatNumberCommas(this.state.recovered)
+                        ) : (
+                          <i
+                            className="fa fa-spinner fa-spin"
+                            style={{ fontSize: "25px", fontWeight: "bold" }}
+                          />
+                        )}
                       </p>
                     </div>
                   </div>
@@ -261,7 +275,14 @@ export default class Home extends React.Component {
                     <div className="panel-body text-danger">
                       <p className="data">
                         {" "}
-                        {this.formatNumberCommas(this.state.deaths)}
+                        {this.state.deaths > 0 ? (
+                          this.formatNumberCommas(this.state.deaths)
+                        ) : (
+                          <i
+                            className="fa fa-spinner fa-spin"
+                            style={{ fontSize: "25px", fontWeight: "bold" }}
+                          />
+                        )}
                       </p>
                     </div>
                   </div>
@@ -311,8 +332,18 @@ export default class Home extends React.Component {
                             <i className="far fa-check-circle icon" /> <br />{" "}
                             Confirmed
                             <p>
-                              {this.formatNumberCommas(
-                                this.state.indiaData.confirmed
+                              {this.state.indiaData.confirmed > 0 ? (
+                                this.formatNumberCommas(
+                                  this.state.indiaData.confirmed
+                                )
+                              ) : (
+                                <i
+                                  className="fa fa-spinner fa-spin"
+                                  style={{
+                                    fontSize: "25px",
+                                    fontWeight: "bold"
+                                  }}
+                                />
                               )}
                             </p>
                           </li>
@@ -324,8 +355,18 @@ export default class Home extends React.Component {
                             <br /> Recovered{" "}
                             <p>
                               {" "}
-                              {this.formatNumberCommas(
-                                this.state.indiaData.recovered
+                              {this.state.indiaData.recovered > 0 ? (
+                                this.formatNumberCommas(
+                                  this.state.indiaData.recovered
+                                )
+                              ) : (
+                                <i
+                                  className="fa fa-spinner fa-spin"
+                                  style={{
+                                    fontSize: "25px",
+                                    fontWeight: "bold"
+                                  }}
+                                />
                               )}{" "}
                             </p>
                           </li>
@@ -337,8 +378,18 @@ export default class Home extends React.Component {
                             <br /> Deaths
                             <p>
                               {" "}
-                              {this.formatNumberCommas(
-                                this.state.indiaData.deaths
+                              {this.state.indiaData.deaths > 0 ? (
+                                this.formatNumberCommas(
+                                  this.state.indiaData.deaths
+                                )
+                              ) : (
+                                <i
+                                  className="fa fa-spinner fa-spin"
+                                  style={{
+                                    fontSize: "25px",
+                                    fontWeight: "bold"
+                                  }}
+                                />
                               )}{" "}
                             </p>
                           </li>
