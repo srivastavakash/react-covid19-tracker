@@ -24,7 +24,7 @@ td {
 .table-fixed tbody th::after {
   content: "";
   clear: both;
-  display: block;
+  display: none;
 }
 
 .table-fixed tbody tr::after {
@@ -46,13 +46,14 @@ td {
 .state-table {
   margin-left: 5%;
   margin-right: 0%;
-  width: 100%;
 }
-
+/*
 #districtTable {
-  width: 200px;
+  width: 110%;
+  margin-left: 0px;
+  margin-top: 5px;
   height: auto;
-}
-.country-table thead tr th:nth-child(1) {
-  width: ;
+}*/
+.state-head {
+  width: 90%;
 }
