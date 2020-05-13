@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-md navbar-fixed-top ml-auto">
-        <a className="navbar-brand" href="https://emrpx.codesandbox.io/">
+        <a className="navbar-brand" href="https://covid19tracker.store">
           <i className="fas fa-shield-virus" style={{ fontSize: "25px" }} />{" "}
           <span className="text-dark">Covid-19</span>{" "}
           <span className="text-danger">Tracker</span>
