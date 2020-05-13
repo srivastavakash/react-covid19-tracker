@@ -44,7 +44,7 @@ const Sources = () => {
           </p>
           <p style={{ fontSize: "15px", fontWeight: "bold" }}>
             <a
-              href="https://github.com/srivastavakash"
+              href="https://github.com/srivastavakash/react-covid19-tracker"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "#1e6bb8", textDecoration: "underline" }}
