@@ -44,6 +44,7 @@ body {
 }
 
 .home-component {
+  margin-top: 80px;
   width: 100%;
 }
 
@@ -65,9 +66,9 @@ body {
   }
 
   .navbar-brand {
-    margin-right: 30px;
-    margin-top: -12px;
+    margin-top: 12px;
     width: 200px;
+    font-weight: bold;
   }
   .fa-shield-virus {
     margin-top: 0px;
@@ -77,10 +78,42 @@ body {
     font-size: 20px;
     transition: font-size 1.5s;
   }
-  .nav-link,
-  .navbar-brand {
-    color: #fff;
-    height: 30%;
+  .navbar-nav {
+    margin-left: 60%;
+  }
+  .nav-link {
+    color: #108885;
+    height: 50px;
+  }
+
+  .nav-item {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 3px;
+    margin-right: 10px;
+  }
+  .nav-item:last-child {
+    margin-right: 0;
+  }
+
+  .nav-item:after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 3px;
+    width: 0px;
+    background: transparent;
+    transition: width 0.2s ease, background-color 0.2s ease;
+  }
+  .nav-item:hover:after {
+    width: 100%;
+    background: #0e6665;
+  }
+  .nav-item:hover {
+    height: 50px;
+  }
+  .navlink:hover {
+    color: #0e6665;
   }
   .modal-link {
     margin-top: 20px;
@@ -144,18 +177,19 @@ body {
 }
 
 @media screen and (max-width: 700px) {
+  .home-component {
+    margin-top: 30px;
+  }
   .main {
     margin-top: 15%;
   }
   .progress {
     margin-top: 15%;
   }
-  nav {
-    background-color: rgb(201, 13, 13);
-  }
   .navbar-brand {
-    color: #fff;
     width: 150px;
+    height: 30px;
+    margin-top: -10px;
     margin-left: 0px;
     margin-right: 0px;
   }
@@ -164,14 +198,23 @@ body {
     font-size: 15px;
   }
   .nav-link {
+    color: #108885;
+  }
+
+  .nav-link:hover {
+    height: 35px;
+    background-color: #000;
     color: #fff;
   }
   .navbar-toggler {
-    margin-left: 4%;
+    margin-left: 10%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
 
   .hamburger {
-    margin-top: 0;
+    margin-top: 0px;
     font-size: 20px;
     color: rgb(241, 9, 9);
   }
@@ -243,15 +286,18 @@ body {
   .map {
     margin: 5%;
   }
+  .st-top-distt {
+    margin-left: 8%;
+  }
 }
 @media screen and (max-width: 360px) {
   .ind-pnl-1 {
     height: 90px;
   }
 }
-a:visited {
-  color: #fff;
-}
+/*a:visited {
+  color: rgb(63, 61, 61);
+}*/
 .App {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
@@ -261,20 +307,23 @@ a:visited {
 }
 
 nav {
-  background-color: rgb(201, 13, 13);
+  background-color: rgb(255, 255, 255);
+}
+.navbar {
+  border-bottom: 1px solid #ccc;
 }
 .navbar-brand {
   padding: 0px;
+  color: rgb(14, 129, 14);
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .footer-row {
-  background-color: rgb(161, 24, 24);
+  background-color: rgb(124, 114, 114);
 }
 
-.navbar-brand:hover {
-  color: #fff;
-}
 .nav-link {
-  color: #fff;
+  color: #108885;
+  text-align: center;
   font-weight: bold;
 }
 
@@ -283,16 +332,8 @@ nav {
   height: 50%;
   display: none;
 }
-.nav-link:hover {
-  height: 50px;
-  background-color: #fff;
-  color: #000;
-}
 .nav-item .active {
   text-decoration: underline;
-}
-.container-fluid {
-  margin-top: 8%;
 }
 .loading-label .country-name {
   text-align: left;
@@ -594,15 +635,24 @@ ul li {
   font-size: 120%;
 }
 .state-page {
-  margin-top: 20%;
+  margin-top: 80px;
   margin-bottom: 20%;
+}
+.st-top-distt {
+  border: 1px solid #000;
+  border-radius: 6px;
+  height: 70%;
+  width: 80%;
+  margin-top: 10px;
+}
+.top-dist * {
+  display: inline;
 }
 /* For District Table*/
 
 .dist-tab {
   margin-left: 10%;
 }
-
 .btn-outline-dark {
   border: 1px solid #000;
   float: left;
@@ -732,4 +782,9 @@ iframe {
 }
 .src-link:hover {
   text-decoration: underline;
+}
+
+.last-col::after {
+  content: "";
+  display: none;
 }
