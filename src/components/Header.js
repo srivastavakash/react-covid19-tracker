@@ -9,9 +9,10 @@ export default function Header() {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-md navbar-fixed-top ml-auto">
-        <a className="navbar-brand" href="https://covid19tracker.store">
+        <a className="navbar-brand" href="https://emrpx.codesandbox.io/">
           <i className="fas fa-shield-virus" style={{ fontSize: "25px" }} />{" "}
-          Covid-19 Tracker
+          <span className="text-dark">Covid-19</span>{" "}
+          <span className="text-danger">Tracker</span>
         </a>
         <button
           className="navbar-toggler bg-light"
@@ -27,7 +28,7 @@ export default function Header() {
           </span>
         </button>
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul className="navbar-nav ml-auto">
+          <ul className="navbar-nav">
             <li className="nav-item">
               <NavLink
                 to="/"
