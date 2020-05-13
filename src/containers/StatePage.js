@@ -10,7 +10,7 @@ class StatePage extends React.Component {
     stateData: "",
     topDistricts: [],
     isLoaded: false
-  };
+  }; 
 
   componentDidMount() {
     console.log(this.props);
