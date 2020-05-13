@@ -240,7 +240,7 @@ class India extends React.Component {
     return (
       <React.Fragment>
         <ScrollToTop />
-        <div className="container-fluid">
+        <div className="container-fluid home-component">
           <div className="row text-center india animated animatedFadeInUp fadeInUp">
             <div className="col-md-6">
               <div className="mt-1 panel ind-panel">
