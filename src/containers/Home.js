@@ -179,19 +179,6 @@ export default class Home extends React.Component {
       <React.Fragment>
         <ScrollToTop />
         <div className="container-fluid home-component">
-          <h3 className="text-danger loading-label">
-            {this.state.confirmed === "" ? (
-              <div className="progress">
-                <div
-                  className="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-                  style={{ width: "40%" }}
-                />
-                <p style={{ fontSize: "20px" }}>Loading</p>
-              </div>
-            ) : (
-              ""
-            )}
-          </h3>
           <div className="row main">
             <div className="col-md-6">
               <div className="row global-data animated animatedFadeInUp fadeInUp">
@@ -199,7 +186,8 @@ export default class Home extends React.Component {
                   <div className="panel panel-primary">
                     <div className="panel-heading">
                       Global Stats
-                      <p>Till Date</p>
+                      <br />
+                      Till Date
                     </div>
                     <div className="panel-body">
                       {" "}
