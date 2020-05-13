@@ -165,6 +165,11 @@ body {
     margin-left: 4%;
   }
 
+  .state-district-table {
+    margin-left: 0%;
+    width: 100%;
+  }
+
   .map {
     width: 450px;
     margin: 10% 10% 10% 16%;
