@@ -49,7 +49,7 @@ const Sources = () => {
               rel="noopener noreferrer"
               style={{ color: "#1e6bb8", textDecoration: "underline" }}
             >
-              covid19tracker.store
+              trackercovid19.in
             </a>{" "}
             is maintained by{" "}
             <a
