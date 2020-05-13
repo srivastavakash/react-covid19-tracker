@@ -286,6 +286,10 @@ body {
   .map {
     margin: 5%;
   }
+  .state-district-table {
+    margin-left: 1%;
+    width: 70%;
+  }
   .st-top-distt {
     margin-left: 8%;
   }
