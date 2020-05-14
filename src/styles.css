@@ -679,6 +679,14 @@ ul li {
   background-color: #000;
   color: #fff;
 }
+.t-tip-state:hover:after {
+  content: "Based on 2019 population projection by NCP";
+  font-family: Arial;
+  position: absolute;
+  font-size: 12px;
+  background-color: #000;
+  color: #fff;
+}
 .st-name:hover {
   text-decoration: underline;
   cursor: pointer;
