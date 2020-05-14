@@ -13,13 +13,13 @@ import ScrollToTop from "../ScrollToTop";
 class India extends React.Component {
   state = {
     indStateWiseData: {},
-    NewsData: []
+    NewsData: [],
+    dailyData: []
   };
 
   componentDidMount() {
     this.getData();
-    this.confirmedCaseschart();
-    //this.activeCaseschart();
+    this.getCaseschart();
   }
 
   async getData() {
@@ -60,11 +60,7 @@ class India extends React.Component {
 
     this.lastupdate = IND.data.lastUpdate;
     const INDStatesData = this.state.indStateWiseData;
-    /*
-    await axios.get("https://api.covid19india.org/data.json").then(response => {
-      this.setState({ timeSeries: response.data });
-    });
-*/
+    console.log("States", this.state.districtWise);
     this.setState({
       indData: IND.data,
       staterow: INDStatesData.map((state, index) => {
@@ -97,7 +93,7 @@ class India extends React.Component {
     //document.write(res);
     return res;
   }
-  confirmedCaseschart = () => {
+  getCaseschart = () => {
     let dates = [];
     let confirmedCases = [];
     let activeCases = [];
@@ -106,7 +102,7 @@ class India extends React.Component {
     axios
       .get("https://api.covid19india.org/data.json")
       .then(res => {
-        //console.log(res.data.cases_time_series);
+        console.log("series", res.data);
         const results = res.data.cases_time_series;
 
         for (const dataObj of results) {
@@ -123,6 +119,7 @@ class India extends React.Component {
         }
 
         this.setState({
+          dailyData: results[results.length - 1],
           confirmedChartData: {
             labels: dates,
             datasets: [
@@ -213,7 +210,7 @@ class India extends React.Component {
     return x === x && typeof x === "number";
   }
   render() {
-    console.log(this.state.indStateWiseData);
+    console.log("India State ", this.state);
     var lastupdated = new Date(this.lastupdate);
     var time = new Date().getHours() - lastupdated.getHours();
     //console.log("NaN ", lastupdated);
@@ -278,6 +275,16 @@ class India extends React.Component {
                       <ul className="ind-stats">
                         <li className="text-primary">
                           <i className="far fa-check-circle icon" /> <br />{" "}
+                          Confirmed
+                          <br />
+                          <kbd
+                            className="bg-info"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            {this.state.isLoaded
+                              ? "[+" + this.state.dailyData.dailyconfirmed + "]"
+                              : ""}
+                          </kbd>
                           <p>
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(this.state.confirmed)
@@ -288,10 +295,9 @@ class India extends React.Component {
                               />
                             )}
                           </p>
-                          Confirmed
                         </li>
                         <li className="text-warning">
-                          <i className="far fa fa-bed icon" /> <br />{" "}
+                          <i className="far fa fa-bed icon" /> <br /> Active
                           <p className="i-data">
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(
@@ -306,7 +312,6 @@ class India extends React.Component {
                               />
                             )}
                           </p>
-                          Active
                         </li>
                         <li className="text-success">
                           <i
@@ -314,6 +319,16 @@ class India extends React.Component {
                             style={{ color: "#5cb85c" }}
                           />{" "}
                           <br />
+                          Recovered
+                          <br />
+                          <kbd
+                            className="bg-success"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            {this.state.isLoaded
+                              ? "[+" + this.state.dailyData.dailyrecovered + "]"
+                              : ""}
+                          </kbd>
                           <p className="i-data">
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(this.state.recovered)
@@ -324,13 +339,29 @@ class India extends React.Component {
                               />
                             )}
                           </p>
-                          Recovered
+                          {/*<p style={{fontSize:'12px'}}>
+                            {this.state.isLoaded
+                              ? "[+" + this.state.dailyData.dailyrecovered+"]"
+                              : ""}
+                          </p>
+                            */}
                         </li>
                         <li className="text-danger">
                           <i
                             className="fas fa-ambulance icon"
                             style={{ color: "red" }}
                           />{" "}
+                          <br />
+                          Deaths
+                          <br />
+                          <kbd
+                            className="bg-danger"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            {this.state.isLoaded
+                              ? "[+" + this.state.dailyData.dailydeceased + "]"
+                              : ""}
+                          </kbd>
                           <p className="i-data">
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(this.state.deaths)
@@ -341,7 +372,6 @@ class India extends React.Component {
                               />
                             )}
                           </p>
-                          Deaths
                         </li>
                       </ul>
                     </div>
