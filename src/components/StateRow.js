@@ -9,7 +9,6 @@ export default class StateRow extends React.Component {
 
   handleShowDistricts = () => {
     const active = this.state.showDistricts;
-    // console.log("active ", active);
     this.setState({ showDistricts: active ? false : true });
     //console.clear();
   };
@@ -25,8 +24,6 @@ export default class StateRow extends React.Component {
   }
 
   render() {
-    console.log("State Row ", this.props);
-
     var unknownDistrict =
       this.props.districts[0] &&
       this.props.districts[0].districtData.filter(
@@ -46,6 +43,24 @@ export default class StateRow extends React.Component {
       unknownDistrict
     );
     */
+
+    console.log(this.props.stateName, this.props);
+
+    /*  var totalConfirmed = 0;
+
+    for (let distt of districts) {
+      let con = totalConfirmed + distt.delta.confirmed;
+      console.log("for loop ", con);
+    }
+    */
+    /*
+    var Confirmed =
+      this.props.districts[0] &&
+      districts.reduce((district, conf) => {
+        return conf + district.delta.confirmed;
+      });
+    console.log("Total Confirmed ", Confirmed);*/
+
     var districtsTable =
       this.props.districts[0] &&
       districts.map((district, index) => (
@@ -66,7 +81,13 @@ export default class StateRow extends React.Component {
               district.district
             )}
           </td>
-          <td className="col-xs-3 col-md-3" style={{ fontSize: "90%" }}>
+          <td className="col-xs-3 col-md-3" style={{ fontSize: "12px" }}>
+            <span class="text-danger" style={{ fontSize: "11px" }}>
+              {district.delta.confirmed > 0
+                ? "+" + district.delta.confirmed
+                : ""}
+            </span>
+            &nbsp;
             {this.formatNumberCommas(district.confirmed)}{" "}
           </td>
           <td
@@ -75,41 +96,50 @@ export default class StateRow extends React.Component {
           >
             {this.formatNumberCommas(district.active)}{" "}
           </td>
-          <td
-            className="col-xs-2 col-md-2"
-            style={{ fontSize: "90%", textAlign: "right" }}
-          >
+          <td className="col-xs-2 col-md-2" style={{ fontSize: "12px" }}>
+            <span class="text-success" style={{ fontSize: "11px" }}>
+              {district.delta.recovered > 0
+                ? "+" + district.delta.recovered
+                : ""}
+            </span>
+            &nbsp;
             {this.formatNumberCommas(district.recovered)}{" "}
           </td>
           <td
             className="col-xs-2 col-md-2"
             style={{ fontSize: "90%", textAlign: "right" }}
           >
+            {" "}
+            <span class="text-danger" style={{ fontSize: "11px" }}>
+              {district.delta.deceased > 0 ? "+" + district.delta.deceased : ""}
+            </span>
+            &nbsp;
             {this.formatNumberCommas(district.deceased)}{" "}
           </td>
         </tr>
       ));
+    var stateData = this.props;
 
     return (
       <>
         <tr onClick={this.handleShowDistricts}>
           <td
-            className="col-xs-3 country-name st-name"
+            className="col-xs-3 col-md-3 country-name st-name"
             style={{ fontSize: "90%" }}
           >
             <i className="fa fa-sort-down" />
             <p>{"   " + this.props.stateName}</p>
           </td>
-          <td className="col-xs-2">
+          <td className="col-xs-2 col-md-2">
             {this.formatNumberCommas(this.props.confirmed)}
           </td>
-          <td className="col-xs-2">
+          <td className="col-xs-2 col-md-2">
             {this.formatNumberCommas(this.props.recovered)}
           </td>
-          <td className="col-xs-2">
+          <td className="col-xs-2 col-md-2">
             {this.formatNumberCommas(this.props.deaths)}
           </td>
-          <td className="col-xs-2">
+          <td className="col-xs-2 col-md-2 last-col">
             {this.formatNumberCommas(this.props.active)}
           </td>
         </tr>
@@ -118,13 +148,16 @@ export default class StateRow extends React.Component {
           <div className="dist-tab">
             <br />
             <div className="row">
-              <div className="col-1">
+              <div className="col-12">
                 <i
                   className="fas fa-arrow-alt-circle-left"
                   onClick={this.handleShowDistricts}
+                  style={{
+                    fontSize: "18px",
+                    marginRight: "20px",
+                    marginLeft: "0px"
+                  }}
                 />
-              </div>
-              <div className="col-11">
                 <NavLink
                   to={"/country/IN/state-UT/" + this.props.stateName}
                   className="state-link"
@@ -138,6 +171,7 @@ export default class StateRow extends React.Component {
                 <table
                   className="table table-hover table-striped table-bordered country-table district-table"
                   style={{ marginLeft: "-5%" }}
+                  id="districtTable"
                 >
                   <thead className="thead bg-dark text-light">
                     <tr>
@@ -178,11 +212,6 @@ export default class StateRow extends React.Component {
                 </table>
               </div>
             </div>
-            <Route
-              path="/country/IN/state-UT/:sName"
-              exact
-              render={props => <StatePage {...props} />}
-            />
           </div>
         )}
       </>
