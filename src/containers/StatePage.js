@@ -1,16 +1,17 @@
 import React from "react";
 import axios from "axios";
+import populations from "../data/Population.json";
 import Scroll from "../ScrollToTop";
 
 class StatePage extends React.Component {
   state = {
     StateWiseData: [],
     districtWiseData: [],
-    currentState: "",
+    currentState: [],
     stateData: "",
     topDistricts: [],
     isLoaded: false
-  }; 
+  };
 
   componentDidMount() {
     console.log(this.props);
@@ -28,10 +29,10 @@ class StatePage extends React.Component {
           confirmed: response.data.data.total.confirmed,
           recovered: response.data.data.total.recovered,
           deaths: response.data.data.total.deaths,
-          updated: response.data.data.lastRefreshed,
-          isLoaded: true
+          updated: response.data.data.lastRefreshed
         });
       });
+
     await axios
       .get("https://api.covid19india.org/v2/state_district_wise.json")
       .then(response => {
@@ -40,29 +41,67 @@ class StatePage extends React.Component {
           districtWiseData: districts
         });
       });
+    axios({
+      url: "https://https://covidstat.info/graphql",
+      method: "post",
+      data: {
+        query: `
+          query {
+            country(name: "India") {
+              states {
+                state
+                historical {
+                  date
+                  cases
+                  deaths
+                  recovered
+                  todayCases
+                  todayRecovered
+                  todayDeaths
+                }
+              }
+            }
+          }
+            `
+      }
+    }).then(result => {
+      console.log("Time Series", result.data);
+    });
     var found = this.findStateAndDistricts(this.props.match.params.sName);
     var unknownDistrict = found[0].districtData
       .sort((d1, d2) => d2.confirmed - d1.confirmed)
       .filter(district => district.district === "Unknown");
-
-    console.log("Unknown", unknownDistrict);
-    console.log("Sorted", found[0].districtData.concat(unknownDistrict));
+    const states = this.state.StateWiseData.sort(this.compare);
+    found[0].population = 0;
+    for (let i = 0; i < states.length; i++) {
+      if (found[0].state === populations.population[i].state) {
+        found[0].population = populations.population[i].population;
+      }
+    }
+    console.log("Sorted States", states, populations);
+    //console.log("Unknown", unknownDistrict);
+    //console.log("Sorted", found[0].districtData.concat(unknownDistrict));
     var stdata = this.findState(this.props.match.params.sName);
     var topDistricts = found[0].districtData.slice(0, 5);
-    console.log("Top Districts", topDistricts);
     this.setState({
       currentState: found,
       stateData: stdata[0],
       topDistricts,
       isLoaded: true
     });
-    console.log(" State Page  Data : ", this.state);
+    //console.log(" State Page  Data : ", this.state);
   }
   findState(stateName) {
     var stateData = this.state.StateWiseData.filter(
       state => state.state === stateName
     );
     return stateData;
+  }
+
+  compare(a, b) {
+    if (a.state < b.state) return -1;
+    if (a.state > b.state) return 1;
+    return 0;
   }
 
   findStateAndDistricts = stateName => {
@@ -74,19 +113,17 @@ class StatePage extends React.Component {
 
   sortUnknownDistrict() {}
 
-  formatNumberCommas(num) {
-    num = num.toString();
-    var lastThree = num.substring(num.length - 3);
-    var otherNumbers = num.substring(0, num.length - 3);
-    if (otherNumbers !== "") lastThree = "," + lastThree;
-    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-    return res;
+  numberFormatter(value) {
+    const numberFormatter = new Intl.NumberFormat("en-IN");
+    return isNaN(value) ? "-" : numberFormatter.format(value);
   }
 
   render() {
     var found = this.findStateAndDistricts(this.props.match.params.sName);
     console.log("found ", found);
     console.log(" State : ", this.state);
+    var sPopln =
+      this.state.currentState[0] && this.state.currentState[0].population;
     var districtsTable =
       this.state.currentState[0] &&
       this.state.currentState[0].districtData.map((district, index) => (
@@ -114,13 +151,13 @@ class StatePage extends React.Component {
                 : ""}
             </span>
             &nbsp;
-            {this.formatNumberCommas(district.confirmed)}{" "}
+            {this.numberFormatter(district.confirmed)}{" "}
           </td>
           <td
             className="col-xs-2 col-md-2"
             style={{ fontSize: "90%", textAlign: "right" }}
           >
-            {this.formatNumberCommas(district.active)}{" "}
+            {this.numberFormatter(district.active)}{" "}
           </td>
           <td className="col-xs-2 col-md-2" style={{ fontSize: "12px" }}>
             <span className="text-success" style={{ fontSize: "11px" }}>
@@ -129,7 +166,7 @@ class StatePage extends React.Component {
                 : ""}
             </span>
             &nbsp;
-            {this.formatNumberCommas(district.recovered)}{" "}
+            {this.numberFormatter(district.recovered)}{" "}
           </td>
           <td
             className="col-xs-2 col-md-2"
@@ -140,7 +177,7 @@ class StatePage extends React.Component {
               {district.delta.deceased > 0 ? "+" + district.delta.deceased : ""}
             </span>
             &nbsp;
-            {this.formatNumberCommas(district.deceased)}{" "}
+            {this.numberFormatter(district.deceased)}{" "}
           </td>
         </tr>
       ));
@@ -153,7 +190,7 @@ class StatePage extends React.Component {
               {"+" + district.delta.confirmed + " "}
             </p>
             <h4 className="text-primary font-weight-bold">
-              {district.confirmed}
+              {this.numberFormatter(district.confirmed)}
             </h4>
           </li>
         </ul>
@@ -180,7 +217,9 @@ class StatePage extends React.Component {
                           <i className="far fa-check-circle icon" /> <br />{" "}
                           <p>
                             {this.state.isLoaded ? (
-                              this.state.stateData.confirmed
+                              this.numberFormatter(
+                                this.state.stateData.confirmed
+                              )
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -194,9 +233,11 @@ class StatePage extends React.Component {
                           <i className="far fa fa-bed icon" /> <br />{" "}
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              this.state.stateData.confirmed -
-                              this.state.stateData.recovered -
-                              this.state.stateData.deaths
+                              this.numberFormatter(
+                                this.state.stateData.confirmed -
+                                  this.state.stateData.recovered -
+                                  this.state.stateData.deaths
+                              )
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -214,7 +255,9 @@ class StatePage extends React.Component {
                           <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              this.state.stateData.recovered
+                              this.numberFormatter(
+                                this.state.stateData.recovered
+                              )
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -231,7 +274,7 @@ class StatePage extends React.Component {
                           />{" "}
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              this.state.stateData.deaths
+                              this.numberFormatter(this.state.stateData.deaths)
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -251,8 +294,10 @@ class StatePage extends React.Component {
                           <p className="i-data">
                             {this.state.isLoaded ? (
                               (
-                                this.state.stateData.confirmed / 1369.56
-                              ).toFixed(0)
+                                this.state.stateData.confirmed /
+                                (this.state.currentState[0].population /
+                                  1000000)
+                              ).toFixed(2)
                             ) : (
                               <i
                                 className="fa fa-spinner fa-spin"
@@ -323,6 +368,9 @@ class StatePage extends React.Component {
                       </ul>
                     </div>
                   </div>
+                  <h4 className="text-dark">
+                    Population :{this.numberFormatter(sPopln)}
+                  </h4>
                 </div>
               </div>
             </div>
