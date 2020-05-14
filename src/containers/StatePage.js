@@ -369,7 +369,19 @@ class StatePage extends React.Component {
                     </div>
                   </div>
                   <h4 className="text-dark">
-                    Population :{this.numberFormatter(sPopln)}
+                    <button
+                      className="t-tip-state"
+                      style={{ border: "none", backgroundColor: "#fff" }}
+                    >
+                      Population :{this.numberFormatter(sPopln)}
+                      &nbsp;
+                      <sup>
+                        <i
+                          className="fa fa-info-circle"
+                          style={{ fontSize: "12px", marginBottom: "10px" }}
+                        />
+                      </sup>
+                    </button>
                   </h4>
                 </div>
               </div>
