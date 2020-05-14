@@ -1,0 +1,152 @@
+{
+  "population": [
+    {
+      "state": "Andaman and Nicobar Islands",
+      "population": 397000
+    },
+    {
+      "state": "Andhra Pradesh",
+      "population": 52221000
+    },
+    {
+      "state": "Arunachal Pradesh",
+      "population": "1504000"
+    },
+    {
+      "state": "Assam",
+      "population": 34293000
+    },
+    {
+      "state": "Bihar",
+      "population": 119520000
+    },
+    {
+      "state": "Chandigarh",
+      "population": 1179000
+    },
+    {
+      "state": "Chhattisgarh",
+      "population": 28724000
+    },
+    {
+      "state": "Dadra and Nagar Haveli and Daman and Diu",
+      "population": 959000
+    },
+    {
+      "state": "Daman and Diu",
+      "population": 959000
+    },
+    {
+      "state": "Delhi",
+      "population": 19814000
+    },
+    {
+      "state": "Goa",
+      "population": 1540000
+    },
+    {
+      "state": "Gujarat",
+      "population": 67936000
+    },
+    {
+      "state": "Haryana",
+      "population": 28672000
+    },
+    {
+      "state": "Himachal Pradesh",
+      "population": 7300000
+    },
+    {
+      "state": "Jammu and Kashmir",
+      "population": 13203000
+    },
+    {
+      "state": "Jharkhand",
+      "population": 37403000
+    },
+    {
+      "state": "Karnataka",
+      "population": 65798000
+    },
+    {
+      "state": "Kerala",
+      "population": 35125000
+    },
+    {
+      "state": "Ladakh",
+      "population": 293000
+    },
+    {
+      "state": "Lakshadweep",
+      "population": 68000
+    },
+    {
+      "state": "Madhya Pradesh'",
+      "population": 82232000
+    },
+    {
+      "state": "Maharashtra",
+      "population": 122153000
+    },
+    {
+      "state": "Manipur",
+      "population": 3103000
+    },
+    {
+      "state": "Meghalaya",
+      "population": 3224000
+    },
+    {
+      "state": "Mizoram",
+      "population": 1192000
+    },
+    {
+      "state": "Nagaland",
+      "population": 2150000
+    },
+    {
+      "state": "Odisha",
+      "population": 43671000
+    },
+    {
+      "state": "Puducherry",
+      "population": 1504000
+    },
+    {
+      "state": "Punjab",
+      "population": 29859000
+    },
+    {
+      "state": "Rajasthan",
+      "population": 77264000
+    },
+    {
+      "state": "Sikkim",
+      "population": 664000
+    },
+    {
+      "state": "Tamil Nadu",
+      "population": 75695000
+    },
+    {
+      "state": "Telangana",
+      "population": 37220000
+    },
+    {
+      "state": "Tripura",
+      "population": 3992000
+    },
+    {
+      "state": "Uttar Pradesh",
+      "population": 224979000
+    },
+    {
+      "state": "Uttarakhand",
+      "population": 11141000
+    },
+    {
+      "state": "West Bengal",
+      "population": 96906000
+    }
+  ]
+}
