@@ -8,6 +8,8 @@ td {
 .table-fixed tbody {
   height: 700px;
   overflow-y: auto;
+  overflow-x: auto;
+  right: -20px;
   width: 100%;
 }
 
@@ -31,6 +33,21 @@ td {
   content: "";
   clear: both;
   display: block;
+}
+.country-table {
+  margin-top: 5px;
+}
+.country-table thead th {
+  text-align: center;
+  color: aliceblue;
+  border: 1px solid rgb(185, 183, 183);
+  background-color: #8d8d8d;
+}
+.country-table td {
+  width: 25%;
+}
+.country-table th {
+  width: 23.5%;
 }
 
 .country-name {
