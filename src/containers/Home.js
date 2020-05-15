@@ -409,7 +409,7 @@ export default class Home extends React.Component {
                     <br />
                   </h4>
                   <div className="table-responsive">
-                    <table className="table table-fixed table-hover table-striped table-bordered country-table">
+                    <table className="table table-fixed table-hover table-striped table-bordered country-table" id="country-table">
                       <thead className="thead">
                         <tr>
                           <th>Country</th>
