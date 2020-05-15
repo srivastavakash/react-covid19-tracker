@@ -122,6 +122,9 @@ body {
   .ind-helpline {
     width: 97%;
   }
+  .country-table tbody tr {
+    width: 96.5%;
+  }
   .flag {
     height: 15px;
     width: 25px;
@@ -228,7 +231,9 @@ body {
     width: 20%;
     margin-right: 5px;
   }
-
+  .i-data {
+    font-size: 12px;
+  }
   .india {
     margin-top: 20%;
   }
@@ -244,7 +249,7 @@ body {
   }
 
   .ind-stats li i {
-    font-size: 12px;
+    font-size: 10px;
   }
   .ind-stats li p {
     font-size: 10px;
@@ -286,7 +291,7 @@ body {
     font-size: 70%;
   }
   .country-name {
-    font-size: 90%;
+    font-size: 80%;
   }
   .map {
     margin: 5%;
@@ -805,3 +810,5 @@ iframe {
   content: "";
   display: none;
 }
+
+/*Hide Scollbar for table*/
