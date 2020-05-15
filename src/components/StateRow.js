@@ -44,7 +44,7 @@ export default class StateRow extends React.Component {
     );
     */
 
-    console.log(this.props.stateName, this.props);
+    //console.log(this.props.stateName, this.props);
 
     /*  var totalConfirmed = 0;
 
@@ -81,8 +81,8 @@ export default class StateRow extends React.Component {
               district.district
             )}
           </td>
-          <td className="col-xs-3 col-md-3" style={{ fontSize: "12px" }}>
-            <span class="text-danger" style={{ fontSize: "11px" }}>
+          <td style={{ fontSize: "9px" }}>
+            <span class="text-danger" style={{ fontSize: "9px" }}>
               {district.delta.confirmed > 0
                 ? "+" + district.delta.confirmed
                 : ""}
@@ -90,14 +90,11 @@ export default class StateRow extends React.Component {
             &nbsp;
             {this.formatNumberCommas(district.confirmed)}{" "}
           </td>
-          <td
-            className="col-xs-2 col-md-2"
-            style={{ fontSize: "90%", textAlign: "right" }}
-          >
+          <td style={{ fontSize: "9px", textAlign: "right" }}>
             {this.formatNumberCommas(district.active)}{" "}
           </td>
-          <td className="col-xs-2 col-md-2" style={{ fontSize: "12px" }}>
-            <span class="text-success" style={{ fontSize: "11px" }}>
+          <td style={{ fontSize: "9px" }}>
+            <span class="text-success" style={{ fontSize: "9px" }}>
               {district.delta.recovered > 0
                 ? "+" + district.delta.recovered
                 : ""}
@@ -105,12 +102,9 @@ export default class StateRow extends React.Component {
             &nbsp;
             {this.formatNumberCommas(district.recovered)}{" "}
           </td>
-          <td
-            className="col-xs-2 col-md-2"
-            style={{ fontSize: "90%", textAlign: "right" }}
-          >
+          <td style={{ fontSize: "9px", textAlign: "center" }}>
             {" "}
-            <span class="text-danger" style={{ fontSize: "11px" }}>
+            <span class="text-danger" style={{ fontSize: "8px" }}>
               {district.delta.deceased > 0 ? "+" + district.delta.deceased : ""}
             </span>
             &nbsp;
@@ -162,50 +156,24 @@ export default class StateRow extends React.Component {
                   to={"/country/IN/state-UT/" + this.props.stateName}
                   className="state-link"
                 >
-                  <p className="btn btn-sm btn-dark">
+                  <p className="btn btn-sm btn-dark text-light">
                     {"More about "}
                     {this.props.stateName}{" "}
                   </p>
                 </NavLink>
 
                 <table
-                  className="table table-hover table-striped table-bordered country-table district-table"
+                  className="table table-hover table-striped table-bordered country-table district-table st-dist"
                   style={{ marginLeft: "-5%" }}
                   id="districtTable"
                 >
                   <thead className="thead bg-dark text-light">
                     <tr>
-                      <th
-                        className="col-xs-3 col-md-3"
-                        style={{ fontSize: "80%" }}
-                      >
-                        {" "}
-                        District
-                      </th>
-                      <th
-                        className="col-xs-3 col-md-3"
-                        style={{ fontSize: "80%" }}
-                      >
-                        Confirmed
-                      </th>
-                      <th
-                        className="col-xs-2 col-md-2"
-                        style={{ fontSize: "80%" }}
-                      >
-                        Active
-                      </th>
-                      <th
-                        className="col-xs-2 col-md-2"
-                        style={{ fontSize: "80%" }}
-                      >
-                        Recovered
-                      </th>
-                      <th
-                        className="col-xs-2 col-md-2"
-                        style={{ fontSize: "80%" }}
-                      >
-                        Deaths
-                      </th>
+                      <th className="dist-thead"> District</th>
+                      <th className="dist-thead">Confirmed</th>
+                      <th className="dist-thead">Active</th>
+                      <th className="dist-thead">Recovered</th>
+                      <th className="dist-thead">Deaths</th>
                     </tr>
                   </thead>
                   <tbody>{districtsTable}</tbody>
