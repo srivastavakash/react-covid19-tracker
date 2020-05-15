@@ -502,45 +502,18 @@ class India extends React.Component {
                   (State Table under Maintenance)
                 </p>
                 <div className="row state-table-container">
-                  <div className=" table-responsive">
-                    <table className="table table-fixed table-hover table-striped table-bordered state-table">
+                  <div className="table-responsive st-tab">
+                    <table
+                      className="table table-fixed table-hover table-striped table-bordered state-table"
+                      id="state-table"
+                    >
                       <thead className="thead-dark state-head">
                         <tr>
-                          <th
-                            scope="col"
-                            className="col-md-3 col-xs-3 "
-                            style={{ fontSize: "90%" }}
-                          >
-                            State / UT
-                          </th>
-                          <th
-                            scope="col"
-                            className="col-md-2 col-xs-2 "
-                            style={{ fontSize: "90%" }}
-                          >
-                            Confirmed
-                          </th>
-                          <th
-                            scope="col"
-                            className="col-2 "
-                            style={{ fontSize: "90%" }}
-                          >
-                            Recovered
-                          </th>
-                          <th
-                            scope="col"
-                            className="col-2 "
-                            style={{ fontSize: "90%" }}
-                          >
-                            Deaths
-                          </th>
-                          <th
-                            scope="col"
-                            className="col-2 "
-                            style={{ fontSize: "90%" }}
-                          >
-                            Active
-                          </th>
+                          <th scope="col">State / UT</th>
+                          <th scope="col">Confirmed</th>
+                          <th scope="col">Recovered</th>
+                          <th scope="col">Deaths</th>
+                          <th scope="col">Active</th>
                         </tr>
                       </thead>
                       <tbody>
