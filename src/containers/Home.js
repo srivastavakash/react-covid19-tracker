@@ -59,7 +59,7 @@ export default class Home extends React.Component {
         countryData: countryWise.map((country, index) => (
           //  console.log("code : ", country.country, " : ", country.countryCode),
           <tr key={index}>
-            <td className="country-name col-xs-4 col-md-4">
+            <td className="country-name">
               {
                 <Flag
                   code={
@@ -112,15 +112,15 @@ export default class Home extends React.Component {
               }
               {country.country}
             </td>
-            <td className="col-xs-3 col-md-3">
+            <td className="col-xs-3 col-md-3  col-lg-3">
               {" "}
               {this.formatNumberCommas(country.totalConfirmed)}
             </td>
-            <td className="col-xs-3 col-md-3">
+            <td className="col-xs-3 col-md-3  col-lg-3">
               {" "}
               {this.formatNumberCommas(country.totalRecovered)}
             </td>
-            <td className="col-xs-2 col-md-2">
+            <td className="col-xs-2 col-md-2  col-lg-3">
               {" "}
               {this.formatNumberCommas(country.totalDeaths)}
             </td>
@@ -399,7 +399,7 @@ export default class Home extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> 
 
               <div className="row">
                 <div className="col-md-12">
@@ -412,10 +412,10 @@ export default class Home extends React.Component {
                     <table className="table table-fixed table-hover table-striped table-bordered country-table">
                       <thead className="thead">
                         <tr>
-                          <th className="col-xs-4 col-md-4">Country</th>
-                          <th className="col-xs-3 col-md-3">Confirmed</th>
-                          <th className="col-xs-3 col-md-3">Recovered</th>
-                          <th className="col-xs-2 col-md-2">Deaths</th>
+                          <th>Country</th>
+                          <th>Confirmed</th>
+                          <th>Recovered</th>
+                          <th>Deaths</th>
                         </tr>
                       </thead>
                       <tbody>
