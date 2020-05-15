@@ -398,6 +398,7 @@ class StatePage extends React.Component {
               <table
                 className="table table-hover table-striped table-bordered country-table state-district-table"
                 id="districtTable"
+                style={{ width: "90%" }}
               >
                 <thead className="thead bg-dark text-light">
                   <tr>
