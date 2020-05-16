@@ -34,7 +34,7 @@ export default class NewsAlert extends React.Component {
 
     //console.log("NewsAlert : ", this.state.news);
 
-    console.log("Global NewsAlertData : ", this.state.news);
+    //console.log("Global NewsAlertData : ", this.state.news);
 
     const newsAlert = this.state.news;
     const IndNewsAlert = this.state.IndNews;
@@ -49,7 +49,6 @@ export default class NewsAlert extends React.Component {
           content={news.content}
           description={news.description}
           timeStamp={news.publishedAt}
-          style={{ marginLeft: "0%" }}
         />
       )),
       indNewsRow: IndNewsAlert.articles.map((news, index) => (
@@ -61,6 +60,7 @@ export default class NewsAlert extends React.Component {
           content={news.content}
           description={news.description}
           timeStamp={news.publishedAt}
+          country="IN"
         />
       ))
     });
@@ -70,12 +70,11 @@ export default class NewsAlert extends React.Component {
     //console.log(this.state);
     return (
       <React.Fragment>
-        <p className="trending-lbl"> Latest Trending Updates </p>
+        <p className="trending-lbl n-lbl"> Latest Trending Updates </p>
         <ul>
           {this.props.country === "IN"
             ? this.state.indNewsRow
             : this.state.newsRow}
-          {/*this.state.indNewsRow*/}
         </ul>
       </React.Fragment>
     );
