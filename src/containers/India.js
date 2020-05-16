@@ -40,7 +40,6 @@ class India extends React.Component {
         });
       });
 
-    //console.log("India.js -> Updated", this.state.updated);
     await axios
       .get("https://api.covid19india.org/v2/state_district_wise.json")
       .then(response => {
@@ -49,20 +48,11 @@ class India extends React.Component {
           districtWise: districts,
           districtsLoaded: true
         });
-        //console.log("DistrictWise Data : ", this.state.districtWise);
-        //var data = this.findStateAndDistricts("Maharashtra");
-        //console.log("data[0] - ", data /*[0].districtData*/);
       });
-
-    /* this.indConfirm = IND.data.confirmed.value;
-    this.indRecovered = IND.data.recovered.value;
-    this.indDeaths = IND.data.deaths.value;*/
 
     this.lastupdate = IND.data.lastUpdate;
     const INDStatesData = this.state.indStateWiseData;
-    console.log("States", this.state.districtWise);
     this.setState({
-      indData: IND.data,
       staterow: INDStatesData.map((state, index) => {
         return (
           <StateRow
@@ -115,7 +105,6 @@ class India extends React.Component {
               dataObj.totalrecovered -
               dataObj.totaldeceased
           );
-          //console.log("data Obj", dataObj);
         }
 
         this.setState({
@@ -193,11 +182,6 @@ class India extends React.Component {
       .catch(err => {
         console.log(err);
       });
-    // console.log("Dates", dates);
-    // console.log("Confirmed", confirmedCases);
-    // console.log("Active", activeCases);
-    // console.log("Recovered", recoveredCases);
-    // console.log("Deaths", deathCases);
   };
   findStateAndDistricts = stateName => {
     var stateData = this.state.districtWise.filter(
@@ -211,14 +195,9 @@ class India extends React.Component {
   }
   render() {
     console.log("India State ", this.state);
+
     var lastupdated = new Date(this.lastupdate);
     var time = new Date().getHours() - lastupdated.getHours();
-    //console.log("NaN ", lastupdated);
-    var currTime = new Date();
-    var upTime = this.state.updated;
-    //console.log("cur ", currTime, "updated ", lastupdated, "uptime ", upTime);
-    // var timeStamp = formatDistance(currTime, lastupdated);
-    // console.log("updated ", timeStamp);
 
     var helplineLinks = Links.Links.map((link, index) => (
       <li key={index} className="help-link-item">
@@ -262,6 +241,7 @@ class India extends React.Component {
                       {+"  " +
                         lastupdated.getHours() +
                         ":" +
+                        (lastupdated.getMinutes() < 10 ? "0" : "") +
                         lastupdated.getMinutes() +
                         "   IST"}
                     </span>
