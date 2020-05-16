@@ -146,15 +146,17 @@ body {
   #state-table td {
     width: 20%;
   }
-  .dist-thead {
+  .dist-data {
     width: 20%;
+    height: 35px;
+    font-size: 12px;
   }
   #districtTable td {
-    width: 18%;
+    width: 20%;
   }
-
-  .dist-thead {
-    border-right: 1px solid rgb(255, 255, 255);
+  .dist-thead th {
+    width: 20%;
+    border: 1px solid rgb(255, 255, 255);
   }
   .flag {
     height: 15px;
@@ -167,16 +169,25 @@ body {
     padding: 10px;
     width: 91.5%;
   }
-  #state-table td {
+  #state-row {
+    height: 35px;
+  }
+  #state-row td {
     width: 25%;
+  }
+  .n-lbl {
+    margin-top: 15px;
+    margin-bottom: 45px;
   }
 
   .news-item {
     height: 170px;
     padding: 5px;
     margin-top: 10px;
-    margin-left: -6%;
-    width: 98%;
+  }
+  .ind-news-item {
+    width: 100%;
+    margin-left: -7%;
   }
   .news-title {
     font-size: 15px;
@@ -298,6 +309,9 @@ body {
   #state-table {
     margin-top: 0px;
   }
+  #state-row td {
+    height: 30px;
+  }
   #state-table thead th {
     width: 20%;
     font-size: 11px;
@@ -305,7 +319,15 @@ body {
   #state-table td {
     width: 20%;
   }
-
+  .state-head th {
+    font-size: 60%;
+  }
+  .dist-data {
+    font-size: 9px;
+  }
+  .ind-news-item {
+    width: 108%;
+  }
   .news-title {
     font-size: 14px;
     margin-bottom: 10%;
@@ -319,9 +341,9 @@ body {
   }
 
   .news-item {
-    height: 120px;
+    height: 122px;
     margin-top: 8px;
-    margin-left: -8%;
+    margin-left: -12%;
     padding: 3px;
   }
   .news-desc {
@@ -594,6 +616,9 @@ ul li {
 .helpline-data {
   margin-top: 8%;
 }
+.ind-helpline {
+  height: 95%;
+}
 .help-links {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -734,6 +759,9 @@ ul li {
   height: 1.25rem;
   background-color: #000;
   color: #fff;
+}
+.t-tip-state:hover {
+  border: none;
 }
 .t-tip-state:hover:after {
   content: "Based on 2019 population projection by NCP";
