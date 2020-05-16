@@ -165,7 +165,8 @@ export default class Home extends React.Component {
     return res;
   }
   render() {
-    var lastUpdateTime = new Date(this.lastupdate);
+    console.log("Home state Ind Data", this.state.indiaData);
+    var lastUpdateTime = new Date(this.state.indiaData.lastupdate);
     var currTime = new Date().getHours();
     var uptime =
       currTime > lastUpdateTime.getHours()
@@ -291,6 +292,7 @@ export default class Home extends React.Component {
                     Last Update About {time} Hour{time > 1 ? "s" : ""} Ago
                     &nbsp;
                     {+"  " +
+                      (lastUpdateTime.getHours() < 10 ? "0" : "") +
                       lastUpdateTime.getHours() +
                       ":" +
                       lastUpdateTime.getMinutes() +
@@ -399,7 +401,7 @@ export default class Home extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>
 
               <div className="row">
                 <div className="col-md-12">
@@ -409,7 +411,10 @@ export default class Home extends React.Component {
                     <br />
                   </h4>
                   <div className="table-responsive">
-                    <table className="table table-fixed table-hover table-striped table-bordered country-table" id="country-table">
+                    <table
+                      className="table table-fixed table-hover table-striped table-bordered country-table"
+                      id="country-table"
+                    >
                       <thead className="thead">
                         <tr>
                           <th>Country</th>
