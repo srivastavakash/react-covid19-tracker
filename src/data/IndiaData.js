@@ -3,18 +3,18 @@ import axios from "axios";
 export default class IndiaData {
   static getIndiaData(cb) {
     axios
-      .get("https://covid19.mathdro.id/api/countries/IND")
+      .get(
+        "https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise"
+      )
       .then(response => {
-        //cb(response.data);
         cb(
           (IndiaData = {
-            confirmed: response.data.confirmed.value,
-            recovered: response.data.recovered.value,
-            deaths: response.data.deaths.value,
-            lastupate: response.data.lastUpdate
+            confirmed: response.data.data.total.confirmed,
+            recovered: response.data.data.total.recovered,
+            deaths: response.data.data.total.deaths,
+            lastupdate: response.data.data.lastRefreshed
           })
         );
-        //console.log(response.data.lastUpdate);
       })
       .catch(error => {
         throw error;
