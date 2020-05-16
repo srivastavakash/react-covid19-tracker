@@ -198,6 +198,11 @@ class India extends React.Component {
 
     var lastupdated = new Date(this.lastupdate);
     var time = new Date().getHours() - lastupdated.getHours();
+    console.log(
+      lastupdated,
+      lastupdated.getHours() < 10,
+      lastupdated.getMinutes() < 10
+    );
 
     var helplineLinks = Links.Links.map((link, index) => (
       <li key={index} className="help-link-item">
@@ -238,12 +243,13 @@ class India extends React.Component {
                     <span className="updateLabel">
                       Last Update About {time} Hour{time > 1 ? "s" : ""} Ago
                       &nbsp;
-                      {+"  " +
+                      {/*+"  " +
+                        (lastupdated.getHours() < 10 ? "" : "") +
                         lastupdated.getHours() +
                         ":" +
                         (lastupdated.getMinutes() < 10 ? "0" : "") +
                         lastupdated.getMinutes() +
-                        "   IST"}
+                        "   IST" */}
                     </span>
                   ) : (
                     <span className="updateLabel">Last Update not Found</span>
@@ -719,7 +725,7 @@ class India extends React.Component {
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="news-section">
+                <div className="ml-2 news-section">
                   {" "}
                   <NewsAlert country="IN" />
                 </div>
