@@ -11,9 +11,9 @@ export default function NewsItem(props) {
   var timeStamp = formatDistance(currDate, updateTime);
   //console.log("minutes ", timeStamp);
   // console.log("News ITEM ", props);
-
+  var classes = props.country === "IN" ? "ind-news-item" : "";
   return (
-    <li className="news-item card" style={props.style}>
+    <li className={classes + " news-item card"}>
       <div className="row">
         <div className="col-lg-3 col-md-3 col-sm-3 col-xs-4">
           <a href={props.url} target="_blank" rel="noopener noreferrer">
