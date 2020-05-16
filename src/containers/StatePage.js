@@ -123,7 +123,9 @@ class StatePage extends React.Component {
     console.log("found ", found);
     console.log(" State : ", this.state);
     var sPopln =
-      this.state.currentState[0] && this.state.currentState[0].population;
+      this.props.match.params.sName === "Madhya Pradesh"
+        ? 82232000
+        : this.state.currentState[0] && this.state.currentState[0].population;
     var districtsTable =
       this.state.currentState[0] &&
       this.state.currentState[0].districtData.map((district, index) => (
@@ -184,14 +186,22 @@ class StatePage extends React.Component {
     var topDistricts = this.state.topDistricts.map((district, index) => {
       return (
         <ul key={index}>
-          <li className="top-dist">
-            <h5>{district.district}</h5> &nbsp; &nbsp;
-            <p className="text-danger text-sm">
-              {"+" + district.delta.confirmed + " "}
-            </p>
-            <h4 className="text-primary font-weight-bold">
-              {this.numberFormatter(district.confirmed)}
-            </h4>
+          <li className="top-dist row">
+            <div className="col-md-4 col-sm-4 col-xs-4">
+              <h5>{district.district}</h5> &nbsp; &nbsp;
+            </div>
+            <div className="col-md-3 col-sm-3 col-xs-3">
+              <p className="text-danger text-sm">
+                {district.delta.confirmed > 0
+                  ? "+" + district.delta.confirmed + " "
+                  : ""}
+              </p>
+            </div>
+            <div className="col-md-5 col-sm-5 col-xs-5">
+              <h4 className="text-primary text-center font-weight-bold">
+                {this.numberFormatter(district.confirmed)}
+              </h4>
+            </div>
           </li>
         </ul>
       );
@@ -293,10 +303,13 @@ class StatePage extends React.Component {
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
-                              (
-                                this.state.stateData.confirmed /
-                                (this.state.currentState[0].population /
-                                  1000000)
+                              (this.props.match.params.sName ===
+                              "Madhya Pradesh"
+                                ? this.state.stateData.confirmed /
+                                  (82232000 / 1000000)
+                                : this.state.stateData.confirmed /
+                                  (this.state.currentState[0].population /
+                                    1000000)
                               ).toFixed(2)
                             ) : (
                               <i
