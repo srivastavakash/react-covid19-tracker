@@ -35,7 +35,10 @@ class India extends React.Component {
           confirmed: response.data.data.total.confirmed,
           recovered: response.data.data.total.recovered,
           deaths: response.data.data.total.deaths,
-          updated: response.data.data.lastRefreshed,
+          updated: formatDistance(
+            new Date(),
+            new Date(response.data.data.lastRefreshed)
+          ),
           isLoaded: true
         });
       });
@@ -196,14 +199,6 @@ class India extends React.Component {
   render() {
     console.log("India State ", this.state);
 
-    var lastupdated = new Date(this.lastupdate);
-    var time = new Date().getHours() - lastupdated.getHours();
-    console.log(
-      lastupdated,
-      lastupdated.getHours() < 10,
-      lastupdated.getMinutes() < 10
-    );
-
     var helplineLinks = Links.Links.map((link, index) => (
       <li key={index} className="help-link-item">
         {link.Title === "State Wise Health Capacity" ? (
@@ -229,20 +224,25 @@ class India extends React.Component {
                   className="panel-heading ind-pnl-head ind-pnl-1"
                   style={{ backgroundColor: "#133e4a", color: "#fff" }}
                 >
-                  {" "}
-                  <Flag
-                    code={"IN"}
-                    style={{
-                      height: "20px",
-                      width: "20px",
-                      marginRight: "10px"
-                    }}
-                  />
-                  India Overview
-                  {this.isNaN(time) ? (
-                    <span className="updateLabel">
-                      Last Update About {time} Hour{time > 1 ? "s" : ""} Ago
-                      &nbsp;
+                  <div className="row">
+                    {" "}
+                    <div className="col-md-6">
+                      <Flag
+                        code={"IN"}
+                        style={{
+                          height: "25px",
+                          width: "20px",
+                          marginRight: "10px"
+                        }}
+                      />
+                      India Overview
+                    </div>
+                    <div className="col-md-6">
+                      {this.state.updated ? (
+                        <p>Updated {this.state.updated} ago</p>
+                      ) : (
+                        ""
+                      )}
                       {/*+"  " +
                         (lastupdated.getHours() < 10 ? "" : "") +
                         lastupdated.getHours() +
@@ -250,10 +250,8 @@ class India extends React.Component {
                         (lastupdated.getMinutes() < 10 ? "0" : "") +
                         lastupdated.getMinutes() +
                         "   IST" */}
-                    </span>
-                  ) : (
-                    <span className="updateLabel">Last Update not Found</span>
-                  )}
+                    </div>
+                  </div>
                 </div>
                 <div className="panel-body text-info">
                   <div className="status-map">
