@@ -1,4 +1,5 @@
 import axios from "axios";
+import { formatDistance } from "date-fns";
 
 export default class IndiaData {
   static getIndiaData(cb) {
@@ -12,7 +13,11 @@ export default class IndiaData {
             confirmed: response.data.data.total.confirmed,
             recovered: response.data.data.total.recovered,
             deaths: response.data.data.total.deaths,
-            lastupdate: response.data.data.lastRefreshed
+            lastupdate: formatDistance(
+              new Date(),
+              new Date(response.data.data.lastRefreshed)
+            ),
+            updatetime: response.data.data.lastRefreshed
           })
         );
       })
