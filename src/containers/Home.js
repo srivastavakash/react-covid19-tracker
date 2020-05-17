@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { formatDistance } from "date-fns";
 import { Route, NavLink } from "react-router-dom";
 import ScrollToTop from "../ScrollToTop";
 import Flag from "react-world-flags";
@@ -166,8 +167,14 @@ export default class Home extends React.Component {
   }
   render() {
     console.log("Home state Ind Data", this.state.indiaData);
+    console.log("last updated " + this.state.indiaData.lastupdate + " ago");
     var lastUpdateTime = new Date(this.state.indiaData.lastupdate);
     var currTime = new Date().getHours();
+    var curr = new Date();
+    //var timeStamp = formatDistance(curr, lastUpdateTime);
+    console.log("curtime", curr);
+    console.log("updated", lastUpdateTime);
+    //console.log("home TimeStamp", timeStamp);
     var uptime =
       currTime > lastUpdateTime.getHours()
         ? currTime - lastUpdateTime.getHours()
@@ -289,14 +296,16 @@ export default class Home extends React.Component {
                     animatedFadeInUp
                     fadeInUp"
                   >
-                    Last Update About {time} Hour{time > 1 ? "s" : ""} Ago
-                    &nbsp;
-                    {+"  " +
+                    {this.state.indiaData.lastupdate
+                      ? "Updated " + this.state.indiaData.lastupdate + " ago"
+                      : ""}
+                    {/*+"  " + lastUpdateTime !== "Invalid  Date" &&
                       (lastUpdateTime.getHours() < 10 ? "0" : "") +
-                      lastUpdateTime.getHours() +
-                      ":" +
-                      lastUpdateTime.getMinutes() +
-                      "   IST"}
+                        lastUpdateTime.getHours() +
+                        ":" +
+                        (lastUpdateTime.getHours() < 10 ? "0" : "") +
+                        lastUpdateTime.getMinutes() +
+                  "   IST"*/}
                   </span>
                   <div className="panel ind-panel animated animatedFadeInUp fadeInUp">
                     <div
