@@ -333,6 +333,9 @@ body {
   .dist-data {
     font-size: 9px;
   }
+  .st-dist-name{
+   font-size:75%; 
+  }
   .ind-news-item {
     width: 108%;
   }
