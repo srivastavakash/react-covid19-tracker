@@ -409,7 +409,7 @@ class StatePage extends React.Component {
             <div className="col-md-6">
               StatePage under construction
               <table
-                className="table table-fixed table-hover table-striped table-bordered country-table state-district-table"
+                className="table table-hover table-striped table-bordered country-table state-district-table"
                 id="districtTable"
                 style={{ width: "90%" }}
               >
