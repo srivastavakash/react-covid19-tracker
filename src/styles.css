@@ -373,7 +373,7 @@ body {
   }
   #districtTable tr td {
     height: 35px;
-  }  
+  }
   .dist-name {
     font-size: 10px;
   }
@@ -784,8 +784,6 @@ ul li {
 .st-name:hover {
   text-decoration: underline;
   cursor: pointer;
-  transition: text-decoration 1.5s;
-  border: 1.5px solid #fff;
 }
 
 .st-name * {
