@@ -66,7 +66,7 @@ export default class StateRow extends React.Component {
       districts.map((district, index) => (
         <tr key={index}>
           <td
-            style={{ textAlign: "left", color: "#000" }}
+            style={{ textAlign: "left", color: "#000", fontSize: "10px" }}
             className="dist-data dist-name"
           >
             {district.district === "Unknown" ? (
