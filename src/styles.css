@@ -373,6 +373,9 @@ body {
   }
   #districtTable tr td {
     height: 35px;
+  }  
+  .dist-name {
+    font-size: 10px;
   }
   .country-name {
     font-size: 80%;
