@@ -132,7 +132,7 @@ class StatePage extends React.Component {
         <tr key={index}>
           <td
             className="col-xs-3 col-md-3"
-            style={{ textAlign: "left", fontSize: "90%", color: "#000" }}
+            style={{ textAlign: "left", color: "#000" }}
           >
             {district.district === "Unknown" ? (
               <div>
