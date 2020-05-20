@@ -66,8 +66,8 @@ export default class StateRow extends React.Component {
       districts.map((district, index) => (
         <tr key={index}>
           <td
-            className="col-xs-3 col-md-3"
-            style={{ textAlign: "left", fontSize: "90%", color: "#000" }}
+            style={{ textAlign: "left", color: "#000" }}
+            className="dist-data dist-name"
           >
             {district.district === "Unknown" ? (
               <div>
@@ -81,7 +81,7 @@ export default class StateRow extends React.Component {
               district.district
             )}
           </td>
-          <td style={{ fontSize: "9px" }}>
+          <td className="dist-data">
             <span class="text-danger" style={{ fontSize: "9px" }}>
               {district.delta.confirmed > 0
                 ? "+" + district.delta.confirmed
@@ -90,10 +90,10 @@ export default class StateRow extends React.Component {
             &nbsp;
             {this.formatNumberCommas(district.confirmed)}{" "}
           </td>
-          <td style={{ fontSize: "9px", textAlign: "right" }}>
+          <td style={{ textAlign: "right" }} className="dist-data">
             {this.formatNumberCommas(district.active)}{" "}
           </td>
-          <td style={{ fontSize: "9px" }}>
+          <td className="dist-data">
             <span class="text-success" style={{ fontSize: "9px" }}>
               {district.delta.recovered > 0
                 ? "+" + district.delta.recovered
@@ -102,7 +102,7 @@ export default class StateRow extends React.Component {
             &nbsp;
             {this.formatNumberCommas(district.recovered)}{" "}
           </td>
-          <td style={{ fontSize: "9px", textAlign: "center" }}>
+          <td style={{ textAlign: "center" }} className="dist-data">
             {" "}
             <span class="text-danger" style={{ fontSize: "8px" }}>
               {district.delta.deceased > 0 ? "+" + district.delta.deceased : ""}
@@ -116,11 +116,8 @@ export default class StateRow extends React.Component {
 
     return (
       <>
-        <tr onClick={this.handleShowDistricts}>
-          <td
-            className="col-xs-3 col-md-3 country-name st-name"
-            style={{ fontSize: "90%" }}
-          >
+        <tr onClick={this.handleShowDistricts} id="state-row">
+          <td className="col-xs-3 col-md-3 country-name st-name">
             <i className="fa fa-sort-down" />
             <p>{"   " + this.props.stateName}</p>
           </td>
@@ -168,12 +165,12 @@ export default class StateRow extends React.Component {
                   id="districtTable"
                 >
                   <thead className="thead bg-dark text-light">
-                    <tr>
-                      <th className="dist-thead"> District</th>
-                      <th className="dist-thead">Confirmed</th>
-                      <th className="dist-thead">Active</th>
-                      <th className="dist-thead">Recovered</th>
-                      <th className="dist-thead">Deaths</th>
+                    <tr className="dist-thead">
+                      <th> District</th>
+                      <th>Confirmed</th>
+                      <th>Active</th>
+                      <th>Recovered</th>
+                      <th>Deaths</th>
                     </tr>
                   </thead>
                   <tbody>{districtsTable}</tbody>
