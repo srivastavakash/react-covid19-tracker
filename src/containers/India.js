@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Route, NavLink } from "react-router-dom";
 import { formatDistance } from "date-fns";
-import { Line, Bar } from "react-chartjs-2";
+import { Line, Bar, defaults } from "react-chartjs-2";
 import Flag from "react-world-flags";
 import NewsAlert from "../containers/NewsAlert";
 import StateRow from "../components/StateRow";
@@ -14,13 +14,22 @@ class India extends React.Component {
   state = {
     indStateWiseData: {},
     NewsData: [],
-    dailyData: []
+    dailyData: [],
+    chartType: "total",
+    style: {
+      border: "2px solid rgb(218, 49, 49)",
+      fontWeight: "bold",
+      height: "37px"
+    }
   };
 
   componentDidMount() {
     this.getData();
     this.getCaseschart();
   }
+  handleChartType = type => {
+    this.setState({ chartType: type });
+  };
 
   async getData() {
     const IND = await axios.get("https://covid19.mathdro.id/api/countries/IND");
@@ -30,6 +39,7 @@ class India extends React.Component {
         "https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise"
       )
       .then(response => {
+        //console.log("statewise",response)
         this.setState({
           indStateWiseData: response.data.data.statewise,
           confirmed: response.data.data.total.confirmed,
@@ -92,6 +102,10 @@ class India extends React.Component {
     let activeCases = [];
     let recoveredCases = [];
     let deathCases = [];
+    let dailyconfirmed = [];
+    let dailyrecovered = [];
+    let dailydeceased = [];
+    let dailyactive = [];
     axios
       .get("https://api.covid19india.org/data.json")
       .then(res => {
@@ -108,7 +122,19 @@ class India extends React.Component {
               dataObj.totalrecovered -
               dataObj.totaldeceased
           );
+          dailyconfirmed.push(dataObj.dailyconfirmed);
+          dailyactive.push(
+            dataObj.dailyconfirmed -
+              dataObj.dailyrecovered -
+              dataObj.dailydeceased
+          );
+          dailyrecovered.push(dataObj.dailyrecovered);
+          dailydeceased.push(dataObj.dailydeceased);
         }
+
+        let chartData =
+          this.state.chartType === "daily" ? dailyconfirmed : confirmedCases;
+        console.log("chart data", chartData);
 
         this.setState({
           dailyData: results[results.length - 1],
@@ -118,6 +144,23 @@ class India extends React.Component {
               {
                 label: "Total Confirmed",
                 data: confirmedCases,
+                fontSize: 10,
+                fontColor: "#0275d8",
+                backgroundColor: "#b4dbfd",
+                pointBackgroundColor: "#0275d8",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#0275d8",
+                borderWidth: 1
+              }
+            ]
+          },
+          dailyconfirmedChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Daily Confirmed",
+                data: dailyconfirmed,
                 fontSize: 10,
                 fontColor: "#0275d8",
                 backgroundColor: "#b4dbfd",
@@ -146,12 +189,46 @@ class India extends React.Component {
               }
             ]
           },
+          dailyActiveChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Daily Active",
+                data: dailyactive,
+                fontSize: 10,
+                fontColor: "#d9534f",
+                backgroundColor: "#ffe680",
+                pointBackgroundColor: "#e6b800",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#e6b800",
+                borderWidth: 1
+              }
+            ]
+          },
           recoveredChartData: {
             labels: dates,
             datasets: [
               {
                 label: "Total Recovered",
                 data: recoveredCases,
+                fontSize: 10,
+                fontColor: "#d9534f",
+                backgroundColor: "#a6d8a6",
+                pointBackgroundColor: "#5cb85c",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#5cb85c",
+                borderWidth: 1
+              }
+            ]
+          },
+          dailyRecoveredChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Daily Recovered",
+                data: dailyrecovered,
                 fontSize: 10,
                 fontColor: "#d9534f",
                 backgroundColor: "#a6d8a6",
@@ -179,6 +256,23 @@ class India extends React.Component {
                 borderWidth: 1
               }
             ]
+          },
+          dailyDeathChartData: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Daily Deaths",
+                data: dailydeceased,
+                fontSize: 10,
+                fontColor: "#d9534f",
+                backgroundColor: "#ffb3b3",
+                pointBackgroundColor: "#d9534f",
+                pointRadius: 2.5,
+                pointHoverRadius: 2,
+                borderColor: "#d9534f",
+                borderWidth: 1
+              }
+            ]
           }
         });
       })
@@ -186,6 +280,7 @@ class India extends React.Component {
         console.log(err);
       });
   };
+
   findStateAndDistricts = stateName => {
     var stateData = this.state.districtWise.filter(
       state => state.state === stateName
@@ -521,205 +616,456 @@ class India extends React.Component {
                     </table>
                   </div>
                 </div>
-                <div className="confirmed-map map">
-                  <Line
-                    data={this.state.confirmedChartData}
-                    options={{
-                      responsive: true,
-                      title: {
-                        text: "Confirmed Cases",
-                        display: true,
-                        fontColor: "#0275d8",
-                        fontSize: 15
-                      },
-                      legend: {
-                        position: "right",
-                        display: false,
-                        labels: { fontColor: "#000" }
-                      },
-                      scales: {
-                        yAxes: [
-                          {
-                            position: "right",
-                            ticks: {
-                              fontColor: "#0275d8",
-                              beginAtZero: true,
-                              callback: function(label) {
-                                if (label < 1e3) return label;
-                                if (label >= 1e3)
-                                  return +(label / 1e3).toFixed(1) + "k";
-                              }
-                            },
-                            gridLines: { display: true, color: "#b4dbfd" }
-                          }
-                        ],
-                        xAxes: [
-                          {
-                            barPercentage: 0.2,
-                            categoryPercentage: 1.5,
-                            ticks: {
-                              autoSkip: true,
-                              maxRotation: 0,
-                              minRotation: 0,
-                              fontSize: 10,
-                              maxTicksLimit: 10
-                            },
-                            gridLines: { display: false }
-                          }
-                        ]
-                      }
+                <div className="container text-center switch-chart-type">
+                  <p
+                    className="alert-danger"
+                    onClick={() => {
+                      this.handleChartType("total");
                     }}
-                  />
+                    style={
+                      this.state.chartType === "total"
+                        ? this.state.style
+                        : { marginBottom: "10px" }
+                    }
+                  >
+                    <i
+                      className="fa fa-dot-circle-o"
+                      style={{ fontSize: "15px", color: "red" }}
+                    />
+                    Total Cases
+                  </p>
+                  <p
+                    className="alert-danger"
+                    onClick={() => this.handleChartType("daily")}
+                    style={
+                      this.state.chartType === "daily" ? this.state.style : null
+                    }
+                  >
+                    <i
+                      className="fa fa-dot-circle-o"
+                      style={{ fontSize: "15px", color: "red" }}
+                    />
+                    Daily Cases
+                  </p>
+                </div>
+                <div className="confirmed-map map">
+                  {this.state.chartType === "total" ? (
+                    <Line
+                      data={this.state.confirmedChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Confirmed Cases",
+                          display: true,
+                          fontColor: "#0275d8",
+                          fontSize: 15
+                        },
+                        legend: {
+                          position: "right",
+                          display: false,
+                          labels: { fontColor: "#000" }
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#0275d8",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#b4dbfd" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 0.2,
+                              categoryPercentage: 1.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 8
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Bar
+                      data={this.state.dailyconfirmedChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Daily Confirmed",
+                          display: true,
+                          fontColor: "#0275d8",
+                          fontSize: 15
+                        },
+                        legend: {
+                          position: "right",
+                          display: false,
+                          labels: { fontColor: "#000" }
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#0275d8",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#b4dbfd" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 1.5,
+                              categoryPercentage: 0.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 8
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="active-map map">
-                  <Line
-                    data={this.state.activeChartData}
-                    options={{
-                      responsive: true,
-                      title: {
-                        text: "Active Cases",
-                        display: true,
-                        fontColor: "#e6b800",
-                        fontSize: 15
-                      },
-                      legend: {
-                        position: "right",
-                        display: false,
-                        labels: { fontColor: "#000" }
-                      },
-                      scales: {
-                        yAxes: [
-                          {
-                            position: "right",
-                            ticks: {
-                              fontColor: "#e6b800",
-                              beginAtZero: true,
-                              callback: function(label) {
-                                if (label < 1e3) return label;
-                                if (label >= 1e3)
-                                  return +(label / 1e3).toFixed(1) + "k";
-                              }
-                            },
-                            gridLines: { display: true, color: "#ffe680" }
+                  {this.state.chartType === "total" ? (
+                    <Line
+                      data={this.state.activeChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Active Cases",
+                          display: true,
+                          fontColor: "#e6b800",
+                          fontSize: 15
+                        },
+                        legend: {
+                          position: "right",
+                          display: false,
+                          labels: { fontColor: "#000" }
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#e6b800",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#ffe680" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 0.2,
+                              categoryPercentage: 1.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 8
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Bar
+                      data={this.state.dailyActiveChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Daily Active",
+                          display: true,
+                          fontColor: "#e6b800",
+                          fontSize: 15
+                        },
+                        tooltips: {
+                          mode: "index"
+                        },
+                        legend: {
+                          position: "left",
+                          display: false,
+                          reverse: true,
+                          labels: {
+                            usePointStyle: true, // Required to change pointstyle to 'rectRounded' from 'circle'
+                            generateLabels: chart => {
+                              const labels = defaults.global.legend.labels.generateLabels(
+                                chart
+                              );
+                              labels.forEach(label => {
+                                label.pointStyle = "rectRounded";
+                              });
+                              return labels;
+                            }
                           }
-                        ],
-                        xAxes: [
-                          {
-                            barPercentage: 0.2,
-                            categoryPercentage: 1.5,
-                            ticks: {
-                              autoSkip: true,
-                              maxRotation: 0,
-                              minRotation: 0,
-                              fontSize: 10,
-                              maxTicksLimit: 10
-                            },
-                            gridLines: { display: false }
-                          }
-                        ]
-                      }
-                    }}
-                  />
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#e6b800",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#ffe680" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 2,
+                              categoryPercentage: 0.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 8
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="recovered-map map">
-                  <Line
-                    data={this.state.recoveredChartData}
-                    options={{
-                      responsive: true,
-                      title: {
-                        text: "Recovered",
-                        display: true,
-                        fontColor: "#008000",
-                        fontSize: 15
-                      },
-                      legend: {
-                        position: "right",
-                        display: false,
-                        labels: { fontColor: "#000" }
-                      },
-                      scales: {
-                        yAxes: [
-                          {
-                            position: "right",
-                            ticks: {
-                              fontColor: "#008000",
-                              beginAtZero: true,
-                              callback: function(label) {
-                                if (label < 1e3) return label;
-                                if (label >= 1e3)
-                                  return +(label / 1e3).toFixed(1) + "k";
-                              }
-                            },
-                            gridLines: { display: true, color: "#a6d8a6" }
-                          }
-                        ],
-                        xAxes: [
-                          {
-                            barPercentage: 0.2,
-                            categoryPercentage: 1.5,
-                            ticks: {
-                              autoSkip: true,
-                              maxRotation: 0,
-                              minRotation: 0,
-                              fontSize: 10,
-                              maxTicksLimit: 10
-                            },
-                            gridLines: { display: false }
-                          }
-                        ]
-                      }
-                    }}
-                  />
+                  {this.state.chartType === "total" ? (
+                    <Line
+                      data={this.state.recoveredChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Recovered",
+                          display: true,
+                          fontColor: "#008000",
+                          fontSize: 15
+                        },
+                        legend: {
+                          position: "right",
+                          display: false,
+                          labels: { fontColor: "#000" }
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#008000",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#a6d8a6" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 0.2,
+                              categoryPercentage: 1.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 8
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Bar
+                      data={this.state.dailyRecoveredChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Daily Recovered",
+                          display: true,
+                          fontColor: "#008000",
+                          fontSize: 15
+                        },
+                        legend: {
+                          position: "right",
+                          display: false,
+                          labels: { fontColor: "#000" }
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#008000",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#a6d8a6" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 2,
+                              categoryPercentage: 0.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 8
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="death-map map">
-                  <Line
-                    data={this.state.deathChartData}
-                    options={{
-                      responsive: true,
-                      title: {
-                        text: "Deaths",
-                        display: true,
-                        fontColor: "#d9534f",
-                        fontSize: 15
-                      },
-                      legend: {
-                        position: "right",
-                        display: false,
-                        labels: { fontColor: "#000" }
-                      },
-                      scales: {
-                        yAxes: [
-                          {
-                            position: "right",
-                            ticks: {
-                              fontColor: "#d9534f",
-                              beginAtZero: true,
-                              callback: function(label) {
-                                if (label < 1e3) return label;
-                                if (label >= 1e3)
-                                  return +(label / 1e3).toFixed(1) + "k";
-                              }
-                            },
-                            gridLines: { display: true, color: "#ffcccc" }
-                          }
-                        ],
-                        xAxes: [
-                          {
-                            barPercentage: 0.2,
-                            categoryPercentage: 1.5,
-                            ticks: {
-                              autoSkip: true,
-                              maxRotation: 0,
-                              minRotation: 0,
-                              fontSize: 10,
-                              maxTicksLimit: 10
-                            },
-                            gridLines: { display: false }
-                          }
-                        ]
-                      }
-                    }}
-                  />
+                  {this.state.chartType === "total" ? (
+                    <Line
+                      data={this.state.deathChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Deaths",
+                          display: true,
+                          fontColor: "#d9534f",
+                          fontSize: 15
+                        },
+                        legend: {
+                          position: "right",
+                          display: false,
+                          labels: { fontColor: "#000" }
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#d9534f",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#ffcccc" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 0.2,
+                              categoryPercentage: 1.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 8
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Bar
+                      data={this.state.dailyDeathChartData}
+                      options={{
+                        responsive: true,
+                        title: {
+                          text: "Daily Deaths",
+                          display: true,
+                          fontColor: "#d9534f",
+                          fontSize: 15
+                        },
+                        legend: {
+                          position: "right",
+                          display: false,
+                          labels: { fontColor: "#000" }
+                        },
+                        scales: {
+                          yAxes: [
+                            {
+                              position: "right",
+                              ticks: {
+                                fontColor: "#d9534f",
+                                beginAtZero: true,
+                                callback: function(label) {
+                                  if (label < 1e3) return label;
+                                  if (label >= 1e3)
+                                    return +(label / 1e3).toFixed(1) + "k";
+                                }
+                              },
+                              gridLines: { display: true, color: "#ffcccc" }
+                            }
+                          ],
+                          xAxes: [
+                            {
+                              barPercentage: 2,
+                              categoryPercentage: 0.5,
+                              ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                fontSize: 10,
+                                maxTicksLimit: 10
+                              },
+                              gridLines: { display: false }
+                            }
+                          ]
+                        }
+                      }}
+                    />
+                  )}
                 </div>
               </div>
               <div className="col-md-6">
