@@ -224,6 +224,14 @@ body {
     width: 450px;
     margin: 10% 10% 10% 16%;
   }
+  .switch-chart-type {
+    margin-top: 10px;
+    margin-left: -35%;
+    margin-bottom: -30px;
+  }
+  .alert-danger {
+    margin-right: 7%;
+  }
 
   .footer-row {
     height: 200px;
@@ -906,4 +914,21 @@ iframe {
   font-size: 20%;
   text-align: center;
 }
-/*Hide Scollbar for table*/
+
+
+.switch-chart-type * {
+  display: inline-block;
+}
+.alert-danger {
+  margin-left: 8%;
+  padding: 5px;
+  height: 37px;
+  width: 120px;
+
+  border-radius: 5px;
+}
+.alert-danger:hover {
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid rgb(218, 49, 49);
+}
