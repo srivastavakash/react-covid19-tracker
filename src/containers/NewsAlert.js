@@ -14,7 +14,7 @@ export default class NewsAlert extends React.Component {
   async getNewsFeed() {
     await axios
       .get(
-        "https://newsapi.org/v2/top-headlines?sources=google-news-in&apiKey=bd3e40a8efdf437da8ddaabd6c744e29"
+        "https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?sources=google-news-in&apiKey=bd3e40a8efdf437da8ddaabd6c744e29"
       )
       .then(response => {
         //console.log("India News ", response);
