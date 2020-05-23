@@ -346,7 +346,7 @@ export default class Home extends React.Component {
                     </div>
                     <div className="panel-body text-info">
                       {this.state.confirmed > 0 ? (
-                        <div>
+                        <div> 
                           <p className="data">
                             {this.formatNumberCommas(this.state.confirmed)}
                           </p>
