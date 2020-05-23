@@ -316,8 +316,8 @@ class India extends React.Component {
             <div className="col-md-6">
               <div className="mt-1 panel ind-panel">
                 <div
-                  className="panel-heading ind-pnl-head ind-pnl-1"
-                  style={{ backgroundColor: "#133e4a", color: "#fff" }}
+                  className="panel-heading  ind-pnl-1"
+                  style={{ backgroundColor: "#d3d8de" }}
                 >
                   <div className="row">
                     {" "}
@@ -330,7 +330,8 @@ class India extends React.Component {
                           marginRight: "10px"
                         }}
                       />
-                      India Overview
+                      <span style={{ fontSize: "120%" }}>COVID-19 cases</span>{" "}
+                      in India
                     </div>
                     <div className="col-md-6">
                       {this.state.updated ? (
@@ -338,13 +339,6 @@ class India extends React.Component {
                       ) : (
                         ""
                       )}
-                      {/*+"  " +
-                        (lastupdated.getHours() < 10 ? "" : "") +
-                        lastupdated.getHours() +
-                        ":" +
-                        (lastupdated.getMinutes() < 10 ? "0" : "") +
-                        lastupdated.getMinutes() +
-                        "   IST" */}
                     </div>
                   </div>
                 </div>
@@ -548,8 +542,8 @@ class India extends React.Component {
             <div className="col-md-6">
               <div className="mt-1 panel ind-panel ind-helpline">
                 <div
-                  className="panel-heading"
-                  style={{ backgroundColor: "#133e4a", color: "#fff" }}
+                  className="panel-heading help-head"
+                  style={{ backgroundColor: "#d3d8de"}}
                 >
                   {" "}
                   <Flag
@@ -560,10 +554,9 @@ class India extends React.Component {
                       marginRight: "10px"
                     }}
                   />
-                  INDIA HELPLINE
+                  COVID-19 helpline numbers India
                 </div>
                 <div className="panel-body ind-pnl-body text-info">
-                  <br />
                   <br />
                   <marquee behavior="alternate">
                     <ul className="help-links">{helplineLinks}</ul>
