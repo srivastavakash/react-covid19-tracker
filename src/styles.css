@@ -122,6 +122,9 @@ body {
   .ind-pnl-1 {
     height: 35px;
   }
+  .global-data {
+    height: 170px;
+  }
   .g-pnl {
     margin-top: 10px;
     height: 125px;
