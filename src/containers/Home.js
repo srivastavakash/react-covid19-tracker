@@ -395,7 +395,7 @@ export default class Home extends React.Component {
                             {this.formatNumberCommas(this.state.deaths)}
                           </p>
                           <kbd
-                            className="btn-outline-danger"
+                            className="bg-danger"
                             style={{ fontWeight: "bold" }}
                           >
                             + {this.formatNumber(this.state.globalnewDeaths)}{" "}
