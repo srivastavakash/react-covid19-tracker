@@ -367,7 +367,7 @@ export default class Home extends React.Component {
                   </div>
                 </div>
                 <div className="col-md-3">
-                  <div className="panel panel-success g-pn">
+                  <div className="panel panel-success g-pn g-rec">
                     <div className="panel-heading">Recovered</div>
                     <div className="panel-body text-success">
                       {this.state.confirmed > 0 ? (
