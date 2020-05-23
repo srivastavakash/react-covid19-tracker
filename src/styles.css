@@ -119,6 +119,12 @@ body {
     margin-top: 20px;
     font-weight: bold;
   }
+  .g-pnl {
+    margin-top: 10px;
+  }
+  .g-pn {
+    margin-top: 8px;
+  }
   .ind-helpline {
     width: 97%;
   }
@@ -150,6 +156,9 @@ body {
     width: 20%;
     height: 35px;
     font-size: 12px;
+  }
+  #districtTable thead tr {
+    width: 85%;
   }
   #districtTable td {
     width: 20%;
@@ -293,7 +302,7 @@ body {
     margin-top: 20%;
   }
   .ind-pnl-head {
-    height: 60px;
+    height: 40px;
   }
 
   .ind-up-lbl {
@@ -319,6 +328,14 @@ body {
   .updateLabel {
     float: right;
   }
+  .g-pnl {
+    margin-top: -2px;
+    margin-left: -6%;
+    width: 112%;
+  }
+  .g-pn {
+    margin-top: -10px;
+  }
   #country-table th {
     width: 25%;
   }
@@ -340,9 +357,6 @@ body {
   }
   .dist-data {
     font-size: 9px;
-  }
-  .st-dist-name{
-   font-size:75%; 
   }
   .ind-news-item {
     width: 108%;
@@ -500,7 +514,7 @@ nav {
   color: red;
 }
 .ind-panel {
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 .ind-panel-1 {
@@ -915,7 +929,6 @@ iframe {
   text-align: center;
 }
 
-
 .switch-chart-type * {
   display: inline-block;
 }
@@ -931,4 +944,10 @@ iframe {
   font-weight: bold;
   cursor: pointer;
   border: 2px solid rgb(218, 49, 49);
+}
+
+.global-data {
+  border: 1px solid #ccc;
+  margin-left: 1%;
+  margin-right: 1%;
 }
