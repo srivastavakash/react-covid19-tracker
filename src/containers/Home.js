@@ -166,7 +166,7 @@ export default class Home extends React.Component {
     return res;
   }
   render() {
-    console.log("Home state Ind Data", this.state.indiaData);
+    console.log("Home state", this.state);
     console.log("last updated " + this.state.indiaData.lastupdate + " ago");
     var lastUpdateTime = new Date(this.state.indiaData.lastupdate);
     var currTime = new Date().getHours();
@@ -189,101 +189,6 @@ export default class Home extends React.Component {
         <div className="container-fluid home-component">
           <div className="row main">
             <div className="col-md-6">
-              <div className="row global-data animated animatedFadeInUp fadeInUp">
-                <div className="col-md-3">
-                  <div className="panel panel-primary">
-                    <div className="panel-heading">
-                      Global Stats
-                      <br />
-                      Till Date
-                    </div>
-                    <div className="panel-body">
-                      {" "}
-                      {this.state.confirmed !== "" ? (
-                        <i className="fas fa-globe" />
-                      ) : (
-                        ""
-                      )}
-                      <br />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="panel panel-info">
-                    <div className="panel-heading">
-                      Confirmed
-                      <br />
-                      <kbd className="bg-info" style={{ fontWeight: "bold" }}>
-                        + {this.formatNumber(this.state.globalnewCases)} New
-                      </kbd>
-                    </div>
-                    <div className="panel-body text-info">
-                      <p className="data">
-                        {this.state.confirmed > 0 ? (
-                          this.formatNumberCommas(this.state.confirmed)
-                        ) : (
-                          <i
-                            className="fa fa-spinner fa-spin"
-                            style={{ fontSize: "25px", fontWeight: "bold" }}
-                          />
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="panel panel-success">
-                    <div className="panel-heading">
-                      Recovered
-                      <br />
-                      <kbd
-                        className="bg-success"
-                        style={{ fontWeight: "bolder" }}
-                      >
-                        Till Date
-                      </kbd>
-                    </div>
-                    <div className="panel-body text-success">
-                      <p className="data">
-                        {this.state.recovered > 0 ? (
-                          this.formatNumberCommas(this.state.recovered)
-                        ) : (
-                          <i
-                            className="fa fa-spinner fa-spin"
-                            style={{ fontSize: "25px", fontWeight: "bold" }}
-                          />
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="panel panel-danger">
-                    <div className="panel-heading">
-                      Deaths <br />
-                      <kbd
-                        className="bg-danger"
-                        style={{ fontWeight: "bolder" }}
-                      >
-                        + {this.formatNumber(this.state.globalnewDeaths)} New
-                      </kbd>
-                    </div>
-                    <div className="panel-body text-danger">
-                      <p className="data">
-                        {" "}
-                        {this.state.deaths > 0 ? (
-                          this.formatNumberCommas(this.state.deaths)
-                        ) : (
-                          <i
-                            className="fa fa-spinner fa-spin"
-                            style={{ fontSize: "25px", fontWeight: "bold" }}
-                          />
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="row">
                 <div className="col-md-12">
                   <span
@@ -311,7 +216,7 @@ export default class Home extends React.Component {
                     <div
                       className="panel-heading ind-pnl-head"
                       style={{
-                        backgroundColor: " rgb(235, 219, 219)"
+                        backgroundColor: "#d3d8de"
                       }}
                     >
                       <Flag
@@ -322,7 +227,10 @@ export default class Home extends React.Component {
                           marginRight: "10px"
                         }}
                       />
-                      India Overview
+                      <span style={{ fontSize: "120%" }}>
+                        Coronavirus cases
+                      </span>{" "}
+                      in India
                     </div>
                     <div className="panel-body text-info">
                       <div className="status-map">
@@ -398,15 +306,108 @@ export default class Home extends React.Component {
                           style={{
                             textDecoration: "underline",
                             color: "#000",
+                            backgroundColor: "#d3d8de",
                             fontWeight: "bold"
                           }}
-                          className="ind-link "
+                          className="ind-link btn "
                         >
                           More details
                         </NavLink>
 
                         <Route path="/country/IN" component={India} />
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row global-data animated animatedFadeInUp fadeInUp">
+                <div className="col-md-3">
+                  <div className="panel">
+                    <div
+                      className="panel-heading g-pnl"
+                      style={{
+                        backgroundColor: "#d3d8de"
+                      }}
+                    >
+                      <span style={{ fontSize: "120%" }}>
+                        Coronavirus cases
+                      </span>
+                      <br />
+                      Worldwide
+                    </div>
+                    <div className="panel-body" />
+                  </div>
+                </div>
+                <div className="col-md-3">
+                  <div className="panel panel-info g-pn">
+                    <div className="panel-heading">
+                      Confirmed
+                      <br />
+                    </div>
+                    <div className="panel-body text-info">
+                      {this.state.confirmed > 0 ? (
+                        <div>
+                          <p className="data">
+                            {this.formatNumberCommas(this.state.confirmed)}
+                          </p>
+                          <kbd
+                            className="bg-info"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            + {this.formatNumber(this.state.globalnewCases)} New
+                          </kbd>
+                        </div>
+                      ) : (
+                        <i
+                          className="fa fa-spinner fa-spin"
+                          style={{ fontSize: "25px", fontWeight: "bold" }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-3">
+                  <div className="panel panel-success g-pn">
+                    <div className="panel-heading">Recovered</div>
+                    <div className="panel-body text-success">
+                      {this.state.confirmed > 0 ? (
+                        <div>
+                          <p className="data">
+                            {this.formatNumberCommas(this.state.recovered)}
+                          </p>
+                        </div>
+                      ) : (
+                        <i
+                          className="fa fa-spinner fa-spin"
+                          style={{ fontSize: "25px", fontWeight: "bold" }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-3">
+                  <div className="panel panel-danger g-pn">
+                    <div className="panel-heading">Deaths</div>
+                    <div className="panel-body text-danger">
+                      {this.state.deaths > 0 ? (
+                        <div>
+                          <p className="data">
+                            {this.formatNumberCommas(this.state.deaths)}
+                          </p>
+                          <kbd
+                            className="bg-info"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            + {this.formatNumber(this.state.globalnewDeaths)}{" "}
+                            New
+                          </kbd>
+                        </div>
+                      ) : (
+                        <i
+                          className="fa fa-spinner fa-spin"
+                          style={{ fontSize: "25px", fontWeight: "bold" }}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
