@@ -129,9 +129,9 @@ class StatePage extends React.Component {
     var districtsTable =
       this.state.currentState[0] &&
       this.state.currentState[0].districtData.map((district, index) => (
-        <tr key={index}>
+        <tr key={index} class="st-dist-row">
           <td
-            className="col-xs-3 col-md-3"
+            className="col-xs-3 col-md-3 st-dist-name"
             style={{ textAlign: "left", color: "#000" }}
           >
             {district.district === "Unknown" ? (
@@ -146,8 +146,8 @@ class StatePage extends React.Component {
               district.district
             )}
           </td>
-          <td className="col-xs-3 col-md-3" style={{ fontSize: "12px" }}>
-            <span className="text-danger" style={{ fontSize: "11px" }}>
+          <td className="col-xs-3 col-md-3 st-dist-data">
+            <span className="text-danger st-dist-span">
               {district.delta.confirmed > 0
                 ? "+" + district.delta.confirmed
                 : ""}
@@ -156,13 +156,13 @@ class StatePage extends React.Component {
             {this.numberFormatter(district.confirmed)}{" "}
           </td>
           <td
-            className="col-xs-2 col-md-2"
-            style={{ fontSize: "90%", textAlign: "right" }}
+            className="col-xs-2 col-md-2 st-dist-data"
+            style={{ textAlign: "right" }}
           >
             {this.numberFormatter(district.active)}{" "}
           </td>
-          <td className="col-xs-2 col-md-2" style={{ fontSize: "12px" }}>
-            <span className="text-success" style={{ fontSize: "11px" }}>
+          <td className="col-xs-2 col-md-2 st-dist-data">
+            <span className="text-success st-dist-span">
               {district.delta.recovered > 0
                 ? "+" + district.delta.recovered
                 : ""}
@@ -171,11 +171,11 @@ class StatePage extends React.Component {
             {this.numberFormatter(district.recovered)}{" "}
           </td>
           <td
-            className="col-xs-2 col-md-2"
-            style={{ fontSize: "90%", textAlign: "right" }}
+            className="col-xs-2 col-md-2 st-dist-data"
+            style={{ textAlign: "right" }}
           >
             {" "}
-            <span className="text-danger" style={{ fontSize: "11px" }}>
+            <span className="text-danger st-dist-span">
               {district.delta.deceased > 0 ? "+" + district.delta.deceased : ""}
             </span>
             &nbsp;
@@ -215,7 +215,11 @@ class StatePage extends React.Component {
               <div className="panel ind-panel">
                 <div
                   className="panel-heading ind-pnl-head ind-pnl-1"
-                  style={{ backgroundColor: "#133e4a", color: "#fff" }}
+                  style={{
+                    fontSize: "130%",
+                    backgroundColor: "#d3d8de",
+                    height: "40px"
+                  }}
                 >
                   {this.props.match.params.sName}
                 </div>
@@ -381,6 +385,7 @@ class StatePage extends React.Component {
                       </ul>
                     </div>
                   </div>
+                  <hr className="ind-spr" />
                   <h4 className="text-dark">
                     <button
                       className="t-tip-state"
@@ -409,40 +414,40 @@ class StatePage extends React.Component {
             <div className="col-md-6">
               StatePage under construction
               <table
-                className="table table-hover table-striped table-bordered country-table state-district-table"
+                className="table table-fixed table-hover table-striped table-bordered country-table state-district-table"
                 id="districtTable"
-                style={{ width: "90%" }}
+                style={{ width: "95%" }}
               >
                 <thead className="thead bg-dark text-light">
                   <tr>
                     <th
                       className="col-xs-3 col-md-3"
-                      style={{ fontSize: "80%" }}
+                      style={{ fontSize: "70%" }}
                     >
                       {" "}
                       District
                     </th>
                     <th
                       className="col-xs-3 col-md-3"
-                      style={{ fontSize: "80%" }}
+                      style={{ fontSize: "70%" }}
                     >
                       Confirmed
                     </th>
                     <th
                       className="col-xs-2 col-md-2"
-                      style={{ fontSize: "80%" }}
+                      style={{ fontSize: "70%" }}
                     >
                       Active
                     </th>
                     <th
                       className="col-xs-2 col-md-2"
-                      style={{ fontSize: "80%" }}
+                      style={{ fontSize: "70%" }}
                     >
-                      Recovered
+                      Rcvrd
                     </th>
                     <th
                       className="col-xs-2 col-md-2"
-                      style={{ fontSize: "80%" }}
+                      style={{ fontSize: "70%" }}
                     >
                       Deaths
                     </th>
