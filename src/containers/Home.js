@@ -193,7 +193,7 @@ export default class Home extends React.Component {
                 <div className="col-md-12">
                   <span
                     style={{
-                      color: "red",
+                      color: "red", 
                       textTransform: "uppercase",
                       fontWeight: "bold"
                     }}
@@ -322,7 +322,7 @@ export default class Home extends React.Component {
               </div>
               <div className="row global-data animated animatedFadeInUp fadeInUp">
                 <div className="col-md-3">
-                  <div className="panel">
+                  <div className="panel" style={{'height':'140px'}}>
                     <div
                       className="panel-heading g-pnl"
                       style={{
@@ -395,7 +395,7 @@ export default class Home extends React.Component {
                             {this.formatNumberCommas(this.state.deaths)}
                           </p>
                           <kbd
-                            className="bg-danger"
+                            className="bg-info"
                             style={{ fontWeight: "bold" }}
                           >
                             + {this.formatNumber(this.state.globalnewDeaths)}{" "}
