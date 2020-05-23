@@ -346,12 +346,12 @@ export default class Home extends React.Component {
                     </div>
                     <div className="panel-body text-info">
                       {this.state.confirmed > 0 ? (
-                        <div> 
+                        <div>
                           <p className="data">
                             {this.formatNumberCommas(this.state.confirmed)}
                           </p>
                           <kbd
-                            className="bg-danger"
+                            className="bg-info"
                             style={{ fontWeight: "bold" }}
                           >
                             + {this.formatNumber(this.state.globalnewCases)} New
