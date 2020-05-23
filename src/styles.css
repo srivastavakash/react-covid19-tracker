@@ -119,8 +119,10 @@ body {
     margin-top: 20px;
     font-weight: bold;
   }
-  .g-pnl {
+ .g-pnl {
     margin-top: 10px;
+    height: 125px;
+    padding-top: 30px;
   }
   .g-pn {
     margin-top: 8px;
