@@ -137,6 +137,9 @@ body {
   .g-pn {
     margin-top: 10px;
   }
+  .social-btns {
+    margin-left: 15%;
+  }
   .ind-helpline {
     width: 97%;
   }
@@ -337,7 +340,9 @@ body {
   .ind-stats li p {
     font-size: 10px;
   }
-
+  .social-btns {
+    margin-left: 13%;
+  }
   .st-tab {
     width: 95%;
   }
@@ -1027,8 +1032,4 @@ iframe {
 .whtsp-btn:hover {
   background-color: rgb(37, 160, 56);
   color: #fff;
-}
-
-.social-btns {
-  margin-left: 20%;
 }
