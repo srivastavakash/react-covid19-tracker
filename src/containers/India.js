@@ -3,6 +3,7 @@ import axios from "axios";
 import { Route, NavLink } from "react-router-dom";
 import { formatDistance } from "date-fns";
 import { Line, Bar, defaults } from "react-chartjs-2";
+import SocialMediaButtons from "../components/SocialMediaButtons";
 import Flag from "react-world-flags";
 import NewsAlert from "../containers/NewsAlert";
 import StateRow from "../components/StateRow";
@@ -565,7 +566,10 @@ class India extends React.Component {
                 </div>
               </div>
             </div>
-
+            <SocialMediaButtons
+                      url="https://trackercovid19.in/"
+                      text="Track novel coronavirus Cases in India and Rest of the World : www.trackercovid19.in"
+                    />
             <div className="row">
               <div className="col-md-6">
                 <p className="trending-lbl">
