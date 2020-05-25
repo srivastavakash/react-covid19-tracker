@@ -328,7 +328,7 @@ export default class Home extends React.Component {
               </div>
               <div className="row global-data animated animatedFadeInUp fadeInUp">
                 <div className="col-md-3">
-                  <div className="panel" style={{ height: "140px" }}>
+                  <div className="panel" >
                     <div
                       className="panel-heading g-pnl"
                       style={{
@@ -341,7 +341,6 @@ export default class Home extends React.Component {
                       <br />
                       Worldwide
                     </div>
-                    <div className="panel-body" />
                   </div>
                 </div>
                 <div className="col-md-3">
