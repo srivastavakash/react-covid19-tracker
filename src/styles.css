@@ -122,6 +122,7 @@ body {
   .ind-pnl-1 {
     height: 35px;
   }
+
   .global-data {
     height: 155px;
   }
@@ -336,6 +337,7 @@ body {
   .ind-stats li p {
     font-size: 10px;
   }
+
   .st-tab {
     width: 95%;
   }
@@ -966,4 +968,67 @@ iframe {
   border: 1px solid #ccc;
   margin-left: 1%;
   margin-right: 1%;
+}
+
+.btn-facebook {
+  background: #3b5998;
+  border-radius: 5px;
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.btn-facebook:link,
+.btn-facebook:visited {
+  color: #fff;
+}
+.btn-facebook:active,
+.btn-facebook:hover {
+  background: #263961;
+  color: #fff;
+}
+.social-btn i {
+  width: 22px;
+}
+.social-btn {
+  padding: 5px;
+}
+.social-btn .btn {
+  height: 30px;
+}
+
+.twt-btn {
+  background-color: #00acee;
+  color: #fff;
+  font-weight: bold;
+}
+.twt-btn:active,
+.twt-btn:hover {
+  background-color: #0c7daa;
+  color: #fff;
+}
+.fa-twitter-square {
+  font-size: 20px;
+  color: #eeeeee;
+}
+.twt-btn i {
+  vertical-align: middle;
+}
+.whtsp-btn {
+  background-color: rgb(44, 183, 66);
+  color: #fff;
+  font-weight: bold;
+}
+.whtsp-btn i {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.whtsp-btn:active,
+.whtsp-btn:hover {
+  background-color: rgb(37, 160, 56);
+  color: #fff;
+}
+
+.social-btns {
+  margin-left: 20%;
 }
