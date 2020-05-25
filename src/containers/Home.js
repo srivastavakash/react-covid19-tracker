@@ -4,6 +4,7 @@ import { formatDistance } from "date-fns";
 import { Route, NavLink } from "react-router-dom";
 import ScrollToTop from "../ScrollToTop";
 import Flag from "react-world-flags";
+import SocialMediaButtons from "../components/SocialMediaButtons";
 import GlobalData from "../data/GlobalData";
 import IndiaData from "../data/IndiaData";
 import India from "./India";
@@ -193,7 +194,7 @@ export default class Home extends React.Component {
                 <div className="col-md-12">
                   <span
                     style={{
-                      color: "red", 
+                      color: "red",
                       textTransform: "uppercase",
                       fontWeight: "bold"
                     }}
@@ -319,10 +320,15 @@ export default class Home extends React.Component {
                     </div>
                   </div>
                 </div>
+
+                <SocialMediaButtons
+                  url="https://trackercovid19.in/"
+                  text="Track novel coronavirus Cases in India and Rest of the World : www.trackercovid19.in"
+                />
               </div>
               <div className="row global-data animated animatedFadeInUp fadeInUp">
                 <div className="col-md-3">
-                  <div className="panel" style={{'height':'140px'}}>
+                  <div className="panel" style={{ height: "140px" }}>
                     <div
                       className="panel-heading g-pnl"
                       style={{
@@ -351,7 +357,7 @@ export default class Home extends React.Component {
                             {this.formatNumberCommas(this.state.confirmed)}
                           </p>
                           <kbd
-                            className="bg-danger"
+                            className="bg-info"
                             style={{ fontWeight: "bold" }}
                           >
                             + {this.formatNumber(this.state.globalnewCases)} New
