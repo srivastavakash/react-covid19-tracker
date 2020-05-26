@@ -4,12 +4,13 @@ import Home from "../containers/Home";
 //import CountryData from "./CountryData";
 import India from "../containers/India";
 import Patients from "../containers/Patients";
+import CovidPage from "../containers/CovidPage";
 
 export default function Header() {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-md navbar-fixed-top ml-auto">
-        <a className="navbar-brand" href="https://trackercovid19.in">
+        <a className="navbar-brand" href="https://emrpx.codesandbox.io/">
           <i className="fas fa-shield-virus" style={{ fontSize: "25px" }} />{" "}
           <span className="text-dark">Covid-19</span>{" "}
           <span className="text-danger">Tracker</span>
@@ -91,6 +92,7 @@ export default function Header() {
         <Route path="/country/IN" exact component={India} />
         <Route path="/patients" exact component={Patients} />
         <Route path="/" exact component={Home} />
+        <Route path="/covid19" exact component={CovidPage} />
       </Switch>
     </React.Fragment>
   );
