@@ -544,7 +544,7 @@ class India extends React.Component {
               <div className="mt-1 panel ind-panel ind-helpline">
                 <div
                   className="panel-heading help-head"
-                  style={{ backgroundColor: "#d3d8de"}}
+                  style={{ backgroundColor: "#d3d8de" }}
                 >
                   {" "}
                   <Flag
@@ -566,12 +566,17 @@ class India extends React.Component {
                 </div>
               </div>
             </div>
-            <SocialMediaButtons
+
+            <div className="row">
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-md-10 col-sm-7 col-xs-10" >
+                    <SocialMediaButtons
                       url="https://trackercovid19.in/"
                       text="Track novel coronavirus Cases in India and Rest of the World : www.trackercovid19.in"
                     />
-            <div className="row">
-              <div className="col-md-6">
+                  </div>
+                </div>
                 <p className="trending-lbl">
                   {" "}
                   COMPILED FROM STATE GOVT. DATA <br />
