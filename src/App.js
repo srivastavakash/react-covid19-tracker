@@ -10,7 +10,7 @@ import "./TableStyle.css";
 
 export default function App() {
   useEffect(() => {
-    ReactGA.initialize("UA-166351698-1"); //UA-166351698-1
+    ReactGA.initialize("UA-166351698-2"); //UA-166351698-1
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
