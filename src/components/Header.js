@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-md navbar-fixed-top ml-auto">
-        <a className="navbar-brand" href="www.trackercovid19.in">
+        <a className="navbar-brand" href="trackercovid19.in">
           <i className="fas fa-shield-virus" style={{ fontSize: "25px" }} />{" "}
           <span className="text-dark">Covid-19</span>{" "}
           <span className="text-danger">Tracker</span>
