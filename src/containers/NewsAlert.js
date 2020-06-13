@@ -12,10 +12,20 @@ export default class NewsAlert extends React.Component {
   }
 
   async getNewsFeed() {
+    /* const options = {
+      headers: {
+        HTTP/1.1 426 Upgrade Required
+        Upgrade: HTTP/3.0
+        Connection: Upgrade
+        Content-Length: 53
+        Content-Type: text/plain
+      }
+    }; */
     await axios
-      .get(
-        "https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?sources=google-news-in&apiKey=dbb6429f95ab4eabb1b911a63c73a0b7"
-      )
+      /*.get(
+        "https://newsapi.org/v2/top-headlines?sources=google-news-in&from=2020-06-05&apiKey=bd3e40a8efdf437da8ddaabd6c744e29"
+      )*/
+      .get("https://api.coronatracker.com/news/trending")
       .then(response => {
         //console.log("India News ", response);
         this.setState({
@@ -37,7 +47,7 @@ export default class NewsAlert extends React.Component {
     //console.log("Global NewsAlertData : ", this.state.news);
 
     const newsAlert = this.state.news;
-    const IndNewsAlert = this.state.IndNews;
+    //const IndNewsAlert = this.state.IndNews;
     //console.log("India Newsss ", IndNewsAlert);
     this.setState({
       newsRow: newsAlert.items.map((news, index) => (
@@ -50,7 +60,7 @@ export default class NewsAlert extends React.Component {
           description={news.description}
           timeStamp={news.publishedAt}
         />
-      )),
+      )) /*,
       indNewsRow: IndNewsAlert.articles.map((news, index) => (
         <NewsItem
           key={index}
@@ -62,7 +72,7 @@ export default class NewsAlert extends React.Component {
           timeStamp={news.publishedAt}
           country="IN"
         />
-      ))
+      ))*/
     });
   }
 
@@ -72,9 +82,12 @@ export default class NewsAlert extends React.Component {
       <React.Fragment>
         <p className="trending-lbl n-lbl"> Latest Trending Updates </p>
         <ul>
-          {this.props.country === "IN"
+          {
+            /*this.props.country === "IN"
             ? this.state.indNewsRow
-            : this.state.newsRow}
+            : this.state.newsRow*/
+            this.state.newsRow
+          }
         </ul>
       </React.Fragment>
     );
