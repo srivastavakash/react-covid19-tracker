@@ -167,14 +167,14 @@ export default class Home extends React.Component {
     return res;
   }
   render() {
-    console.log("Home state", this.state);
-    console.log("last updated " + this.state.indiaData.lastupdate + " ago");
+    //console.log("Home state", this.state);
+    //console.log("last updated " + this.state.indiaData.lastupdate + " ago");
     var lastUpdateTime = new Date(this.state.indiaData.lastupdate);
     var currTime = new Date().getHours();
     var curr = new Date();
     //var timeStamp = formatDistance(curr, lastUpdateTime);
-    console.log("curtime", curr);
-    console.log("updated", lastUpdateTime);
+    //console.log("curtime", curr);
+    //console.log("updated", lastUpdateTime);
     //console.log("home TimeStamp", timeStamp);
     var uptime =
       currTime > lastUpdateTime.getHours()
@@ -322,8 +322,8 @@ export default class Home extends React.Component {
                 </div>
 
                 <SocialMediaButtons
-                  url="https://trackercovid19.in/"
-                  text="Track novel coronavirus Cases in India and Rest of the World : www.trackercovid19.in"
+                  url="www.trackercovid19.in"
+                  text="Track novel coronavirus Cases in India and Rest of the World "
                 />
               </div>
               <div className="row global-data animated animatedFadeInUp fadeInUp">
