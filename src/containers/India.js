@@ -110,7 +110,7 @@ class India extends React.Component {
     axios
       .get("https://api.covid19india.org/data.json")
       .then(res => {
-        console.log("series", res.data);
+        //console.log("series", res.data);
         const results = res.data.cases_time_series;
 
         for (const dataObj of results) {
@@ -135,7 +135,7 @@ class India extends React.Component {
 
         let chartData =
           this.state.chartType === "daily" ? dailyconfirmed : confirmedCases;
-        console.log("chart data", chartData);
+        //console.log("chart data", chartData);
 
         this.setState({
           dailyData: results[results.length - 1],
@@ -293,7 +293,7 @@ class India extends React.Component {
     return x === x && typeof x === "number";
   }
   render() {
-    console.log("India State ", this.state);
+    //console.log("India State ", this.state);
 
     var helplineLinks = Links.Links.map((link, index) => (
       <li key={index} className="help-link-item">
