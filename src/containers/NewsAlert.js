@@ -16,7 +16,9 @@ export default class NewsAlert extends React.Component {
       /*.get(
         "https://newsapi.org/v2/top-headlines?sources=google-news-in&from=2020-06-05&apiKey=bd3e40a8efdf437da8ddaabd6c744e29"
       )*/
-      .get("https://api.coronatracker.com/news/trending?country=India")
+      .get(
+        "https://api.coronatracker.com/news/trending?limit=11&offset&country=India"
+      )
       .then(response => {
         //console.log("India News ", response);
         this.setState({
@@ -39,7 +41,7 @@ export default class NewsAlert extends React.Component {
 
     const newsAlert = this.state.news;
     const IndNewsAlert = this.state.IndNews;
-    console.log("India Newsss ", IndNewsAlert);
+    //console.log("India Newsss ", IndNewsAlert);
     this.setState({
       newsRow: newsAlert.items.map((news, index) => (
         <NewsItem
