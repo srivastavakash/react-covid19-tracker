@@ -580,7 +580,7 @@ class India extends React.Component {
                 <p className="trending-lbl">
                   {" "}
                   COMPILED FROM STATE GOVT. DATA <br />
-                  (State Table under Maintenance)
+                 
                 </p>
                 <div className="row state-table-container">
                   <div className="table-responsive st-tab">
