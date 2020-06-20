@@ -204,6 +204,12 @@ body {
   #state-row td {
     width: 25%;
   }
+  .st-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-y: auto;
+    overflow-x: auto;
+  }
   .n-lbl {
     margin-top: 15px;
     margin-bottom: 45px;
@@ -384,6 +390,9 @@ body {
   .dist-data {
     font-size: 9px;
   }
+  .st-dist-span {
+    font-size: 8px;
+  }
   .ind-news-item {
     width: 108%;
   }
@@ -462,12 +471,14 @@ body {
 nav {
   background-color: rgb(255, 255, 255);
 }
+.nav-item {
+  text-align: center;
+}
 .navbar {
   border-bottom: 1px solid #ccc;
 }
 .navbar-brand {
   padding: 0px;
-  color: rgb(14, 129, 14);
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .footer-row {
