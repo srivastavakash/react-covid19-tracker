@@ -204,6 +204,12 @@ body {
   #state-row td {
     width: 25%;
   }
+  .st-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-y: auto;
+    overflow-x: auto;
+  }
   .n-lbl {
     margin-top: 15px;
     margin-bottom: 45px;
@@ -383,6 +389,17 @@ body {
   }
   .dist-data {
     font-size: 9px;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+  }
+  .st-dist-span {
+    font-weight: bold;
+    font-size: 11px;
+  }
+  .st-dist-data {
+    font-weight: bold;
+    font-size: 14px;
   }
   .ind-news-item {
     width: 108%;
@@ -422,9 +439,7 @@ body {
   td {
     font-size: 70%;
   }
-  #districtTable tr td {
-    height: 35px;
-  }
+
   .dist-name {
     font-size: 10px;
   }
@@ -462,12 +477,14 @@ body {
 nav {
   background-color: rgb(255, 255, 255);
 }
+.nav-item {
+  text-align: center;
+}
 .navbar {
   border-bottom: 1px solid #ccc;
 }
 .navbar-brand {
   padding: 0px;
-  color: rgb(14, 129, 14);
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .footer-row {
@@ -806,6 +823,20 @@ ul li {
 .dist-tab {
   margin-left: 10%;
 }
+.st-dist-name {
+  text-align: left;
+  align-items: center;
+  color: #616a72;
+  font-weight: bold;
+  height: 52px;
+  overflow: hidden;
+}
+
+.st-dist-data {
+  color: #616a72;
+  font-weight: bold;
+  font-size: 12px;
+}
 .btn-outline-dark {
   border: 1px solid #000;
   float: left;
@@ -815,6 +846,9 @@ ul li {
   color: #fff;
 }
 /*Tool Tip*/
+.t-tip:hover {
+  border: 0px solid #fff;
+}
 .t-tip:hover:after {
   content: "Awating details";
   font-family: Arial;
@@ -834,7 +868,11 @@ ul li {
   background-color: #000;
   color: #fff;
 }
+.st-name {
+  color: #282c30;
+}
 .st-name:hover {
+  color: rgb(68, 65, 65);
   text-decoration: underline;
   cursor: pointer;
 }
