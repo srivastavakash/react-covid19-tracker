@@ -130,10 +130,7 @@ class StatePage extends React.Component {
       this.state.currentState[0] &&
       this.state.currentState[0].districtData.map((district, index) => (
         <tr key={index} class="st-dist-row">
-          <td
-            className="col-xs-3 col-md-3 st-dist-name"
-            style={{ textAlign: "left", color: "#000" }}
-          >
+          <td className="col-xs-3 col-md-3 st-dist-name">
             {district.district === "Unknown" ? (
               <div>
                 {" "}
@@ -145,6 +142,7 @@ class StatePage extends React.Component {
             ) : (
               district.district
             )}
+            <br /> <br />
           </td>
           <td className="col-xs-3 col-md-3 st-dist-data">
             <span className="text-danger st-dist-span">
@@ -152,13 +150,14 @@ class StatePage extends React.Component {
                 ? "+" + district.delta.confirmed
                 : ""}
             </span>
-            &nbsp;
+            <br />
             {this.numberFormatter(district.confirmed)}{" "}
           </td>
           <td
             className="col-xs-2 col-md-2 st-dist-data"
             style={{ textAlign: "right" }}
           >
+            <br />
             {this.numberFormatter(district.active)}{" "}
           </td>
           <td className="col-xs-2 col-md-2 st-dist-data">
@@ -167,7 +166,7 @@ class StatePage extends React.Component {
                 ? "+" + district.delta.recovered
                 : ""}
             </span>
-            &nbsp;
+            <br />
             {this.numberFormatter(district.recovered)}{" "}
           </td>
           <td
@@ -175,10 +174,10 @@ class StatePage extends React.Component {
             style={{ textAlign: "right" }}
           >
             {" "}
-            <span className="text-danger st-dist-span">
+            <span className="st-dist-span" style={{ color: "#ff073a" }}>
               {district.delta.deceased > 0 ? "+" + district.delta.deceased : ""}
             </span>
-            &nbsp;
+            <br />
             {this.numberFormatter(district.deceased)}{" "}
           </td>
         </tr>
