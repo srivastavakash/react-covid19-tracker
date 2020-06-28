@@ -10,7 +10,6 @@ export default class StateRow extends React.Component {
   handleShowDistricts = () => {
     const active = this.state.showDistricts;
     this.setState({ showDistricts: active ? false : true });
-    //console.clear();
   };
 
   formatNumberCommas(num) {
@@ -66,7 +65,7 @@ export default class StateRow extends React.Component {
       districts.map((district, index) => (
         <tr key={index}>
           <td
-            style={{ textAlign: "left", color: "#000", fontSize: "10px" }}
+            style={{ textAlign: "left", color: "#000" }}
             className="dist-data dist-name"
           >
             {district.district === "Unknown" ? (
@@ -94,7 +93,7 @@ export default class StateRow extends React.Component {
             {this.formatNumberCommas(district.active)}{" "}
           </td>
           <td className="dist-data">
-            <span class="text-success" style={{ fontSize: "9px" }}>
+            <span class="text-success" style={{ fontSize: "7px" }}>
               {district.delta.recovered > 0
                 ? "+" + district.delta.recovered
                 : ""}
@@ -160,7 +159,7 @@ export default class StateRow extends React.Component {
                 </NavLink>
 
                 <table
-                  className="table table-hover table-striped table-bordered country-table district-table st-dist"
+                  className="table table-fixed table-hover table-striped table-bordered country-table district-table st-dist"
                   style={{ marginLeft: "-5%" }}
                   id="districtTable"
                 >
