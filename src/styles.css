@@ -565,9 +565,6 @@ nav {
   border: 1px solid #000;
   border-radius: 5px;
 }
-.ind-stats li {
-  width: 25%;
-}
 .progressbar {
   margin-bottom: 30px;
   overflow: hidden;
@@ -605,16 +602,18 @@ nav {
 .ind-stats {
   margin-bottom: 30px;
   overflow: hidden;
+  margin-left: -5%;
 }
 
 .ind-stats li {
   list-style-type: none;
   width: 25%;
+  height: 95%;
   float: left;
   position: relative;
-  font: 500 13px/1;
   font-weight: bold;
   text-align: center;
+  border-right: 4px solid #fff;
 }
 
 .ind-stats li .icon::after {
@@ -628,13 +627,9 @@ nav {
   z-index: -1;
 }
 
-.ind-stats li:last-child .icon::after {
-  content: none;
-}
-
 .ind-stats li p {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
 }
 ul {
   width: 100%;
@@ -1163,4 +1158,28 @@ iframe {
   color: #f47272;
   font-weight: 700;
   font-size: 14px;
+}
+
+.stats-conf-ind {
+  background-color: rgba(77, 149, 231, 0.125);
+}
+.stats-active-ind {
+  background-color: rgba(192, 192, 25, 0.747);
+}
+.stats-rec-ind {
+  background-color: rgba(59, 170, 85, 0.6);
+  color: #1e7c34;
+}
+
+.stats-dec-ind {
+  background-color: rgba(255, 7, 58, 0.12549);
+}
+
+.ind-permillion {
+  background-color: rgba(150, 109, 63, 0.063);
+  color: rgba(122, 88, 50, 0.6);
+}
+
+.far {
+  font-size: 35px;
 }
