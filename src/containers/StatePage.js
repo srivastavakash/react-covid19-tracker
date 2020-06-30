@@ -226,8 +226,9 @@ class StatePage extends React.Component {
                   <div className="status-map">
                     <div className="row">
                       <ul className="ind-stats">
-                        <li className="text-primary">
-                          <i className="far fa-check-circle icon" /> <br />{" "}
+                        <li className="text-primary stats-conf-ind">
+                          <i className="far fa-check-circle icon" /> <br />
+                          Confirmed
                           <p>
                             {this.state.isLoaded ? (
                               this.numberFormatter(
@@ -240,10 +241,10 @@ class StatePage extends React.Component {
                               />
                             )}
                           </p>
-                          Confirmed
                         </li>
-                        <li className="text-warning">
-                          <i className="far fa fa-bed icon" /> <br />{" "}
+                        <li className="text-dark stats-active-ind">
+                          <i className="far fa fa-bed icon" /> <br />
+                          Active
                           <p className="i-data">
                             {this.state.isLoaded ? (
                               this.numberFormatter(
@@ -258,13 +259,13 @@ class StatePage extends React.Component {
                               />
                             )}
                           </p>
-                          Active
                         </li>
-                        <li className="text-success">
+                        <li className="stats-rec-ind">
                           <i
                             className="fas fa-redo icon"
                             style={{ color: "#5cb85c" }}
-                          />{" "}
+                          />
+                          {" Recovered "}
                           <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
@@ -278,13 +279,14 @@ class StatePage extends React.Component {
                               />
                             )}
                           </p>
-                          Recovered
                         </li>
-                        <li className="text-danger">
+                        <li className="text-danger stats-dec-ind">
                           <i
                             className="fas fa-ambulance icon"
                             style={{ color: "red" }}
-                          />{" "}
+                          />
+                          <br />
+                          {"Deaths "}
                           <p className="i-data">
                             {this.state.isLoaded ? (
                               this.numberFormatter(this.state.stateData.deaths)
@@ -295,14 +297,13 @@ class StatePage extends React.Component {
                               />
                             )}
                           </p>
-                          Deaths
                         </li>
                       </ul>
                     </div>
                     <hr className="ind-spr" />
                     <div className="row">
                       <ul className="ind-stats">
-                        <li>
+                        <li className="ind-permillion">
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
@@ -346,7 +347,7 @@ class StatePage extends React.Component {
                           </p>
                           Recovery Rate
                         </li>
-                        <li className="text-danger">
+                        <li className="text-danger stats-dec-ind">
                           <i
                             className="	fas fa-notes-medical icon"
                             style={{ color: "red" }}
