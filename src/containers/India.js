@@ -110,7 +110,7 @@ class India extends React.Component {
     axios
       .get("https://api.covid19india.org/data.json")
       .then(res => {
-        //console.log("series", res.data);
+        console.log("series", res.data);
         const results = res.data.cases_time_series;
 
         for (const dataObj of results) {
@@ -135,7 +135,7 @@ class India extends React.Component {
 
         let chartData =
           this.state.chartType === "daily" ? dailyconfirmed : confirmedCases;
-        //console.log("chart data", chartData);
+        console.log("chart data", chartData);
 
         this.setState({
           dailyData: results[results.length - 1],
@@ -293,7 +293,7 @@ class India extends React.Component {
     return x === x && typeof x === "number";
   }
   render() {
-    //console.log("India State ", this.state);
+    console.log("India State ", this.state);
 
     var helplineLinks = Links.Links.map((link, index) => (
       <li key={index} className="help-link-item">
@@ -347,7 +347,7 @@ class India extends React.Component {
                   <div className="status-map">
                     <div className="row">
                       <ul className="ind-stats">
-                        <li className="text-primary">
+                        <li className="text-primary stats-conf-ind">
                           <i className="far fa-check-circle icon" /> <br />{" "}
                           Confirmed
                           <br />
@@ -374,8 +374,10 @@ class India extends React.Component {
                             )}
                           </p>
                         </li>
-                        <li className="text-warning">
+                        <li className="text-dark stats-active-ind">
                           <i className="far fa fa-bed icon" /> <br /> Active
+                          <br />
+                          <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(
@@ -391,7 +393,7 @@ class India extends React.Component {
                             )}
                           </p>
                         </li>
-                        <li className="text-success">
+                        <li className="stats-rec-ind">
                           <i
                             className="fas fa-redo icon"
                             style={{ color: "#5cb85c" }}
@@ -428,7 +430,7 @@ class India extends React.Component {
                           </p>
                             */}
                         </li>
-                        <li className="text-danger">
+                        <li className="text-danger stats-dec-ind">
                           <i
                             className="fas fa-ambulance icon"
                             style={{ color: "red" }}
@@ -464,7 +466,7 @@ class India extends React.Component {
                     <hr className="ind-spr" />
                     <div className="row">
                       <ul className="ind-stats">
-                        <li>
+                        <li className="ind-permillion">
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
@@ -500,7 +502,7 @@ class India extends React.Component {
                           </p>
                           Recovery Rate
                         </li>
-                        <li className="text-danger">
+                        <li className="text-danger stats-dec-ind">
                           <i
                             className="	fas fa-notes-medical icon"
                             style={{ color: "red" }}
@@ -570,7 +572,7 @@ class India extends React.Component {
             <div className="row">
               <div className="col-md-6">
                 <div className="row">
-                  <div className="col-md-10 col-sm-7 col-xs-10" >
+                  <div className="col-md-10 col-sm-7 col-xs-10">
                     <SocialMediaButtons
                       url="https://trackercovid19.in/"
                       text="Track novel coronavirus Cases in India and Rest of the World : www.trackercovid19.in"
@@ -580,7 +582,7 @@ class India extends React.Component {
                 <p className="trending-lbl">
                   {" "}
                   COMPILED FROM STATE GOVT. DATA <br />
-                 
+                  (State Table under Maintenance)
                 </p>
                 <div className="row state-table-container">
                   <div className="table-responsive st-tab">
