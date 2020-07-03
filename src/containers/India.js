@@ -43,9 +43,10 @@ class India extends React.Component {
         //console.log("statewise",response)
         this.setState({
           indStateWiseData: response.data.data.statewise,
-          confirmed: response.data.data.total.confirmed,
+          /* confirmed: response.data.data.total.confirmed,
           recovered: response.data.data.total.recovered,
           deaths: response.data.data.total.deaths,
+          */
           updated: formatDistance(
             new Date(),
             new Date(response.data.data.lastRefreshed)
@@ -112,6 +113,7 @@ class India extends React.Component {
       .then(res => {
         console.log("series", res.data);
         const results = res.data.cases_time_series;
+        const statsData = res.statewise;
 
         for (const dataObj of results) {
           dates.push(dataObj.date.slice(0, 6));
@@ -138,6 +140,10 @@ class India extends React.Component {
         console.log("chart data", chartData);
 
         this.setState({
+          confirmed: statsData.confirmed,
+          active: statsData.active,
+          recovered: statsData.recovered,
+          deaths: statsData.deaths,
           dailyData: results[results.length - 1],
           confirmedChartData: {
             labels: dates,
@@ -334,9 +340,10 @@ class India extends React.Component {
                       <span style={{ fontSize: "120%" }}>COVID-19 cases</span>{" "}
                       in India
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 update-lbl-ind">
+                      <i class="fa fa-bell" />
                       {this.state.updated ? (
-                        <p>Updated {this.state.updated} ago</p>
+                        <p> Updated {this.state.updated} ago</p>
                       ) : (
                         ""
                       )}
@@ -355,7 +362,8 @@ class India extends React.Component {
                             className="bg-info"
                             style={{ fontWeight: "bold" }}
                           >
-                            {this.state.isLoaded
+                            {this.state.isLoaded &&
+                            this.state.dailyData.dailyconfirmed
                               ? "[+" +
                                 this.formatNumberCommas(
                                   this.state.dailyData.dailyconfirmed
@@ -463,7 +471,14 @@ class India extends React.Component {
                         </li>
                       </ul>
                     </div>
-                    <hr className="ind-spr" />
+                    <p className="update-lbl-ind-1">
+                      <i class="fa fa-bell" />
+                      {this.state.updated ? (
+                        <p> Updated {this.state.updated} ago</p>
+                      ) : (
+                        ""
+                      )}
+                    </p>
                     <div className="row">
                       <ul className="ind-stats">
                         <li className="ind-permillion">
