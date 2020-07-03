@@ -116,7 +116,7 @@ class India extends React.Component {
       .then(res => {
         console.log("series", res.data);
         const results = res.data.cases_time_series;
-
+        const statsData = res.statewise;
         for (const dataObj of results) {
           dates.push(dataObj.date.slice(0, 6));
           confirmedCases.push(dataObj.totalconfirmed);
