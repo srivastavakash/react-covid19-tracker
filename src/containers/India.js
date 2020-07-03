@@ -42,7 +42,11 @@ class India extends React.Component {
       .then(response => {
         //console.log("statewise",response)
         this.setState({
-          indStateWiseData: response.data.data.statewise,
+           indStateWiseData: response.data.data.statewise,
+          /* confirmed: response.data.data.total.confirmed,
+          recovered: response.data.data.total.recovered,
+          deaths: response.data.data.total.deaths,
+          */
           confirmed: response.data.data.total.confirmed,
           recovered: response.data.data.total.recovered,
           deaths: response.data.data.total.deaths,
@@ -138,6 +142,10 @@ class India extends React.Component {
         console.log("chart data", chartData);
 
         this.setState({
+          confirmed: statsData.confirmed,
+          active: statsData.active,
+          recovered: statsData.recovered,
+          deaths: statsData.deaths,
           dailyData: results[results.length - 1],
           confirmedChartData: {
             labels: dates,
