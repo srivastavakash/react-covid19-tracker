@@ -40,6 +40,10 @@ export default class Home extends React.Component {
 
     const IND = await axios.get("https://covid19.mathdro.id/api/countries/IND");
     this.lastupdate = IND.data.lastUpdate;
+    console.log("IND", IND.data.confirmed.value);
+    this.setState({
+      indiaData: IND.data
+    });
 
     GlobalData.getGlobalData(data =>
       this.setState({
@@ -138,11 +142,11 @@ export default class Home extends React.Component {
       });
     });
 
-    IndiaData.getIndiaData(data =>
+    /*IndiaData.getIndiaData(data =>
       this.setState({
         indiaData: data
       })
-    );
+    );*/
   }
 
   formatNumber(num) {
@@ -166,23 +170,18 @@ export default class Home extends React.Component {
     //document.write(res);
     return res;
   }
-  render() {
-    //console.log("Home state", this.state);
-    //console.log("last updated " + this.state.indiaData.lastupdate + " ago");
+  render(props) {
+    console.log("Home state", this.state);
+    console.log("last updated " + this.state.indiaData.lastupdate + " ago");
     var lastUpdateTime = new Date(this.state.indiaData.lastupdate);
     var currTime = new Date().getHours();
     var curr = new Date();
     //var timeStamp = formatDistance(curr, lastUpdateTime);
-    //console.log("curtime", curr);
-    //console.log("updated", lastUpdateTime);
+    console.log("darkbtn : ", this.props);
+    console.log("curtime", curr);
+    console.log("updated", lastUpdateTime);
     //console.log("home TimeStamp", timeStamp);
-    var uptime =
-      currTime > lastUpdateTime.getHours()
-        ? currTime - lastUpdateTime.getHours()
-        : lastUpdateTime.getHours() - currTime;
-    var time = currTime - lastUpdateTime.getHours();
-    // console.log("Time : ", uptime);
-    //console.log(" Rendering country Codes : ", this.state.countryCodes);
+    console.log("Home TimeStamp ", this.state.indiaData.lastupdate);
 
     return (
       <React.Fragment>
@@ -202,16 +201,21 @@ export default class Home extends React.Component {
                     animatedFadeInUp
                     fadeInUp"
                   >
+                    {
+                      /*<i
+                      class="fas fa-sun"
+                      style={{
+                        fontSize: "24px",
+                        marginRight: "20px",
+                        marginLeft: "0px"
+                      }}
+                    />
+                    */
+                      this.props.btn
+                    }
                     {this.state.indiaData.lastupdate
                       ? "Updated " + this.state.indiaData.lastupdate + " ago"
                       : ""}
-                    {/*+"  " + lastUpdateTime !== "Invalid  Date" &&
-                      (lastUpdateTime.getHours() < 10 ? "0" : "") +
-                        lastUpdateTime.getHours() +
-                        ":" +
-                        (lastUpdateTime.getHours() < 10 ? "0" : "") +
-                        lastUpdateTime.getMinutes() +
-                  "   IST"*/}
                   </span>
                   <div className="panel ind-panel animated animatedFadeInUp fadeInUp">
                     <div
@@ -240,9 +244,9 @@ export default class Home extends React.Component {
                             <i className="far fa-check-circle icon" /> <br />{" "}
                             Confirmed
                             <p>
-                              {this.state.indiaData.confirmed > 0 ? (
+                              {this.state.indiaData.confirmed ? (
                                 this.formatNumberCommas(
-                                  this.state.indiaData.confirmed
+                                  this.state.indiaData.confirmed.value
                                 )
                               ) : (
                                 <i
@@ -263,9 +267,9 @@ export default class Home extends React.Component {
                             <br /> Recovered{" "}
                             <p>
                               {" "}
-                              {this.state.indiaData.recovered > 0 ? (
+                              {this.state.indiaData.recovered  ? (
                                 this.formatNumberCommas(
-                                  this.state.indiaData.recovered
+                                  this.state.indiaData.recovered.value
                                 )
                               ) : (
                                 <i
@@ -286,9 +290,9 @@ export default class Home extends React.Component {
                             <br /> Deaths
                             <p>
                               {" "}
-                              {this.state.indiaData.deaths > 0 ? (
+                              {this.state.indiaData.deaths ? (
                                 this.formatNumberCommas(
-                                  this.state.indiaData.deaths
+                                  this.state.indiaData.deaths.value
                                 )
                               ) : (
                                 <i
@@ -322,13 +326,13 @@ export default class Home extends React.Component {
                 </div>
 
                 <SocialMediaButtons
-                  url="www.trackercovid19.in"
-                  text="Track novel coronavirus Cases in India and Rest of the World "
+                  url="https://trackercovid19.in/"
+                  text="Track novel coronavirus Cases in India and Rest of the World : www.trackercovid19.in"
                 />
               </div>
               <div className="row global-data animated animatedFadeInUp fadeInUp">
                 <div className="col-md-3">
-                  <div className="panel" >
+                  <div className="panel">
                     <div
                       className="panel-heading g-pnl"
                       style={{
@@ -458,6 +462,16 @@ export default class Home extends React.Component {
                       </tbody>
                     </table>
                   </div>
+                  <iframe
+                    class="link-src"
+                    title="link"
+                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07X2K68FZ&asins=B07X2K68FZ&linkId=84809efb2e927deb8ba682c3caf5dd56&show_border=true&link_opens_in_new_window=true"
+                  />
+                  <iframe
+                    class="link-src"
+                    title="link"
+                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07B92KNZP&asins=B07B92KNZP&linkId=b5063e049486ecb484f7c523a64aef9d&show_border=true&link_opens_in_new_window=true"
+                  />
                 </div>
               </div>
             </div>
