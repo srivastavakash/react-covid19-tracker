@@ -191,6 +191,12 @@ body {
     width: 25px;
     margin-right: 10px;
   }
+  .update-lbl-ind-1 {
+    display: none;
+  }
+  .update-lbl-ind * {
+    display: inline;
+  }
   .source-para {
     margin-left: 1%;
     text-align: justify;
@@ -323,6 +329,18 @@ body {
     height: 70%;
     width: 20%;
     margin-right: 5px;
+  }
+  .update-lbl-ind {
+    display: none;
+  }
+  .update-lbl-ind-1 {
+    margin-top: -20px;
+    color: #6c757d;
+    font-weight: bold;
+  }
+
+  .update-lbl-ind-1 * {
+    display: inline;
   }
   .i-data {
     font-size: 12px;
@@ -556,6 +574,10 @@ nav {
 }
 .fa-ambulance {
   color: red;
+}
+.fa-bell {
+  font-size: 12px;
+  margin-left: -5%;
 }
 .ind-panel {
   border: 1px solid #ccc;
@@ -875,8 +897,14 @@ ul li {
 .st-name * {
   display: inline;
 }
+/*
 iframe {
   display: none;
+}*/
+.link-src {
+  height: 255px;
+  width: 130px;
+  border: none;
 }
 .confirmed-map {
   background-color: #e6f3fe;
@@ -1178,8 +1206,4 @@ iframe {
 .ind-permillion {
   background-color: rgba(150, 109, 63, 0.063);
   color: rgba(122, 88, 50, 0.6);
-}
-
-.far {
-  font-size: 35px;
 }
