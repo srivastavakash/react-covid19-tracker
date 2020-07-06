@@ -267,7 +267,7 @@ export default class Home extends React.Component {
                             <br /> Recovered{" "}
                             <p>
                               {" "}
-                              {this.state.indiaData.recovered  ? (
+                              {this.state.indiaData.recovered ? (
                                 this.formatNumberCommas(
                                   this.state.indiaData.recovered.value
                                 )
@@ -424,6 +424,16 @@ export default class Home extends React.Component {
 
               <div className="row">
                 <div className="col-md-12">
+                  <iframe
+                    class="link-src"
+                    title="link"
+                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B08963P1D1&asins=B08963P1D1&linkId=d61c5355d11507b459144d9c2717deeb&show_border=true&link_opens_in_new_window=true"
+                  />{" "}
+                  <iframe
+                    class="link-src"
+                    title="link"
+                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07YYNX5X6&asins=B07YYNX5X6&linkId=8bcd219ccd4f9d1344ac5c0686e4d942&show_border=true&link_opens_in_new_window=true"
+                  />
                   <h4 className="text-danger font-weight-bold">
                     <br />
                     COUNTRIES AFFECTED
@@ -462,7 +472,7 @@ export default class Home extends React.Component {
                       </tbody>
                     </table>
                   </div>
-                  <iframe
+                  {/*<iframe
                     class="link-src"
                     title="link"
                     src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07X2K68FZ&asins=B07X2K68FZ&linkId=84809efb2e927deb8ba682c3caf5dd56&show_border=true&link_opens_in_new_window=true"
@@ -471,6 +481,11 @@ export default class Home extends React.Component {
                     class="link-src"
                     title="link"
                     src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07B92KNZP&asins=B07B92KNZP&linkId=b5063e049486ecb484f7c523a64aef9d&show_border=true&link_opens_in_new_window=true"
+                  />*/}
+                  <iframe
+                    class="link-src"
+                    title="link"
+                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07YVH7FQZ&asins=B07YVH7FQZ&linkId=c5323c91f419043246c63e0dc64050ea&show_border=true&link_opens_in_new_window=true"
                   />
                 </div>
               </div>
