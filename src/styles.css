@@ -901,10 +901,14 @@ ul li {
 iframe {
   display: none;
 }*/
+.adv {
+  margin-left: 10%;
+}
 .link-src {
   height: 255px;
   width: 130px;
   border: none;
+  margin-top: 8px;
 }
 .confirmed-map {
   background-color: #e6f3fe;
