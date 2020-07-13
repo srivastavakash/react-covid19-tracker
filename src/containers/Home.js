@@ -427,12 +427,12 @@ export default class Home extends React.Component {
                   <iframe
                     class="link-src"
                     title="link"
-                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B08963P1D1&asins=B08963P1D1&linkId=d61c5355d11507b459144d9c2717deeb&show_border=true&link_opens_in_new_window=true"
+                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B086KFXPFD&asins=B086KFXPFD&linkId=f0c048c3b0d4640ce58ecd337ff97f4b&show_border=true&link_opens_in_new_window=true"
                   />{" "}
                   <iframe
                     class="link-src"
                     title="link"
-                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07YYNX5X6&asins=B07YYNX5X6&linkId=8bcd219ccd4f9d1344ac5c0686e4d942&show_border=true&link_opens_in_new_window=true"
+                    src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B01F262EUU&asins=B01F262EUU&linkId=0f8e8fa8f3fcea706edcc03c19d468a7&show_border=true&link_opens_in_new_window=true"
                   />
                   <h4 className="text-danger font-weight-bold">
                     <br />
