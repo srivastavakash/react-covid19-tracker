@@ -601,7 +601,7 @@ class India extends React.Component {
                       <iframe
                         class="link-src"
                         title="link"
-                        src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07QC5YT69&asins=B07QC5YT69&linkId=dd7b5bc331b21ef0973860f4497d96a3&show_border=true&link_opens_in_new_window=true"
+                        src="//ws-in.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=IN&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=manojsrivas0c-21&language=en_IN&marketplace=amazon&region=IN&placement=B07X9YN2FJ&asins=B07X9YN2FJ&linkId=2c9ec2906f81db4b46cc070a3c80b048&show_border=true&link_opens_in_new_window=true"
                       />{" "}
                       <iframe
                         class="link-src"
