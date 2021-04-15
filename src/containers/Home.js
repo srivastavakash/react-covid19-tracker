@@ -45,7 +45,7 @@ export default class Home extends React.Component {
       indiaData: IND.data
     });
 
-    GlobalData.getGlobalData(data =>
+    GlobalData.getGlobalData((data) =>
       this.setState({
         confirmed: data.data.totalConfirmed,
         recovered: data.data.totalRecovered,
@@ -57,7 +57,7 @@ export default class Home extends React.Component {
       })
     );
 
-    GlobalData.getGlobalCountryData(data => {
+    GlobalData.getGlobalCountryData((data) => {
       const countryWise = data;
       this.setState({
         countries: countryWise,
@@ -239,10 +239,11 @@ export default class Home extends React.Component {
                     </div>
                     <div className="panel-body text-info">
                       <div className="status-map">
-                        <ul className="progressbar">
-                          <li className="text-primary">
+                        <div className="progressbar">
+                          <div className="col-md-3 progressbar-li text-primary">
                             <i className="far fa-check-circle icon" /> <br />{" "}
-                            Confirmed
+                            Total Cases
+                            <br/>
                             <p>
                               {this.state.indiaData.confirmed ? (
                                 this.formatNumberCommas(
@@ -256,10 +257,11 @@ export default class Home extends React.Component {
                                     fontWeight: "bold"
                                   }}
                                 />
-                              )}
+                              )} 
                             </p>
-                          </li>
-                          <li className="text-success">
+                          </div>
+                          <div className="col-md-3 progressbar-li text-success">
+                          <br/>
                             <i
                               className="fas fa-redo icon"
                               style={{ color: "#5cb85c" }}
@@ -281,8 +283,9 @@ export default class Home extends React.Component {
                                 />
                               )}{" "}
                             </p>
-                          </li>
-                          <li className="text-danger">
+                          </div>
+                          <div className="col-md-3 progressbar-li text-danger">
+                          <br/>
                             <i
                               className="fas fa-ambulance icon"
                               style={{ color: "red" }}
@@ -304,8 +307,8 @@ export default class Home extends React.Component {
                                 />
                               )}{" "}
                             </p>
-                          </li>
-                        </ul>
+                          </div>
+                        </div>
                         <NavLink
                           to="/country/IN"
                           style={{
@@ -350,7 +353,7 @@ export default class Home extends React.Component {
                 <div className="col-md-3">
                   <div className="panel panel-info g-pn">
                     <div className="panel-heading">
-                      Confirmed
+                      Total Cases
                       <br />
                     </div>
                     <div className="panel-body text-info">
