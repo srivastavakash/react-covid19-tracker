@@ -343,7 +343,7 @@ body {
     display: inline;
   }
   .i-data {
-    font-size: 12px;
+    font-size: 13px;
   }
   .india {
     margin-top: 20%;
@@ -367,7 +367,7 @@ body {
     font-size: 10px;
   }
   .ind-stats li p {
-    font-size: 10px;
+    font-size: 13px;
   }
   .social-btns {
     margin-left: 13%;
@@ -476,6 +476,14 @@ body {
     width: 70%;
   }
 }
+/*
+@media screen and (max-width: 450px) {
+  .progressbar li {   
+    display: flex;
+    flex-direction: column;
+  }
+}
+*/
 @media screen and (max-width: 360px) {
   .ind-pnl-1 {
     height: 90px;
@@ -592,17 +600,17 @@ nav {
   overflow: hidden;
 }
 
-.progressbar li {
+.progressbar-li {
   list-style-type: none;
-  width: 33.33%;
-  float: left;
+  /*width: 33.33%;
+  float: left;*/
   position: relative;
   font: 500 13px/1;
   font-weight: bold;
   text-align: center;
 }
 
-.progressbar li .icon::after {
+.progressbar-li .icon::after {
   content: "";
   height: 5px;
   width: 100%;
@@ -612,11 +620,11 @@ nav {
   z-index: -1;
 }
 
-.progressbar li:last-child .icon::after {
+.progressbar-li:last-child .icon::after {
   content: none;
 }
 
-.progressbar li p {
+.progressbar-li p {
   font-weight: bold;
   font-size: 20px;
 }
@@ -629,7 +637,7 @@ nav {
 
 .ind-stats li {
   list-style-type: none;
-  width: 25%;
+  width: 33.3%;
   height: 95%;
   float: left;
   position: relative;
@@ -649,9 +657,109 @@ nav {
   z-index: -1;
 }
 
-.ind-stats li p {
+.ind-stats,
+li p {
   font-weight: bold;
   font-size: 15px;
+}
+.state-stats {
+  margin-bottom: 30px;
+  overflow: hidden;
+  margin-left: -5%;
+}
+
+.state-stats li {
+  list-style-type: none;
+  width: 33.3%;
+  height: 95%;
+  float: left;
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  border-right: 4px solid #fff;
+}
+
+.state-stats li .icon::after {
+  content: "";
+  background: #133e4a;
+  height: 5px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 12px;
+  z-index: -1;
+}
+
+.state-stats,
+li p {
+  font-weight: bold;
+  font-size: 12px;
+}
+.ind-stats-1 {
+  margin-bottom: 30px;
+  overflow: hidden;
+  margin-left: -5%;
+}
+
+.ind-stats-1 li {
+  list-style-type: none;
+  width: 25%;
+  height: 95%;
+  float: left;
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  border-right: 4px solid #fff;
+}
+
+.ind-stats-1 li .icon::after {
+  content: "";
+  background: #133e4a;
+  height: 5px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 12px;
+  z-index: -1;
+}
+
+.ind-stats-1,
+li p {
+  font-weight: bold;
+  font-size: 15px;
+}
+.state-stats-1 {
+  margin-bottom: 30px;
+  overflow: hidden;
+  margin-left: -5%;
+}
+
+.state-stats-1 li {
+  list-style-type: none;
+  width: 25%;
+  height: 95%;
+  float: left;
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  border-right: 4px solid #fff;
+}
+
+.state-stats-1 li .icon::after {
+  content: "";
+  background: #133e4a;
+  height: 5px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 12px;
+  z-index: -1;
+}
+
+.state-stats-1,
+li p {
+  font-weight: bold;
+  font-size: 12px;
 }
 ul {
   width: 100%;
