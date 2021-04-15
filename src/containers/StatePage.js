@@ -23,7 +23,7 @@ class StatePage extends React.Component {
       .get(
         "https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise"
       )
-      .then(response => {
+      .then((response) => {
         this.setState({
           StateWiseData: response.data.data.statewise,
           confirmed: response.data.data.total.confirmed,
@@ -35,13 +35,13 @@ class StatePage extends React.Component {
 
     await axios
       .get("https://api.covid19india.org/v2/state_district_wise.json")
-      .then(response => {
+      .then((response) => {
         const districts = response.data;
         this.setState({
           districtWiseData: districts
         });
       });
-    axios({
+    /* axios({
       url: "https://https://covidstat.info/graphql",
       method: "post",
       data: {
@@ -64,13 +64,13 @@ class StatePage extends React.Component {
           }
             `
       }
-    }).then(result => {
+    }).then((result) => {
       console.log("Time Series", result.data);
-    });
+    });*/
     var found = this.findStateAndDistricts(this.props.match.params.sName);
     var unknownDistrict = found[0].districtData
       .sort((d1, d2) => d2.confirmed - d1.confirmed)
-      .filter(district => district.district === "Unknown");
+      .filter((district) => district.district === "Unknown");
     const states = this.state.StateWiseData.sort(this.compare);
     found[0].population = 0;
     for (let i = 0; i < states.length; i++) {
@@ -93,7 +93,7 @@ class StatePage extends React.Component {
   }
   findState(stateName) {
     var stateData = this.state.StateWiseData.filter(
-      state => state.state === stateName
+      (state) => state.state === stateName
     );
     return stateData;
   }
@@ -104,9 +104,9 @@ class StatePage extends React.Component {
     return 0;
   }
 
-  findStateAndDistricts = stateName => {
+  findStateAndDistricts = (stateName) => {
     var stateData = this.state.districtWiseData.filter(
-      state => state.state === stateName
+      (state) => state.state === stateName
     );
     return stateData;
   };
@@ -129,7 +129,7 @@ class StatePage extends React.Component {
     var districtsTable =
       this.state.currentState[0] &&
       this.state.currentState[0].districtData.map((district, index) => (
-        <tr key={index} class="st-dist-row">
+        <tr key={index} className="st-dist-row">
           <td className="col-xs-3 col-md-3 st-dist-name">
             {district.district === "Unknown" ? (
               <div>
@@ -225,7 +225,7 @@ class StatePage extends React.Component {
                 <div className="panel-body text-info">
                   <div className="status-map">
                     <div className="row">
-                      <ul className="ind-stats">
+                      <ul className="state-stats">
                         <li className="text-primary stats-conf-ind">
                           <i className="far fa-check-circle icon" /> <br />
                           Confirmed
@@ -280,6 +280,11 @@ class StatePage extends React.Component {
                             )}
                           </p>
                         </li>
+                      </ul>
+                    </div>
+                    <hr className="ind-spr" />
+                    <div className="row">
+                      <ul className="state-stats-1">
                         <li className="text-danger stats-dec-ind">
                           <i
                             className="fas fa-ambulance icon"
@@ -298,11 +303,6 @@ class StatePage extends React.Component {
                             )}
                           </p>
                         </li>
-                      </ul>
-                    </div>
-                    <hr className="ind-spr" />
-                    <div className="row">
-                      <ul className="ind-stats">
                         <li className="ind-permillion">
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
