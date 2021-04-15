@@ -32,7 +32,7 @@ class India extends React.Component {
     this.getData();
     this.getCaseschart();
   }
-  handleChartType = type => {
+  handleChartType = (type) => {
     this.setState({ chartType: type });
   };
 
@@ -43,7 +43,7 @@ class India extends React.Component {
       .get(
         "https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise"
       )
-      .then(response => {
+      .then((response) => {
         //console.log("statewise",response)
         this.setState({
           indStateWiseData: response.data.data.statewise,
@@ -61,7 +61,7 @@ class India extends React.Component {
 
     await axios
       .get("https://api.covid19india.org/v2/state_district_wise.json")
-      .then(response => {
+      .then((response) => {
         const districts = response.data;
         this.setState({
           districtWise: districts,
@@ -88,7 +88,7 @@ class India extends React.Component {
     });
   }
 
-  formatNumber = n => {
+  formatNumber = (n) => {
     if (n < 1e3) return n;
     if (n >= 1e3) return +(n / 1e3).toFixed(1) + "K";
   };
@@ -114,7 +114,7 @@ class India extends React.Component {
     let dailyactive = [];
     axios
       .get("https://api.covid19india.org/data.json")
-      .then(res => {
+      .then((res) => {
         console.log("series", res.data);
         const results = res.data.cases_time_series;
         const statsData = res.data.statewise[0];
@@ -288,14 +288,14 @@ class India extends React.Component {
           }
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  findStateAndDistricts = stateName => {
+  findStateAndDistricts = (stateName) => {
     var stateData = this.state.districtWise.filter(
-      state => state.state === stateName
+      (state) => state.state === stateName
     );
 
     return stateData;
@@ -443,6 +443,18 @@ class India extends React.Component {
                           </p>
                             */}
                         </li>
+                      </ul>
+                    </div>
+                    <p className="update-lbl-ind-1">
+                      <i class="fa fa-bell" />
+                      {this.state.updated ? (
+                        <p> Updated {this.state.updated} ago</p>
+                      ) : (
+                        ""
+                      )}
+                    </p>
+                    <div className="row">
+                      <ul className="ind-stats-1">
                         <li className="text-danger stats-dec-ind">
                           <i
                             className="fas fa-ambulance icon"
@@ -453,7 +465,7 @@ class India extends React.Component {
                           <br />
                           <kbd
                             className="bg-danger"
-                            style={{ fontWeight: "bold" }}
+                            style={{ fontWeight: "bold", fontSize: "11px" }}
                           >
                             {this.state.isLoaded
                               ? "[+" +
@@ -474,18 +486,6 @@ class India extends React.Component {
                             )}
                           </p>
                         </li>
-                      </ul>
-                    </div>
-                    <p className="update-lbl-ind-1">
-                      <i class="fa fa-bell" />
-                      {this.state.updated ? (
-                        <p> Updated {this.state.updated} ago</p>
-                      ) : (
-                        ""
-                      )}
-                    </p>
-                    <div className="row">
-                      <ul className="ind-stats">
                         <li className="ind-permillion">
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
@@ -707,7 +707,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#0275d8",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
@@ -756,7 +756,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#0275d8",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
@@ -808,7 +808,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#e6b800",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
@@ -854,11 +854,11 @@ class India extends React.Component {
                           reverse: true,
                           labels: {
                             usePointStyle: true, // Required to change pointstyle to 'rectRounded' from 'circle'
-                            generateLabels: chart => {
+                            generateLabels: (chart) => {
                               const labels = defaults.global.legend.labels.generateLabels(
                                 chart
                               );
-                              labels.forEach(label => {
+                              labels.forEach((label) => {
                                 label.pointStyle = "rectRounded";
                               });
                               return labels;
@@ -872,7 +872,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#e6b800",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
@@ -924,7 +924,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#008000",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
@@ -973,7 +973,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#008000",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
@@ -1025,7 +1025,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#d9534f",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
@@ -1074,7 +1074,7 @@ class India extends React.Component {
                               ticks: {
                                 fontColor: "#d9534f",
                                 beginAtZero: true,
-                                callback: function(label) {
+                                callback: function (label) {
                                   if (label < 1e3) return label;
                                   if (label >= 1e3)
                                     return +(label / 1e3).toFixed(1) + "k";
