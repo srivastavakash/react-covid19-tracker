@@ -343,8 +343,13 @@ body {
     display: inline;
   }
   .i-data {
-    font-size: 13px;
+    font-size: 150%;
   }
+
+  .i-data-ind {
+    font-size: 90%;
+  }
+
   .india {
     margin-top: 20%;
   }
@@ -575,7 +580,7 @@ nav {
 }
 
 .icon {
-  font-size: 25px;
+  font-size: 20px;
 }
 .fa-redo {
   color: green;
@@ -1307,8 +1312,8 @@ iframe {
   background-color: rgba(192, 192, 25, 0.747);
 }
 .stats-rec-ind {
-  background-color: rgba(59, 170, 85, 0.6);
-  color: #1e7c34;
+  background-color: rgba(40, 167, 69, 0.12549019607843137);
+  color: #115521;
 }
 
 .stats-dec-ind {
