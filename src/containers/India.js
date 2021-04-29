@@ -10,6 +10,8 @@ import StateRow from "../components/StateRow";
 import StateWiseCapacity from "../containers/StateWiseCapacity";
 import Links from "../data/Links.json";
 import ScrollToTop from "../ScrollToTop";
+//import IndiaData from "../data/IndiaData";
+import { stateCodeAndNames } from "../data/stateNameCodes";
 
 class India extends React.Component {
   state = {
@@ -54,8 +56,7 @@ class India extends React.Component {
           updated: formatDistance(
             new Date(),
             new Date(response.data.data.lastRefreshed)
-          ),
-          isLoaded: true
+          )
         });
       });
 
@@ -69,25 +70,127 @@ class India extends React.Component {
         });
       });
 
+    await axios
+      .get("https://api.covid19india.org/v4/min/data.min.json")
+      .then((response) => {
+        let stData = response.data;
+
+        let states_data = Object.entries(stData);
+        this.setState({
+          ind_states: states_data
+          // .sort((a, b) => b[1].total.confirmed - a[1].total.confirmed)
+          // .slice(1)
+        });
+        // for (const stObj of stData) {
+        //   states_data.push(stObj);
+        // }
+
+        // console.log("states_data : ", states_data);
+      })
+      .catch((error) => {
+        throw error;
+      });
+
     this.lastupdate = IND.data.lastUpdate;
-    const INDStatesData = this.state.indStateWiseData;
+
+    const INDStatesData = this.state.indStateWiseData.filter(
+      (state) => state.state !== "State Unassigned"
+    );
+
+    INDStatesData.sort(function (a, b) {
+      var textA = a.state.toUpperCase();
+      var textB = b.state.toUpperCase();
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+
+    const NEW_STATES_UPDATED_DATA = this.state.ind_states;
+    /*for(let stObj  of NEW_STATES_UPDATED_DATA){
+
+    }*/
+
+    NEW_STATES_UPDATED_DATA.splice(33, 1);
+
+    const stateCodesAndNames = Object.entries(stateCodeAndNames);
+    console.log("stateCodesAndNames", stateCodesAndNames);
+
+    console.log(
+      "NEW_STATES_UPDATED_DATA after filter by state code : ",
+      NEW_STATES_UPDATED_DATA
+    );
+    for (let i = 0; i < NEW_STATES_UPDATED_DATA.length; i++) {
+      NEW_STATES_UPDATED_DATA[i].id = i;
+      INDStatesData[i].id = i;
+    }
+
+    console.log("NEW_STATES_UPDATED_DATA : ", NEW_STATES_UPDATED_DATA);
+    console.log("indStateData : ", INDStatesData);
+
+    let arr2Map = NEW_STATES_UPDATED_DATA.reduce((acc, curr) => {
+      acc[curr.id] = curr;
+      return acc;
+    }, {});
+    INDStatesData.map((d) => Object.assign(d, arr2Map[d.id]));
+
+    console.log("INDStatesData before sort ", INDStatesData);
+
+    for (let i = 0; i < INDStatesData.length; i++) {
+      let stateCode = stateCodesAndNames[i][0];
+      let stateName = stateCodesAndNames[i][1];
+      if (INDStatesData[i][0] === stateCode) INDStatesData[i].state = stateName;
+    }
+    INDStatesData.sort(
+      (state1, state2) => state2[1].total.confirmed - state1[1].total.confirmed
+    );
+    // console.log("combined", combined);
+
+    console.log("INDStatesData", INDStatesData);
+
     this.setState({
       staterow: INDStatesData.map((state, index) => {
         return (
-          <StateRow
-            key={index}
-            stateName={state.state}
-            districts={this.findStateAndDistricts(state.state)}
-            confirmed={state.confirmed}
-            active={state.active}
-            recovered={state.recovered}
-            deaths={state.deaths}
-          />
+          console.log("State", state),
+          (
+            <StateRow
+              key={index}
+              stateName={state.state}
+              districts={this.findStateAndDistricts(state[0])}
+              confirmed={state[1].total.confirmed}
+              active={
+                state[1].total.confirmed -
+                state[1].total.recovered -
+                state[1].total.deceased
+              }
+              recovered={state[1].total.recovered}
+              deaths={state[1].total.deceased}
+            />
+          )
         );
-      })
+      }),
+      isLoaded: true
     });
   }
 
+  findStateAndDistricts = (stateCode) => {
+    var stateData = this.state.districtWise.filter(
+      (state) => state.statecode === stateCode
+    );
+
+    return stateData;
+  };
+
+  // for(let s=0;s<INDStatesData.length;s++){
+  //   INDStatesData[s].state=
+  // }
+
+  /*
+ findStateAndDistricts = (stateName) => {
+  var stateData = this.state.districtWise.filter(
+    (state) => state.state === stateName
+  );
+
+  return stateData;
+};
+*/
   formatNumber = (n) => {
     if (n < 1e3) return n;
     if (n >= 1e3) return +(n / 1e3).toFixed(1) + "K";
@@ -115,10 +218,10 @@ class India extends React.Component {
     axios
       .get("https://api.covid19india.org/data.json")
       .then((res) => {
-        console.log("series", res.data);
+        // console.log("series", res.data);
         const results = res.data.cases_time_series;
         const statsData = res.data.statewise[0];
-        console.log(statsData);
+        // console.log(statsData);
 
         for (const dataObj of results) {
           dates.push(dataObj.date.slice(0, 6));
@@ -142,7 +245,7 @@ class India extends React.Component {
 
         let chartData =
           this.state.chartType === "daily" ? dailyconfirmed : confirmedCases;
-        console.log("chart data", chartData);
+        // console.log("chart data", chartData);
 
         this.setState({
           confirmed: statsData.confirmed,
@@ -293,18 +396,19 @@ class India extends React.Component {
       });
   };
 
-  findStateAndDistricts = (stateName) => {
-    var stateData = this.state.districtWise.filter(
-      (state) => state.state === stateName
-    );
+  // findStateAndDistricts = (stateCode) => {
+  //   var stateData = this.state.ind_states.filter(
+  //     (state) => state[stateCode] === stateCode
+  //   );
 
-    return stateData;
-  };
+  //   return stateData;
+  // };
+
   isNaN(x) {
     return x === x && typeof x === "number";
   }
   render() {
-    console.log("India State ", this.state);
+    console.log("Render : India State : ", this.state);
 
     var helplineLinks = Links.Links.map((link, index) => (
       <li key={index} className="help-link-item">
@@ -346,7 +450,7 @@ class India extends React.Component {
                       in India
                     </div>
                     <div className="col-md-6 update-lbl-ind">
-                      <i class="fa fa-bell" />
+                      <i className="fa fa-bell" />
                       {this.state.updated ? (
                         <p> Updated {this.state.updated} ago</p>
                       ) : (
@@ -365,7 +469,7 @@ class India extends React.Component {
                           <br />
                           <kbd
                             className="bg-info"
-                            style={{ fontWeight: "bold" }}
+                            style={{ fontWeight: "bold", fontSize: "12px" }}
                           >
                             {this.state.isLoaded &&
                             this.state.dailyData.dailyconfirmed
@@ -376,7 +480,7 @@ class India extends React.Component {
                                 "]"
                               : ""}
                           </kbd>
-                          <p>
+                          <p style={{ fontSize: "140%" }}>
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(this.state.confirmed)
                             ) : (
@@ -391,7 +495,10 @@ class India extends React.Component {
                           <i className="far fa fa-bed icon" /> <br /> Active
                           <br />
                           <br />
-                          <p className="i-data">
+                          <p
+                            className="i-data-ind"
+                            style={{ fontSize: "140%" }}
+                          >
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(
                                 this.state.confirmed -
@@ -416,7 +523,7 @@ class India extends React.Component {
                           <br />
                           <kbd
                             className="bg-success"
-                            style={{ fontWeight: "bold" }}
+                            style={{ fontWeight: "bold", fontSize: "13px" }}
                           >
                             {this.state.isLoaded
                               ? "[+" +
@@ -426,7 +533,10 @@ class India extends React.Component {
                                 "]"
                               : ""}
                           </kbd>
-                          <p className="i-data">
+                          <p
+                            className="i-data-ind"
+                            style={{ fontSize: "140%" }}
+                          >
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(this.state.recovered)
                             ) : (
@@ -446,7 +556,7 @@ class India extends React.Component {
                       </ul>
                     </div>
                     <p className="update-lbl-ind-1">
-                      <i class="fa fa-bell" />
+                      <i className="fa fa-bell" />
                       {this.state.updated ? (
                         <p> Updated {this.state.updated} ago</p>
                       ) : (
@@ -461,11 +571,9 @@ class India extends React.Component {
                             style={{ color: "red" }}
                           />{" "}
                           <br />
-                          Deaths
-                          <br />
                           <kbd
                             className="bg-danger"
-                            style={{ fontWeight: "bold", fontSize: "11px" }}
+                            style={{ fontWeight: "bold", fontSize: "12px" }}
                           >
                             {this.state.isLoaded
                               ? "[+" +
@@ -475,7 +583,10 @@ class India extends React.Component {
                                 "]"
                               : ""}
                           </kbd>
-                          <p className="i-data">
+                          <p
+                            className="i-data-ind"
+                            style={{ fontSize: "100%" }}
+                          >
                             {this.state.isLoaded ? (
                               this.formatNumberCommas(this.state.deaths)
                             ) : (
@@ -485,10 +596,11 @@ class India extends React.Component {
                               />
                             )}
                           </p>
+                          Deaths
                         </li>
                         <li className="ind-permillion">
                           <i className="fas fa-file-medical icon" /> <br />
-                          <p className="i-data">
+                          <p className="i-data-ind">
                             {this.state.isLoaded ? (
                               (this.state.confirmed / 1369.56).toFixed(0)
                             ) : (
@@ -507,7 +619,7 @@ class India extends React.Component {
                             style={{ color: "green" }}
                           />{" "}
                           <br />
-                          <p className="i-data">
+                          <p className="i-data-ind">
                             {this.state.isLoaded ? (
                               (
                                 (this.state.recovered / this.state.confirmed) *
@@ -527,7 +639,7 @@ class India extends React.Component {
                             className="	fas fa-notes-medical icon"
                             style={{ color: "red" }}
                           />{" "}
-                          <p className="i-data">
+                          <p className="i-data-ind">
                             {this.state.isLoaded ? (
                               (
                                 (this.state.deaths / this.state.confirmed) *
@@ -549,7 +661,7 @@ class India extends React.Component {
                             style={{ color: "red" }}
                           />{" "}
                           <br />
-                          <p className="i-data">
+                          <p className="i-data-ind">
                             (
                               (this.state.deaths / this.state.confirmed) *
                               100
