@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import populations from "../data/Population.json";
 import Scroll from "../ScrollToTop";
+import { stateCodeAndNames } from "../data/stateNameCodes";
 
 class StatePage extends React.Component {
   state = {
@@ -26,10 +27,23 @@ class StatePage extends React.Component {
       .then((response) => {
         this.setState({
           StateWiseData: response.data.data.statewise,
-          confirmed: response.data.data.total.confirmed,
-          recovered: response.data.data.total.recovered,
-          deaths: response.data.data.total.deaths,
+          // confirmed: response.data.data.total.confirmed,
+          // recovered: response.data.data.total.recovered,
+          // deaths: response.data.data.total.deaths,
           updated: response.data.data.lastRefreshed
+        });
+      });
+
+    await axios
+      .get("https://api.covid19india.org/v4/min/data.min.json")
+      .then((response) => {
+        let stData = response.data;
+        var states_data = Object.entries(stData);
+        console.log("State new req data ", states_data);
+        states_data.splice(33, 1);
+        console.log("State new req data after filter TT ", states_data);
+        this.setState({
+          stateNewData: states_data
         });
       });
 
@@ -41,43 +55,93 @@ class StatePage extends React.Component {
           districtWiseData: districts
         });
       });
-    /* axios({
-      url: "https://https://covidstat.info/graphql",
-      method: "post",
-      data: {
-        query: `
-          query {
-            country(name: "India") {
-              states {
-                state
-                historical {
-                  date
-                  cases
-                  deaths
-                  recovered
-                  todayCases
-                  todayRecovered
-                  todayDeaths
-                }
-              }
-            }
-          }
-            `
-      }
-    }).then((result) => {
-      console.log("Time Series", result.data);
-    });*/
+
     var found = this.findStateAndDistricts(this.props.match.params.sName);
-    var unknownDistrict = found[0].districtData
+
+    //const ST_NEW_DATA = this.state.stateNewData;
+
+    var ST_NEW_DATA = [];
+    const stateCodesAndNames = Object.entries(stateCodeAndNames);
+
+    for (let statesObj of this.state.stateNewData) {
+      //console.log("statesObj", statesObj[1]);
+      ST_NEW_DATA.push(statesObj[1]);
+    }
+
+    console.log("ST_NEW_DATA before adding total object ", ST_NEW_DATA);
+
+    var states = this.state.StateWiseData;
+
+    found[0].districtData
       .sort((d1, d2) => d2.confirmed - d1.confirmed)
       .filter((district) => district.district === "Unknown");
-    const states = this.state.StateWiseData.sort(this.compare);
+    states = this.state.StateWiseData.sort(this.compare);
+    states.splice(30, 1);
     found[0].population = 0;
+
+    for (let i = 0; i < stateCodesAndNames.length; i++) {
+      let stateCode = stateCodesAndNames[i][0];
+      let stateName = stateCodesAndNames[i][1];
+      console.log(
+        this.state.stateNewData[i][0],
+        stateCode,
+        this.state.stateNewData[i][0] === stateCode
+      );
+      //if (this.state.stateNewData[i][0] === stateCode)
+      ST_NEW_DATA[i].total.state = stateName;
+    }
+
+    console.log("ST_NEW_DATA ", ST_NEW_DATA);
+
+    console.log(states[19].total);
+
+    states[11].total = ST_NEW_DATA[11].total;
+    states[12].total = ST_NEW_DATA[12].total;
+    states[13].total = ST_NEW_DATA[13].total;
+    states[14].total = ST_NEW_DATA[14].total;
+    states[19].total = ST_NEW_DATA[19].total;
+    states[20].total = ST_NEW_DATA[19].total;
+    states[22].total = ST_NEW_DATA[22].total;
+    states[26].total = ST_NEW_DATA[26].total;
+    states[27].total = ST_NEW_DATA[27].total;
+    states[30].total = ST_NEW_DATA[30].total;
+    states[31].total = ST_NEW_DATA[31].total;
+
+    console.log(states[19].total);
+
+    console.log("StateWiseData ", states);
+
     for (let i = 0; i < states.length; i++) {
       if (found[0].state === populations.population[i].state) {
         found[0].population = populations.population[i].population;
       }
+      if (ST_NEW_DATA[i].total.state !== states[i].state)
+        console.log(
+          ST_NEW_DATA[i].total.state === states[i].state,
+          i + "/" + states.length,
+          ST_NEW_DATA[i].total.state,
+          ",",
+          states[i].state
+        );
+      states[i].total = ST_NEW_DATA[i].total;
     }
+
+    for (let s = 0; s < ST_NEW_DATA.length; s++) {
+      states[s].confirmed = ST_NEW_DATA[s].total.confirmed;
+      states[s].deceased = ST_NEW_DATA[s].total.deceased;
+      states[s].recovered = ST_NEW_DATA[s].total.recovered;
+      states[s].active =
+        ST_NEW_DATA[s].total.confirmed -
+        ST_NEW_DATA[s].total.recovered -
+        ST_NEW_DATA[s].total.deceased;
+      states[s].tested = ST_NEW_DATA[s].total.tested;
+      states[s].vaccinated = ST_NEW_DATA[s].total.vaccinated;
+    }
+
+    this.setState({
+      StateWiseData: states
+    });
+
     console.log("Sorted States", states, populations);
     //console.log("Unknown", unknownDistrict);
     //console.log("Sorted", found[0].districtData.concat(unknownDistrict));
@@ -93,7 +157,7 @@ class StatePage extends React.Component {
   }
   findState(stateName) {
     var stateData = this.state.StateWiseData.filter(
-      (state) => state.state === stateName
+      (state) => state.total.state === stateName
     );
     return stateData;
   }
@@ -227,6 +291,7 @@ class StatePage extends React.Component {
                     <div className="row">
                       <ul className="state-stats">
                         <li className="text-primary stats-conf-ind">
+                          <br />
                           <i className="far fa-check-circle icon" /> <br />
                           Confirmed
                           <p>
@@ -243,6 +308,7 @@ class StatePage extends React.Component {
                           </p>
                         </li>
                         <li className="text-dark stats-active-ind">
+                          <br />
                           <i className="far fa fa-bed icon" /> <br />
                           Active
                           <p className="i-data">
@@ -261,10 +327,12 @@ class StatePage extends React.Component {
                           </p>
                         </li>
                         <li className="stats-rec-ind">
+                          <br />
                           <i
                             className="fas fa-redo icon"
-                            style={{ color: "#5cb85c" }}
+                            style={{ color: "#5cb85c", fontSize: "20px" }}
                           />
+                          <br />
                           {" Recovered "}
                           <br />
                           <p className="i-data">
@@ -286,6 +354,7 @@ class StatePage extends React.Component {
                     <div className="row">
                       <ul className="state-stats-1">
                         <li className="text-danger stats-dec-ind">
+                          <br />
                           <i
                             className="fas fa-ambulance icon"
                             style={{ color: "red" }}
@@ -304,6 +373,8 @@ class StatePage extends React.Component {
                           </p>
                         </li>
                         <li className="ind-permillion">
+                          {" "}
+                          <br />
                           <i className="fas fa-file-medical icon" /> <br />
                           <p className="i-data">
                             {this.state.isLoaded ? (
@@ -325,10 +396,12 @@ class StatePage extends React.Component {
                           Cases per million
                         </li>
 
-                        <li className=" text-success">
+                        <li className=" text-success stats-rec-ind ">
+                          {" "}
+                          <br />
                           <i
                             className="fas fa-redo icon"
-                            style={{ color: "green" }}
+                            style={{ color: "green", fontSize: "20px" }}
                           />{" "}
                           <br />
                           <p className="i-data">
@@ -348,6 +421,8 @@ class StatePage extends React.Component {
                           Recovery Rate
                         </li>
                         <li className="text-danger stats-dec-ind">
+                          {" "}
+                          <br />
                           <i
                             className="	fas fa-notes-medical icon"
                             style={{ color: "red" }}
