@@ -118,7 +118,12 @@ export default class StateRow extends React.Component {
         <tr onClick={this.handleShowDistricts} id="state-row">
           <td className="col-xs-3 col-md-3 country-name st-name">
             <i className="fa fa-sort-down" />
-            <p>{"   " + this.props.stateName}</p>
+            &nbsp;&nbsp;
+            <p>
+              {"   " + this.props.stateName.length > 15
+                ? this.props.stateName.slice(0, 15) + "..."
+                : this.props.stateName}
+            </p>
           </td>
           <td className="col-xs-2 col-md-2">
             {this.formatNumberCommas(this.props.confirmed)}
